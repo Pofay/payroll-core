@@ -6,17 +6,18 @@
 package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
+import org.junit.Before;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -36,27 +37,35 @@ public class PayrollTest {
         assertThat(department.getId(), is(1));
     }
 
-    @Test
-    public void ItIsAbleToAddAnEmployeeToADepartment() {
-        CreateDepartment createDepartment = new CreateDepartment(2, "Management");
+    public class AddingEmployeeToDepartment {
 
-        createDepartment.execute();
+        Department department;
 
-        Department department = DepartmentRepository.get("Management");
+        @Before
+        public void ANewlyCreatedDepartment() {
+            CreateDepartment createDepartment = new CreateDepartment(2, "Management");
 
-        EmployeeDetails employeeDetails = new EmployeeDetails(1, "Gian Carlo", "Gilos");
-        AddEmployeeToDepartment addEmployeeToDepartment
-                = new AddEmployeeToDepartment(department, employeeDetails);
+            createDepartment.execute();
 
-        addEmployeeToDepartment.execute();
+            department = DepartmentRepository.get("Management");
+        }
 
-        Employee e = department.getEmployee(1);
+        @Test
+        public void canAddEmployeesToItself() {
+            EmployeeDetails employeeDetails = new EmployeeDetails(1, "Gian Carlo", "Gilos");
+            AddEmployeeToDepartment addEmployeeToDepartment
+                    = new AddEmployeeToDepartment(department, employeeDetails);
 
-        String actual = String.format("%s %s", e.getFirstName(), e.getLastName());
-        String expected = "Gian Carlo Gilos";
-        assertThat(actual, is(expected));
-        assertThat(e.getDepartmentId(), is(2));
-        assertThat(e.getId(), is(1));
+            addEmployeeToDepartment.execute();
+
+            Employee e = department.getEmployee(1);
+
+            String actual = String.format("%s %s", e.getFirstName(), e.getLastName());
+            String expected = "Gian Carlo Gilos";
+            assertThat(actual, is(expected));
+            assertThat(e.getDepartmentId(), is(2));
+            assertThat(e.getId(), is(1));
+        }
     }
 
 }
