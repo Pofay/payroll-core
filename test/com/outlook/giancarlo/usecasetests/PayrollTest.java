@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.junit.Before;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -68,7 +70,7 @@ public class PayrollTest {
     }
 
     @Test
-    public void canAddMoreEmployeesToADepartment() {
+    public void canGetAllEmployeesInASpecificDepartment() {
         final int deptId = 16;
         final String deptName = "Engineering";
         CreateDepartment cd = new CreateDepartment(deptId, deptName);
