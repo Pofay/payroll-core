@@ -59,27 +59,4 @@ public class PayrollTest {
         assertThat(e.getId(), is(1));
     }
 
-    @Test
-    public void ItIsAbleToAddADifferentEmployeeToADepartment() {
-        CreateDepartment createDepartment = new CreateDepartment(3, "CICCT");
-
-        createDepartment.execute();
-
-        Department department = DepartmentRepository.get("CICCT");
-
-        EmployeeDetails employeeDetails = new EmployeeDetails(4, "Anthony", "Miranda");
-        AddEmployeeToDepartment addEmployeeToDepartment
-                = new AddEmployeeToDepartment(department, employeeDetails);
-
-        addEmployeeToDepartment.execute();
-
-        Employee e = department.getEmployee(4);
-
-        String actual = String.format("%s %s", e.getFirstName(), e.getLastName());
-        String expected = "Anthony Miranda";
-        assertThat(actual, is(expected));
-        assertThat(e.getDepartmentId(), is(3));
-        assertThat(e.getId(), is(4));
-    }
-
 }
