@@ -31,11 +31,11 @@ public class Department {
         return id;
     }
 
-    Employee getEmployee(int id) {
+    public Employee getEmployee(int id) {
         return employees.get(id);
     }
 
-    void add(Employee e) {
+    public void add(Employee e) {
         e.setDepartmentId(id);
         employees.put(e.getId(), e);
     }
