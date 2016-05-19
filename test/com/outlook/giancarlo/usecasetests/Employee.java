@@ -11,20 +11,31 @@ package com.outlook.giancarlo.usecasetests;
  */
 public class Employee {
 
+    private final EmployeeDetails details;
+    private int departmentId;
+
+    public Employee(EmployeeDetails details) {
+        this.details = details;
+    }
+
     public String getFirstName() {
-        return "Gian Carlo";
+        return details.firstName;
     }
 
     public String getLastName() {
-        return "Gilos";
+        return details.lastName;
     }
 
-    public int getId(){
-        return 1;
+    public int getId() {
+        return details.id;
     }
-    public int getDepartmentId(){
-        return 2;
+
+    public int getDepartmentId() {
+        return departmentId;
     }
-   
-    
+
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
+    }
+
 }

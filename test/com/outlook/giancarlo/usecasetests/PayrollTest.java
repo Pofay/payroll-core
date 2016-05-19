@@ -11,6 +11,12 @@ import static org.hamcrest.CoreMatchers.not;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 
 /**
  *
@@ -29,30 +35,51 @@ public class PayrollTest {
         assertThat(department.getName(), is("Accounting"));
         assertThat(department.getId(), is(1));
     }
-    
+
     @Test
-    public void ItIsAbleToStoreEmployees() {
+    public void ItIsAbleToAddAnEmployeeToADepartment() {
         CreateDepartment createDepartment = new CreateDepartment(2, "Management");
-        
+
         createDepartment.execute();
-        
+
         Department department = DepartmentRepository.get("Management");
-        
-        EmployeeDetails employeeDetails = new EmployeeDetails(1,"Gian Carlo", "Gilos");
-        AddEmployeeToDepartment addEmployeeToDepartment = 
-                new AddEmployeeToDepartment(department, employeeDetails);
-        
+
+        EmployeeDetails employeeDetails = new EmployeeDetails(1, "Gian Carlo", "Gilos");
+        AddEmployeeToDepartment addEmployeeToDepartment
+                = new AddEmployeeToDepartment(department, employeeDetails);
+
         addEmployeeToDepartment.execute();
-        
+
         Employee e = department.getEmployee(1);
-        
+
         String actual = String.format("%s %s", e.getFirstName(), e.getLastName());
         String expected = "Gian Carlo Gilos";
         assertThat(actual, is(expected));
         assertThat(e.getDepartmentId(), is(2));
         assertThat(e.getId(), is(1));
     }
-    
-    
+
+    @Test
+    public void ItIsAbleToAddADifferentEmployeeToADepartment() {
+        CreateDepartment createDepartment = new CreateDepartment(3, "CICCT");
+
+        createDepartment.execute();
+
+        Department department = DepartmentRepository.get("CICCT");
+
+        EmployeeDetails employeeDetails = new EmployeeDetails(4, "Anthony", "Miranda");
+        AddEmployeeToDepartment addEmployeeToDepartment
+                = new AddEmployeeToDepartment(department, employeeDetails);
+
+        addEmployeeToDepartment.execute();
+
+        Employee e = department.getEmployee(4);
+
+        String actual = String.format("%s %s", e.getFirstName(), e.getLastName());
+        String expected = "Anthony Miranda";
+        assertThat(actual, is(expected));
+        assertThat(e.getDepartmentId(), is(3));
+        assertThat(e.getId(), is(4));
+    }
 
 }

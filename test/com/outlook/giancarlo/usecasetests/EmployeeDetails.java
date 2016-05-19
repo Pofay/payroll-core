@@ -11,7 +11,14 @@ package com.outlook.giancarlo.usecasetests;
  */
 public class EmployeeDetails {
 
-    public EmployeeDetails(int i, String gian_Carlo, String gilos) {
+    public final int id;
+    public final String firstName;
+    public final String lastName;
+
+    public EmployeeDetails(int id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
     
 }

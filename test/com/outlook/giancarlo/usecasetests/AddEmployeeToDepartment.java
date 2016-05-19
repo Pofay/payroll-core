@@ -11,10 +11,17 @@ package com.outlook.giancarlo.usecasetests;
  */
 public class AddEmployeeToDepartment {
 
-    AddEmployeeToDepartment(Department department, EmployeeDetails employeeDetails) {
+    private final Department department;
+    private final EmployeeDetails details;
+
+    public AddEmployeeToDepartment(Department department, EmployeeDetails employeeDetails) {
+        this.details = employeeDetails;
+        this.department = department;
     }
 
-    void execute() {
+    public void execute() {
+        Employee e = new Employee(details);
+        department.add(e);
     }
     
 }
