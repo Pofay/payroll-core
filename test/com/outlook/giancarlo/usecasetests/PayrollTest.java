@@ -52,7 +52,11 @@ public class PayrollTest {
 
         @Test
         public void canAddEmployeesToItself() {
-            EmployeeDetails employeeDetails = new EmployeeDetails(1, "Gian Carlo", "Gilos");
+            final String firstName = "Gian Carlo";
+            final String lastName = "Gilos";
+            final int empId = 1;
+
+            EmployeeDetails employeeDetails = new EmployeeDetails(empId, firstName, lastName);
             AddEmployeeToDepartment addEmployeeToDepartment
                     = new AddEmployeeToDepartment(department, employeeDetails);
 
