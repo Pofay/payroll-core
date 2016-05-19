@@ -117,8 +117,8 @@ public class PayrollTest {
 
             toDepartment.execute();
 
-            Employee employee = cicct.getEmployee(1);
             Employee e = artsAndSciences.getEmployee(1);
+            Employee employee = cicct.getEmployee(1);
             assertThat(employee.getDepartmentId(), is(4));
             assertNull(e);
         }
