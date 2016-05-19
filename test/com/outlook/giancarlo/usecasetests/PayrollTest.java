@@ -66,10 +66,12 @@ public class PayrollTest {
 
             String actual = String.format("%s %s", e.getFirstName(), e.getLastName());
             String expected = "Gian Carlo Gilos";
-            assertThat(actual, is(expected));
             assertThat(e.getDepartmentId(), is(2));
             assertThat(e.getId(), is(1));
+            assertThat(actual, is(expected));
         }
     }
+    
+    
 
 }
