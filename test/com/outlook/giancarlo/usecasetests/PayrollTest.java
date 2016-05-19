@@ -91,10 +91,11 @@ public class PayrollTest {
 
         Department artsAndSciences;
         Department cicct;
-        final EmployeeDetails employeeDetails = new EmployeeDetails(1, "Pofay", "Imperial");
+        EmployeeDetails employeeDetails;
 
         @Before
         public void setup() {
+            employeeDetails = new EmployeeDetails(1, "Pofay", "Imperial");
             CreateDepartment cd1 = new CreateDepartment(3, "Arts and Sciences");
             CreateDepartment cd2 = new CreateDepartment(4, "CICCT");
 
