@@ -66,28 +66,25 @@ public class PayrollTest {
         }
     }
 
-    public class GettingAllEmployeesFromDepartment {
+    @Test
+    public void numberOfEmployeesIncreaseAsMoreEmployeesAreAdded() {
+        final int deptId = 16;
+        final String deptName = "Engineering";
+        CreateDepartment cd = new CreateDepartment(deptId, deptName);
+        cd.execute();
 
-        @Test
-        public void numberOfEmployeesIncreaseAsMoreEmployeesAreAdded() {
-            final int deptId = 16;
-            final String deptName = "Engineering";
-            CreateDepartment cd = new CreateDepartment(deptId, deptName);
-            cd.execute();
+        Department department = DepartmentRepository.get(deptName);
 
-            Department department = DepartmentRepository.get(deptName);
+        EmployeeDetails firstEmp = new EmployeeDetails(2, "David", "Ytler");
+        EmployeeDetails secondEmp = new EmployeeDetails(3, "Sprakak", "Pofay");
+        AddEmployeeToDepartment usecase1 = new AddEmployeeToDepartment(department, firstEmp);
+        AddEmployeeToDepartment usecase2 = new AddEmployeeToDepartment(department, secondEmp);
 
-            EmployeeDetails firstEmp = new EmployeeDetails(2, "David", "Ytler");
-            EmployeeDetails secondEmp = new EmployeeDetails(3, "Sprakak", "Pofay");
-            AddEmployeeToDepartment usecase1 = new AddEmployeeToDepartment(department, firstEmp);
-            AddEmployeeToDepartment usecase2 = new AddEmployeeToDepartment(department, secondEmp);
+        usecase1.execute();
+        usecase2.execute();
 
-            usecase1.execute();
-            usecase2.execute();
-
-            List<Employee> employees = department.getAllEmployees();
-            assertThat(employees.size(), is(2));
-        }
+        List<Employee> employees = department.getAllEmployees();
+        assertThat(employees.size(), is(2));
     }
 
 }
