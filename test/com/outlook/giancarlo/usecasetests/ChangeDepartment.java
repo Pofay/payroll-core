@@ -9,14 +9,14 @@ package com.outlook.giancarlo.usecasetests;
  *
  * @author pofay
  */
-class TransferEmployeeToDepartment {
+public class ChangeDepartment {
 
     private final EmployeeDetails details;
     private final Department to;
     private final Department from;
 
     
-    public TransferEmployeeToDepartment
+    public ChangeDepartment
         (Department from, Department to, EmployeeDetails details) {
             this.from = from;
             this.to = to;

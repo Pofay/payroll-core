@@ -105,16 +105,16 @@ public class PayrollTest {
             artsAndSciences = DepartmentRepository.get("Arts and Sciences");
             cicct = DepartmentRepository.get("CICCT");
 
-            AddEmployeeToDepartment addEmployeeToArtsAndSciences
+            AddEmployeeToDepartment usecase
                     = new AddEmployeeToDepartment(artsAndSciences, employeeDetails);
 
-            addEmployeeToArtsAndSciences.execute();
+            usecase.execute();
         }
 
         @Test
         public void canTransferAnEmployeeToAnotherDepartment() {
-            TransferEmployeeToDepartment toDepartment
-                    = new TransferEmployeeToDepartment(artsAndSciences, cicct, employeeDetails);
+            ChangeDepartment toDepartment
+                    = new ChangeDepartment(artsAndSciences, cicct, employeeDetails);
 
             toDepartment.execute();
 

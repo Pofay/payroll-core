@@ -9,7 +9,7 @@ package com.outlook.giancarlo.usecasetests;
  *
  * @author pofay
  */
-class CreateDepartment {
+public class CreateDepartment {
 
     private final String name;
     private final int id;
