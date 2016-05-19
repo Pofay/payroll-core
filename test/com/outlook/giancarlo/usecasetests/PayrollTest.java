@@ -6,17 +6,11 @@
 package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
+import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
-import static org.hamcrest.CoreMatchers.is;
 import org.junit.Before;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.is;
 
 /**
@@ -64,14 +58,36 @@ public class PayrollTest {
 
             Employee e = department.getEmployee(1);
 
-            String actual = String.format("%s %s", e.getFirstName(), e.getLastName());
-            String expected = "Gian Carlo Gilos";
+            String actualName = String.format("%s %s", e.getFirstName(), e.getLastName());
+            String expectedName = "Gian Carlo Gilos";
             assertThat(e.getDepartmentId(), is(2));
             assertThat(e.getId(), is(1));
-            assertThat(actual, is(expected));
+            assertThat(actualName, is(expectedName));
         }
     }
-    
-    
+
+    public class GettingAllEmployeesFromDepartment {
+
+        @Test
+        public void numberOfEmployeesIncreaseAsMoreEmployeesAreAdded() {
+            final int deptId = 16;
+            final String deptName = "Engineering";
+            CreateDepartment cd = new CreateDepartment(deptId, deptName);
+            cd.execute();
+
+            Department department = DepartmentRepository.get(deptName);
+
+            EmployeeDetails firstEmp = new EmployeeDetails(2, "David", "Ytler");
+            EmployeeDetails secondEmp = new EmployeeDetails(3, "Sprakak", "Pofay");
+            AddEmployeeToDepartment usecase1 = new AddEmployeeToDepartment(department, firstEmp);
+            AddEmployeeToDepartment usecase2 = new AddEmployeeToDepartment(department, secondEmp);
+
+            usecase1.execute();
+            usecase2.execute();
+
+            List<Employee> employees = department.getAllEmployees();
+            assertThat(employees.size(), is(2));
+        }
+    }
 
 }

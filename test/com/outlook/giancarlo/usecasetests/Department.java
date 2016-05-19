@@ -5,7 +5,9 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,7 +18,7 @@ public class Department {
 
     private final String name;
     private final int id;
-    private Map<Integer,Employee> employees = new HashMap<>();
+    private Map<Integer, Employee> employees = new HashMap<>();
 
     public Department(int id, String name) {
         this.id = id;
@@ -38,5 +40,10 @@ public class Department {
     public void add(Employee e) {
         e.setDepartmentId(id);
         employees.put(e.getId(), e);
+    }
+
+    public List<Employee> getAllEmployees() {
+        List<Employee> queriedEmployees = new ArrayList<>(employees.values());
+        return queriedEmployees;
     }
 }
