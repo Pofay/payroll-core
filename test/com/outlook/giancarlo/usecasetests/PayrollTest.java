@@ -12,9 +12,6 @@ import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.junit.Before;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -88,6 +85,43 @@ public class PayrollTest {
 
         List<Employee> employees = department.getAllEmployees();
         assertThat(employees.size(), is(2));
+    }
+
+    public class TransferringToAnotherDepartment {
+
+        Department artsAndSciences;
+        Department cicct;
+        final EmployeeDetails employeeDetails = new EmployeeDetails(1, "Pofay", "Imperial");
+
+        @Before
+        public void setup() {
+            CreateDepartment cd1 = new CreateDepartment(3, "Arts and Sciences");
+            CreateDepartment cd2 = new CreateDepartment(4, "CICCT");
+
+            cd1.execute();
+            cd2.execute();
+
+            artsAndSciences = DepartmentRepository.get("Arts and Sciences");
+            cicct = DepartmentRepository.get("CICCT");
+
+            AddEmployeeToDepartment addEmployeeToArtsAndSciences
+                    = new AddEmployeeToDepartment(artsAndSciences, employeeDetails);
+
+            addEmployeeToArtsAndSciences.execute();
+        }
+
+        @Test
+        public void canTransferAnEmployeeToAnotherDepartment() {
+            TransferEmployeeToDepartment toDepartment
+                    = new TransferEmployeeToDepartment(artsAndSciences, cicct, employeeDetails);
+
+            toDepartment.execute();
+
+            Employee employee = cicct.getEmployee(1);
+            Employee e = artsAndSciences.getEmployee(1);
+            assertThat(employee.getDepartmentId(), is(4));
+            assertNull(e);
+        }
     }
 
 }

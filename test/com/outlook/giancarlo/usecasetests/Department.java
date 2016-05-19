@@ -46,4 +46,8 @@ public class Department {
         List<Employee> queriedEmployees = new ArrayList<>(employees.values());
         return queriedEmployees;
     }
+
+    public void remove(int id) {
+        employees.remove(id);
+    }
 }
