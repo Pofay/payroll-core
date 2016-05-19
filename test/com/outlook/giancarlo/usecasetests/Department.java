@@ -26,4 +26,8 @@ public class Department {
     public int getId() {
         return id;
     }
+
+    Employee getEmployee(int i) {
+        return new Employee();
+    }
 }

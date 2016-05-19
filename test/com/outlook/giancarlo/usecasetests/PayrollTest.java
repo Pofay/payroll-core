@@ -30,6 +30,29 @@ public class PayrollTest {
         assertThat(department.getId(), is(1));
     }
     
+    @Test
+    public void ItIsAbleToStoreEmployees() {
+        CreateDepartment createDepartment = new CreateDepartment(2, "Management");
+        
+        createDepartment.execute();
+        
+        Department department = DepartmentRepository.get("Management");
+        
+        EmployeeDetails employeeDetails = new EmployeeDetails(1,"Gian Carlo", "Gilos");
+        AddEmployeeToDepartment addEmployeeToDepartment = 
+                new AddEmployeeToDepartment(department, employeeDetails);
+        
+        addEmployeeToDepartment.execute();
+        
+        Employee e = department.getEmployee(1);
+        
+        String actual = String.format("%s %s", e.getFirstName(), e.getLastName());
+        String expected = "Gian Carlo Gilos";
+        assertThat(actual, is(expected));
+        assertThat(e.getDepartmentId(), is(2));
+        assertThat(e.getId(), is(1));
+    }
+    
     
 
 }
