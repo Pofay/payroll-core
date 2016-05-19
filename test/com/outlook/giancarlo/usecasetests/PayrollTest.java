@@ -27,38 +27,7 @@ public class PayrollTest {
 
         Department department = DepartmentRepository.get("Accounting");
         assertThat(department.getName(), is("Accounting"));
+        assertThat(department.getId(), is(1));
     }
-
-    @Test
-    public void canCreateASecondDepartment() {
-        CreateDepartment createDepartment = new CreateDepartment(1, "Management");
-
-        createDepartment.execute();
-
-        Department department = DepartmentRepository.get("Management");
-        assertThat(department.getName(), is("Management"));
-    }
-
-    @Test
-    public void canCreateANewDepartmentWithDifferentId() {
-        CreateDepartment createDepartment = new CreateDepartment(2, "Labor");
-
-        createDepartment.execute();
-
-        Department department = DepartmentRepository.get("Labor");
-        assertThat(department.getId(), is(2));
-    }
-
-    @Test
-    public void canCreateANewDepartmentWithAnIdOf3() {
-        CreateDepartment createDepartment = new CreateDepartment(3, "CICCT");
-
-        createDepartment.execute();
-
-        Department department = DepartmentRepository.get("CICCT");
-        assertThat(department.getId(), is(3));
-    }
-    
-    
 
 }
