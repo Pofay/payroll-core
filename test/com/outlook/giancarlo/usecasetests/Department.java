@@ -47,9 +47,7 @@ public class Department {
         return queriedEmployees;
     }
 
-    public Employee remove(int id) {
-        Employee e = getEmployee(id);
+    public void remove(int id) {
         employees.remove(id);
-        return e;
     }
 }

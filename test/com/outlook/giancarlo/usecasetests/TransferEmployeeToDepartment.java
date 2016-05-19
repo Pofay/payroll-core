@@ -24,7 +24,8 @@ class TransferEmployeeToDepartment {
     }
 
     public void execute() {
-        Employee e = from.remove(details.id);
+        Employee e = new Employee(details);
+        from.remove(details.id);
         to.add(e);
     }
     
