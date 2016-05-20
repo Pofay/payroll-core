@@ -9,18 +9,12 @@ package com.outlook.giancarlo.usecasetests;
  *
  * @author pofay
  */
-public class Employee {
-    
-    public String getFirstName(){
-        return "Gian Carlo";
+public class CreateEmployee {
+
+    public CreateEmployee(int i, String gian_Carlo, String gilos) {
     }
-    
-    public String getLastName(){
-        return "Gilos";
-    }
-    
-    public int getId(){
-        return 1;
+
+    public void execute() {
     }
     
 }
