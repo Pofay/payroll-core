@@ -6,12 +6,7 @@
 package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
-import java.util.List;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
-import org.junit.Before;
-import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -20,4 +15,5 @@ import static org.hamcrest.CoreMatchers.is;
 @RunWith(HierarchicalContextRunner.class)
 public class PayrollTest {
 
+    
 }
