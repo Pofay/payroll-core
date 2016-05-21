@@ -11,7 +11,7 @@ package com.outlook.giancarlo.usecasetests;
  */
 public class CreateEmployee {
 
-    public CreateEmployee(int i, String gian_Carlo, String gilos) {
+    public CreateEmployee(int id, String firstName, String lastName) {
     }
 
     public void execute() {

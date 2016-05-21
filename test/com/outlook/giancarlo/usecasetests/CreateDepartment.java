@@ -9,14 +9,12 @@ package com.outlook.giancarlo.usecasetests;
  *
  * @author pofay
  */
-public class PayrollRepository {
+public class CreateDepartment {
 
-    public static Employee getEmployee(int i) {
-        return new Employee();
+    public CreateDepartment(int i, String management) {
     }
 
-    public static Department getDepartment(int i) {
-        return new Department();
+    public void execute() {
     }
     
 }

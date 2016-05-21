@@ -20,14 +20,25 @@ public class PayrollTest {
 
     @Test
     public void ItShouldBeAbleToCreateAnEmployee() {
-        CreateEmployee ce = new CreateEmployee(1,"Gian Carlo", "Gilos");
-        
+        CreateEmployee ce = new CreateEmployee(1, "Gian Carlo", "Gilos");
+
         ce.execute();
-        
+
         Employee e = PayrollRepository.getEmployee(1);
         String actualName = String.format("%s %s", e.getFirstName(), e.getLastName());
         assertThat(actualName, is("Gian Carlo Gilos"));
         assertThat(e.getId(), is(1));
     }
-    
+
+    @Test
+    public void ItShouldBeAbleToCreateANewDepartment() {
+        CreateDepartment cd = new CreateDepartment(1, "Management");
+
+        cd.execute();
+
+        Department department = PayrollRepository.getDepartment(1);
+        assertThat(department.getName(), is("Management"));
+        assertThat(department.getId(), is(1));
+    }
+
 }
