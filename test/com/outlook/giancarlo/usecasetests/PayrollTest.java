@@ -36,19 +36,6 @@ public class PayrollTest {
         }
 
         @Test
-        public void ItShouldBeAbleToCreateAnotherEmployee() {
-            final int empId = 2;
-            CreateEmployee ce = new CreateEmployee(empId, "Giovanni", "Bosco");
-
-            ce.execute();
-
-            Employee e = PayrollRepository.getEmployee(empId);
-            String actualName = String.format("%s %s", e.getFirstName(), e.getLastName());
-            assertThat(actualName, is("Giovanni Bosco"));
-            assertThat(e.getId(), is(2));
-        }
-
-        @Test
         public void ItShouldBeAbleToCreateANewDepartment() {
             int deptId = 1;
             CreateDepartment cd = new CreateDepartment(deptId, "Management");
@@ -59,19 +46,6 @@ public class PayrollTest {
             assertThat(department.getName(), is("Management"));
             assertThat(department.getId(), is(1));
         }
-        
-        @Test
-        public void ItShouldBeAbleToCreateAnotherDepartment(){
-            int deptId = 2;
-            CreateDepartment cd = new CreateDepartment(deptId, "Accounting");
-            
-            cd.execute();
-            
-            Department department = PayrollRepository.getDepartment(deptId);
-            assertThat(department.getName(), is("Accounting"));
-            assertThat(department.getId(), is(2));
-        }
-
     }
 
 }
