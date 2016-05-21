@@ -70,22 +70,6 @@ public class PayrollTest {
             assertThat(e.getDepartmentId(), is(2));
             assertThat(e.getDepartmentName(), is("Management"));
         }
-        
-        @Test
-        public void ItShouldBeAbleToAddAnEmployeeToAnotherDepartment() {
-            CreateEmployee ce = new CreateEmployee(2, "George", "Williams");
-            ce.execute();
-            
-            CreateDepartment cd = new CreateDepartment(3, "Accounting");
-            cd.execute();
-            
-            Employee e = PayrollRepository.getEmployee(2);
-            
-            PayrollRepository.addEmployeeToDepartment(3, e);
-            
-            assertThat(e.getDepartmentId(), is(3));
-            assertThat(e.getDepartmentName(), is("Accounting"));
-        }
     }
 
 }
