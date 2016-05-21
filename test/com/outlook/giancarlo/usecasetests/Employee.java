@@ -33,4 +33,12 @@ public class Employee {
         return id;
     }
     
+    public int getDepartmentId(){
+        return 2;
+    }
+    
+    public String getDepartmentName(){
+        return "Management";
+    }
+    
 }

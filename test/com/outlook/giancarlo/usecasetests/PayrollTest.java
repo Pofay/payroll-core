@@ -6,11 +6,10 @@
 package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -45,6 +44,23 @@ public class PayrollTest {
             Department department = PayrollRepository.getDepartment(deptId);
             assertThat(department.getName(), is("Management"));
             assertThat(department.getId(), is(1));
+        }
+
+        @Test
+        public void ItShouldBeAbleToAddAEmployeeToASpecificDepartment() {
+            int empId = 1;
+            int deptId = 2;
+            CreateDepartment cd = new CreateDepartment(deptId, "Management");
+            cd.execute();
+            CreateEmployee ce = new CreateEmployee(empId, "Gian Carlo", "Gilos");
+            ce.execute();
+
+            Employee e = PayrollRepository.getEmployee(empId);
+            PayrollRepository.addEmployeeToDepartment(deptId, e);
+            
+            assertNotNull(e);
+            assertThat(e.getDepartmentId(), is(2));
+            assertThat(e.getDepartmentName(), is("Management"));
         }
     }
 
