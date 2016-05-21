@@ -11,11 +11,19 @@ package com.outlook.giancarlo.usecasetests;
  */
 public class Department {
 
+    private final String name;
+    private final int id;
+
+    public Department(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public String getName() {
-        return "Management";
+        return name;
     }
 
     public int getId() {
-        return 1;
+        return id;
     }
 }

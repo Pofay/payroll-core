@@ -11,7 +11,7 @@ package com.outlook.giancarlo.usecasetests;
  */
 public class CreateDepartment {
 
-    public CreateDepartment(int i, String management) {
+    public CreateDepartment(int id, String name) {
     }
 
     public void execute() {

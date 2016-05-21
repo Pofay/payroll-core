@@ -21,7 +21,11 @@ public class PayrollRepository {
     }
 
     public static Department getDepartment(int deptId) {
-        return new Department();
+        if (deptId == 1) {
+            return new Department(1, "Management");
+        } else {
+            return new Department(2, "Accounting");
+        }
     }
 
     public static void add(Employee e) {

@@ -50,13 +50,26 @@ public class PayrollTest {
 
         @Test
         public void ItShouldBeAbleToCreateANewDepartment() {
-            CreateDepartment cd = new CreateDepartment(1, "Management");
+            int deptId = 1;
+            CreateDepartment cd = new CreateDepartment(deptId, "Management");
 
             cd.execute();
 
-            Department department = PayrollRepository.getDepartment(1);
+            Department department = PayrollRepository.getDepartment(deptId);
             assertThat(department.getName(), is("Management"));
             assertThat(department.getId(), is(1));
+        }
+        
+        @Test
+        public void ItShouldBeAbleToCreateAnotherDepartment(){
+            int deptId = 2;
+            CreateDepartment cd = new CreateDepartment(deptId, "Accounting");
+            
+            cd.execute();
+            
+            Department department = PayrollRepository.getDepartment(deptId);
+            assertThat(department.getName(), is("Accounting"));
+            assertThat(department.getId(), is(2));
         }
 
     }
