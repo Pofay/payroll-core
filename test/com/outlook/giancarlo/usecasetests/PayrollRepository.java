@@ -14,8 +14,8 @@ import java.util.Map;
  */
 public class PayrollRepository {
 
-    static Map<Integer, Employee> employees = new HashMap<>();
-    static Map<Integer, Department> departments = new HashMap<>();
+    private static final Map<Integer, Employee> employees = new HashMap<>();
+    private static final Map<Integer, Department> departments = new HashMap<>();
 
     public static Employee getEmployee(int empId) {
         return employees.get(empId);
