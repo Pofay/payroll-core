@@ -9,8 +9,8 @@ import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import org.junit.Before;
 
 /**
  *
@@ -50,16 +50,21 @@ public class PayrollTest {
 
     public class AddEmployeeToDepartment {
 
-        @Test
-        public void ItShouldBeAbleToAddAEmployeeToASpecificDepartment() {
-            int empId = 1;
-            int deptId = 2;
+        int empId = 1;
+        int deptId = 2;
+
+        @Before
+        public void setup() {
             CreateDepartment cd = new CreateDepartment(deptId, "Management");
             cd.execute();
             CreateEmployee ce = new CreateEmployee(empId, "Gian Carlo", "Gilos");
             ce.execute();
+        }
 
+        @Test
+        public void ItShouldBeAbleToAddAEmployeeToASpecificDepartment() {
             Employee e = PayrollRepository.getEmployee(empId);
+
             PayrollRepository.addEmployeeToDepartment(deptId, e);
 
             assertThat(e.getDepartmentId(), is(2));
