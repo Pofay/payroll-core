@@ -10,17 +10,27 @@ package com.outlook.giancarlo.usecasetests;
  * @author pofay
  */
 public class Employee {
+
+    private final int id;
+    private final String firstName;
+    private final String lastName;
+
+    Employee(int id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName=firstName;
+        this.lastName=lastName;
+    }
     
     public String getFirstName(){
-        return "Gian Carlo";
+        return firstName;
     }
     
     public String getLastName(){
-        return "Gilos";
+        return lastName;
     }
     
     public int getId(){
-        return 1;
+        return id;
     }
     
 }

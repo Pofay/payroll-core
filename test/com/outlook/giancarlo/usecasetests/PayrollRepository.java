@@ -12,11 +12,15 @@ package com.outlook.giancarlo.usecasetests;
 public class PayrollRepository {
 
     public static Employee getEmployee(int i) {
-        return new Employee();
+        if (i == 1) {
+            return new Employee(1, "Gian Carlo", "Gilos");
+        } else {
+            return new Employee(2, "Giovanni", "Bosco");
+        }
     }
 
     public static Department getDepartment(int i) {
         return new Department();
     }
-    
+
 }
