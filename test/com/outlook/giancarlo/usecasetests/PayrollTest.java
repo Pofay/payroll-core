@@ -62,7 +62,6 @@ public class PayrollTest {
             Employee e = PayrollRepository.getEmployee(empId);
             PayrollRepository.addEmployeeToDepartment(deptId, e);
 
-            assertNotNull(e);
             assertThat(e.getDepartmentId(), is(2));
             assertThat(e.getDepartmentName(), is("Management"));
         }
