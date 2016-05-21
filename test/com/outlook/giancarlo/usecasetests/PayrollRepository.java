@@ -34,6 +34,8 @@ public class PayrollRepository {
     }
 
     public static void addEmployeeToDepartment(int deptId, Employee e) {
+        Department d = getDepartment(deptId);
+        e.setDepartment(d);
     }
 
 }

@@ -14,11 +14,16 @@ public class Employee {
     private final int id;
     private final String firstName;
     private final String lastName;
+    private Department department;
 
     Employee(int id, String firstName, String lastName) {
         this.id = id;
         this.firstName=firstName;
         this.lastName=lastName;
+    }
+    
+    public void setDepartment(Department d){
+        this.department = d;
     }
     
     public String getFirstName(){
@@ -34,11 +39,11 @@ public class Employee {
     }
     
     public int getDepartmentId(){
-        return 2;
+        return department.getId();
     }
     
     public String getDepartmentName(){
-        return "Management";
+        return department.getName();
     }
     
 }
