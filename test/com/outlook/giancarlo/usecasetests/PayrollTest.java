@@ -46,6 +46,10 @@ public class PayrollTest {
             assertThat(department.getId(), is(1));
         }
 
+    }
+
+    public class AddEmployeeToDepartment {
+
         @Test
         public void ItShouldBeAbleToAddAEmployeeToASpecificDepartment() {
             int empId = 1;
@@ -57,7 +61,7 @@ public class PayrollTest {
 
             Employee e = PayrollRepository.getEmployee(empId);
             PayrollRepository.addEmployeeToDepartment(deptId, e);
-            
+
             assertNotNull(e);
             assertThat(e.getDepartmentId(), is(2));
             assertThat(e.getDepartmentName(), is("Management"));
