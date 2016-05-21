@@ -11,10 +11,18 @@ package com.outlook.giancarlo.usecasetests;
  */
 public class CreateDepartment {
 
+    private final String name;
+    private final int id;
+
     public CreateDepartment(int id, String name) {
+        this.id = id;
+        this.name= name;
     }
 
     public void execute() {
+        Department d = new Department(id, name);
+        
+        PayrollRepository.add(d);
     }
     
 }

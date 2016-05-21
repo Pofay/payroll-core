@@ -15,21 +15,22 @@ import java.util.Map;
 public class PayrollRepository {
 
     static Map<Integer, Employee> employees = new HashMap<>();
+    static Map<Integer, Department> departments = new HashMap<>();
 
     public static Employee getEmployee(int empId) {
         return employees.get(empId);
     }
 
     public static Department getDepartment(int deptId) {
-        if (deptId == 1) {
-            return new Department(1, "Management");
-        } else {
-            return new Department(2, "Accounting");
-        }
+        return departments.get(deptId);
     }
 
     public static void add(Employee e) {
         employees.put(e.getId(), e);
+    }
+
+    public static void add(Department d) {
+        departments.put(d.getId(), d);
     }
 
 }
