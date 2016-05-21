@@ -5,22 +5,27 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author pofay
  */
 public class PayrollRepository {
 
-    public static Employee getEmployee(int i) {
-        if (i == 1) {
-            return new Employee(1, "Gian Carlo", "Gilos");
-        } else {
-            return new Employee(2, "Giovanni", "Bosco");
-        }
+    static Map<Integer, Employee> employees = new HashMap<>();
+
+    public static Employee getEmployee(int empId) {
+        return employees.get(empId);
     }
 
-    public static Department getDepartment(int i) {
+    public static Department getDepartment(int deptId) {
         return new Department();
+    }
+
+    public static void add(Employee e) {
+        employees.put(e.getId(), e);
     }
 
 }
