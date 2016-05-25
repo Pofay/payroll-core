@@ -16,34 +16,35 @@ public class Employee {
     private final String lastName;
     private Department department;
 
-    public Employee(int id, String firstName, String lastName) {
+    public Employee(int id, String firstName, String lastName, Department department) {
         this.id = id;
-        this.firstName=firstName;
-        this.lastName=lastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.department = department;
     }
-    
-    public void setDepartment(Department d){
+
+    public void setDepartment(Department d) {
         this.department = d;
     }
-    
-    public String getFirstName(){
+
+    public String getFirstName() {
         return firstName;
     }
-    
-    public String getLastName(){
+
+    public String getLastName() {
         return lastName;
     }
-    
-    public int getId(){
+
+    public int getId() {
         return id;
     }
-    
-    public int getDepartmentId(){
+
+    public int getDepartmentId() {
         return department.getId();
     }
-    
-    public String getDepartmentName(){
+
+    public String getDepartmentName() {
         return department.getName();
     }
-    
+
 }

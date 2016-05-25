@@ -14,15 +14,17 @@ public class CreateEmployee {
     private final String lastName;
     private final String firstName;
     private final int id;
+    private final Department department;
 
     public CreateEmployee(int id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.department = new Department(0, "Unassigned");
     }
 
     public void execute() {
-        Employee e = new Employee(id, firstName, lastName);
+        Employee e = new Employee(id, firstName, lastName, department);
         
         PayrollRepository.add(e);
     }

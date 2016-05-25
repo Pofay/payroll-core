@@ -38,6 +38,17 @@ public class PayrollTest {
         }
 
         @Test
+        public void ACreatedEmployeeShouldHaveADefaultDepartment() {
+            CreateEmployee ce = new CreateEmployee(2, "John", "Imperial");
+            
+            ce.execute();
+            
+            Employee e = PayrollRepository.getEmployee(2);
+            assertThat(e.getDepartmentName(), is("Unassigned"));
+            assertThat(e.getDepartmentId(), is(0));
+        }
+
+        @Test
         public void ItShouldBeAbleToCreateANewDepartment() {
             int deptId = 1;
             CreateDepartment cd = new CreateDepartment(deptId, "Management");
@@ -84,7 +95,7 @@ public class PayrollTest {
         CreateEmployee usecase1 = new CreateEmployee(2, "Gian Carlo", "Gilos");
         CreateEmployee usecase2 = new CreateEmployee(3, "Fernando", "Cejas");
         CreateEmployee usecase3 = new CreateEmployee(4, "Matt", "Brown");
-        
+
         usecase1.execute();
         usecase2.execute();
         usecase3.execute();
@@ -95,12 +106,12 @@ public class PayrollTest {
         List<Employee> expectedEmployees = new ArrayList<>();
         expectedEmployees.add(e1);
         expectedEmployees.add(e2);
-        
+
         PayrollRepository.addEmployeeToDepartment(3, e1);
         PayrollRepository.addEmployeeToDepartment(3, e2);
 
         List<Employee> employees = PayrollRepository.getAllEmployeesOfDepartment(3);
-        
+
         assertThat(employees, is(expectedEmployees));
     }
 }
