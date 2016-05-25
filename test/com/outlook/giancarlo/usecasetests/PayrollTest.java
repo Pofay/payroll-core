@@ -6,6 +6,7 @@
 package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
+import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.hamcrest.CoreMatchers.is;
@@ -72,4 +73,26 @@ public class PayrollTest {
         }
     }
 
+    @Test
+    public void ItShouldBeAbleToGetAllEmployeesOfASpecificDepartment() {
+        CreateDepartment cd = new CreateDepartment(3, "Accounting");
+        cd.execute();
+
+        CreateEmployee usecase1 = new CreateEmployee(2, "Gian Carlo", "Gilos");
+        CreateEmployee usecase2 = new CreateEmployee(3, "Fernando", "Cejas");
+
+        usecase1.execute();
+        usecase2.execute();
+
+        Employee e1 = PayrollRepository.getEmployee(2);
+        Employee e2 = PayrollRepository.getEmployee(3);
+
+        PayrollRepository.addEmployeeToDepartment(3, e1);
+        PayrollRepository.addEmployeeToDepartment(3, e2);
+
+        Department d = PayrollRepository.getDepartment(3);
+
+        List<Employee> employees = PayrollRepository.getAllEmployeesOfDepartment(3);
+        assertThat(employees.size(), is(2));
+    }
 }

@@ -5,7 +5,9 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,6 +38,10 @@ public class PayrollRepository {
     public static void addEmployeeToDepartment(int deptId, Employee e) {
         Department d = getDepartment(deptId);
         e.setDepartment(d);
+    }
+
+    public static List<Employee> getAllEmployeesOfDepartment(int i) {
+        return new ArrayList<>(employees.values());
     }
 
 }
