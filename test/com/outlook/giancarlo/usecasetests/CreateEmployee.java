@@ -24,7 +24,8 @@ public class CreateEmployee {
     }
 
     public void execute() {
-        Employee e = new Employee(id, firstName, lastName, department);
+        Employee e = new Employee(id, firstName, lastName);
+        e.setDepartment(department);
         
         PayrollRepository.add(e);
     }
