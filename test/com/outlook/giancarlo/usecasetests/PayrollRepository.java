@@ -40,8 +40,14 @@ public class PayrollRepository {
         e.setDepartment(d);
     }
 
-    public static List<Employee> getAllEmployeesOfDepartment(int i) {
-        return new ArrayList<>(employees.values());
+    public static List<Employee> getAllEmployeesOfDepartment(int deptId) {
+        List<Employee> queriedEmployees = new ArrayList<>();
+        Department d = getDepartment(deptId);
+        employees.values()
+                .stream()
+                .filter(e -> e.getDepartmentId() == deptId)
+                .forEach(e -> queriedEmployees.add(e));
+        return queriedEmployees;
     }
 
 }

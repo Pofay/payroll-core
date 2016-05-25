@@ -6,12 +6,14 @@
 package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Before;
+import org.junit.Ignore;
 
 /**
  *
@@ -73,6 +75,7 @@ public class PayrollTest {
         }
     }
 
+    @Ignore
     @Test
     public void ItShouldBeAbleToGetAllEmployeesOfASpecificDepartment() {
         CreateDepartment cd = new CreateDepartment(3, "Accounting");
@@ -80,19 +83,24 @@ public class PayrollTest {
 
         CreateEmployee usecase1 = new CreateEmployee(2, "Gian Carlo", "Gilos");
         CreateEmployee usecase2 = new CreateEmployee(3, "Fernando", "Cejas");
-
+        CreateEmployee usecase3 = new CreateEmployee(4, "Matt", "Brown");
+        
         usecase1.execute();
         usecase2.execute();
+        usecase3.execute();
 
         Employee e1 = PayrollRepository.getEmployee(2);
         Employee e2 = PayrollRepository.getEmployee(3);
 
+        List<Employee> expectedEmployees = new ArrayList<>();
+        expectedEmployees.add(e1);
+        expectedEmployees.add(e2);
+        
         PayrollRepository.addEmployeeToDepartment(3, e1);
         PayrollRepository.addEmployeeToDepartment(3, e2);
 
-        Department d = PayrollRepository.getDepartment(3);
-
         List<Employee> employees = PayrollRepository.getAllEmployeesOfDepartment(3);
-        assertThat(employees.size(), is(2));
+        
+        assertThat(employees, is(expectedEmployees));
     }
 }
