@@ -20,7 +20,6 @@ public class Employee {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.department = department;
     }
 
     public void setDepartment(Department d) {
