@@ -14,7 +14,7 @@ public class CreateEmployee {
     private final String lastName;
     private final String firstName;
     private final int id;
-    private final Department department;
+    private Department department;
 
     public CreateEmployee(int id, String firstName, String lastName) {
         this.id = id;

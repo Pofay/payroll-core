@@ -12,6 +12,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.hamcrest.CoreMatchers.is;
+import org.junit.After;
 import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -22,6 +23,11 @@ import org.junit.Ignore;
  */
 @RunWith(HierarchicalContextRunner.class)
 public class PayrollTest {
+
+    @After
+    public void afterEach() {
+        PayrollRepository.reset();
+    }
 
     public class EntityCreationContext {
 
@@ -88,8 +94,8 @@ public class PayrollTest {
         }
     }
 
-    @Ignore
     @Test
+
     public void ItShouldBeAbleToGetAllEmployeesThatAreUnassgined() {
         CreateDepartment cd = new CreateDepartment(2, "Computer Science");
 
@@ -104,12 +110,13 @@ public class PayrollTest {
 
         Employee e1 = PayrollRepository.getEmployee(7);
         PayrollRepository.addEmployeeToDepartment(2, e1);
+        PayrollRepository.add(e1);
 
         Employee e2 = PayrollRepository.getEmployee(5);
         Employee e3 = PayrollRepository.getEmployee(6);
         List<Employee> expectedList = Arrays.asList(e2, e3);
 
-        List<Employee> actualList = PayrollRepository.getAllEmployeesOfDepartment(0);
+        List<Employee> actualList = PayrollRepository.getAllEmployeesOfDepartment(1);
 
         assertThat(actualList.size(), is(expectedList.size()));
     }
