@@ -20,7 +20,7 @@ public class CreateEmployee {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.department = new Department(0, "Unassigned");
+        this.department = new Department(1, "Unassigned");
     }
 
     public void execute() {

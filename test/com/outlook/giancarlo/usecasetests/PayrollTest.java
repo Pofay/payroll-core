@@ -46,19 +46,20 @@ public class PayrollTest {
 
             Employee e = PayrollRepository.getEmployee(2);
             assertThat(e.getDepartmentName(), is("Unassigned"));
-            assertThat(e.getDepartmentId(), is(0));
+            assertThat(e.getDepartmentId(), is(1));
         }
 
         @Test
         public void ItShouldBeAbleToCreateANewDepartment() {
-            int deptId = 1;
-            CreateDepartment cd = new CreateDepartment(deptId, "Management");
+            int deptId = 3;
+            String deptName = "Accounting";
+            CreateDepartment cd = new CreateDepartment(deptId, deptName);
 
             cd.execute();
 
             Department department = PayrollRepository.getDepartment(deptId);
-            assertThat(department.getName(), is("Management"));
-            assertThat(department.getId(), is(1));
+            assertThat(department.getName(), is("Accounting"));
+            assertThat(department.getId(), is(3));
         }
 
     }
