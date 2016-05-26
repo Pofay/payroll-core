@@ -7,6 +7,7 @@ package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,9 +41,9 @@ public class PayrollTest {
         @Test
         public void ACreatedEmployeeShouldHaveADefaultDepartment() {
             CreateEmployee ce = new CreateEmployee(2, "John", "Imperial");
-            
+
             ce.execute();
-            
+
             Employee e = PayrollRepository.getEmployee(2);
             assertThat(e.getDepartmentName(), is("Unassigned"));
             assertThat(e.getDepartmentId(), is(0));
@@ -87,6 +88,31 @@ public class PayrollTest {
     }
 
     @Ignore
+    @Test
+    public void ItShouldBeAbleToGetAllEmployeesThatAreUnassgined() {
+        CreateDepartment cd = new CreateDepartment(2, "Computer Science");
+
+        CreateEmployee usecase1 = new CreateEmployee(5, "Happah", "Brown");
+        CreateEmployee usecase2 = new CreateEmployee(6, "Ferrer", "Rallat");
+        CreateEmployee usecase3 = new CreateEmployee(7, "Matthew", "Cooper");
+
+        cd.execute();
+        usecase1.execute();
+        usecase2.execute();
+        usecase3.execute();
+
+        Employee e1 = PayrollRepository.getEmployee(7);
+        PayrollRepository.addEmployeeToDepartment(2, e1);
+
+        Employee e2 = PayrollRepository.getEmployee(5);
+        Employee e3 = PayrollRepository.getEmployee(6);
+        List<Employee> expectedList = Arrays.asList(e2, e3);
+
+        List<Employee> actualList = PayrollRepository.getAllEmployeesOfDepartment(0);
+
+        assertThat(actualList.size(), is(expectedList.size()));
+    }
+
     @Test
     public void ItShouldBeAbleToGetAllEmployeesOfASpecificDepartment() {
         CreateDepartment cd = new CreateDepartment(3, "Accounting");
