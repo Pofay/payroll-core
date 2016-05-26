@@ -91,7 +91,8 @@ public class PayrollTest {
     @Ignore
     @Test
     public void ItShouldBeAbleToGetAllEmployeesThatAreUnassgined() {
-        CreateDepartment cd = new CreateDepartment(2, "Computer Science");
+        int deptId = 2;
+        CreateDepartment cd = new CreateDepartment(deptId, "Computer Science");
 
         CreateEmployee usecase1 = new CreateEmployee(5, "Happah", "Brown");
         CreateEmployee usecase2 = new CreateEmployee(6, "Ferrer", "Rallat");
@@ -103,24 +104,28 @@ public class PayrollTest {
         usecase3.execute();
 
         Employee e1 = PayrollRepository.getEmployee(7);
-        PayrollRepository.addEmployeeToDepartment(2, e1);
+        PayrollRepository.addEmployeeToDepartment(deptId, e1);
+
+        Department d = PayrollRepository.getDepartment(deptId);
 
         Employee e2 = PayrollRepository.getEmployee(5);
         Employee e3 = PayrollRepository.getEmployee(6);
         List<Employee> expectedList = Arrays.asList(e2, e3);
 
-        List<Employee> actualList = PayrollRepository.getAllEmployeesOfDepartment(0);
+        List<Employee> actualList = PayrollRepository.getAllEmployeesOfDepartment(d);
 
         assertThat(actualList.size(), is(expectedList.size()));
     }
 
+   
     @Test
     public void ItShouldBeAbleToGetAllEmployeesOfASpecificDepartment() {
-        CreateDepartment cd = new CreateDepartment(3, "Accounting");
+        int deptId = 3;
+        CreateDepartment cd = new CreateDepartment(deptId, "Accounting");
         cd.execute();
 
         CreateEmployee usecase1 = new CreateEmployee(2, "Gian Carlo", "Gilos");
-        CreateEmployee usecase2 = new CreateEmployee(3, "Fernando", "Cejas");
+        CreateEmployee usecase2 = new CreateEmployee(deptId, "Fernando", "Cejas");
         CreateEmployee usecase3 = new CreateEmployee(4, "Matt", "Brown");
 
         usecase1.execute();
@@ -128,16 +133,17 @@ public class PayrollTest {
         usecase3.execute();
 
         Employee e1 = PayrollRepository.getEmployee(2);
-        Employee e2 = PayrollRepository.getEmployee(3);
+        Employee e2 = PayrollRepository.getEmployee(deptId);
 
         List<Employee> expectedEmployees = new ArrayList<>();
         expectedEmployees.add(e1);
         expectedEmployees.add(e2);
 
-        PayrollRepository.addEmployeeToDepartment(3, e1);
-        PayrollRepository.addEmployeeToDepartment(3, e2);
+        PayrollRepository.addEmployeeToDepartment(deptId, e1);
+        PayrollRepository.addEmployeeToDepartment(deptId, e2);
 
-        List<Employee> employees = PayrollRepository.getAllEmployeesOfDepartment(3);
+        Department d = PayrollRepository.getDepartment(deptId);
+        List<Employee> employees = PayrollRepository.getAllEmployeesOfDepartment(d);
 
         assertThat(employees, is(expectedEmployees));
     }

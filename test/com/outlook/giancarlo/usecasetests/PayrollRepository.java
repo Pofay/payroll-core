@@ -19,8 +19,6 @@ public class PayrollRepository {
     private static final Map<Integer, Employee> employees = new HashMap<>();
     private static final Map<Integer, Department> departments = new HashMap<>();
 
-  
-
     public static Employee getEmployee(int empId) {
         return employees.get(empId);
     }
@@ -39,17 +37,16 @@ public class PayrollRepository {
 
     public static void addEmployeeToDepartment(int deptId, Employee e) {
         Department d = getDepartment(deptId);
-        System.out.print(d.getName());
         e.setDepartment(d);
     }
 
-    public static List<Employee> getAllEmployeesOfDepartment(int deptId) {
+    public static List<Employee> getAllEmployeesOfDepartment(Department d) {
         List<Employee> queriedEmployees = new ArrayList<>();
-        Department d = getDepartment(deptId);
-        employees.values()
-                .stream()
-                .filter(e -> e.getDepartmentId() == deptId)
-                .forEach(e -> queriedEmployees.add(e));
+        for (Employee e : employees.values()) {
+            if (e.getDepartmentId() == d.getId()) {
+                queriedEmployees.add(e);
+            }
+        }
         return queriedEmployees;
     }
 
