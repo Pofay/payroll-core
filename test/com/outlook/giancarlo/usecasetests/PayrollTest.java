@@ -145,6 +145,6 @@ public class PayrollTest {
         Department d = PayrollRepository.getDepartment(deptId);
         List<Employee> employees = PayrollRepository.getAllEmployeesOfDepartment(d);
 
-        assertThat(employees, is(expectedEmployees));
+        assertThat(employees.size(), is(expectedEmployees.size()));
     }
 }
