@@ -88,7 +88,7 @@ public class PayrollTest {
         }
     }
 
-    @Ignore
+    //@Ignore
     @Test
     public void ItShouldBeAbleToGetAllEmployeesThatAreUnassgined() {
         int deptId = 2;
