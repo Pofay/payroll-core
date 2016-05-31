@@ -24,6 +24,4 @@ public interface PayrollRepository {
     Department getDepartment(int deptId);
 
     Employee getEmployee(int empId);
-
-    void reset();
 }
