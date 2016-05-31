@@ -22,6 +22,7 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Assert;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -79,6 +80,17 @@ public class PayrollTest {
             Department department = repository.getDepartment(deptId);
             assertThat(department.getName(), is("Accounting"));
             assertThat(department.getId(), is(3));
+        }
+
+        @Test
+        public void ItShouldThrowAnExceptionWhenCreatingAnEmployeeWithAnIdOf0() {
+            try {
+                CreateEmployee ce = new CreateEmployee(repository, 0, "Raul", "Watson");
+                fail("Should have thrown Exception");
+            } catch (IllegalArgumentException e) {
+                String expectedMessage = "Employee Id should be a positive number";
+                assertThat(e.getMessage(), is(expectedMessage.toUpperCase()));
+            }
         }
 
     }
@@ -139,7 +151,7 @@ public class PayrollTest {
         ce.execute();
 
         Employee e = repository.getEmployee(empId);
-        
+
         try {
             repository.addEmployeeToDepartment(deptId, e);
             Assert.fail("Should have Thrown Exception");
@@ -147,6 +159,6 @@ public class PayrollTest {
             String expectedExceptionMessage = "Department does not Exist";
             assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
         }
-        
     }
+
 }
