@@ -29,7 +29,7 @@ public class CreateEmployee {
         Employee e = new Employee(id, firstName, lastName);
         e.setDepartment(department);
 
-        PayrollRepository.add(e);
+        repository.add(e);
     }
 
 }

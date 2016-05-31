@@ -23,24 +23,24 @@ public class PayrollRepository {
         return employees.get(empId);
     }
 
-    public static Department getDepartment(int deptId) {
+    public Department getDepartment(int deptId) {
         return departments.get(deptId);
     }
 
-    public static void add(Employee e) {
+    public void add(Employee e) {
         employees.put(e.getId(), e);
     }
 
-    public static void add(Department d) {
+    public void add(Department d) {
         departments.put(d.getId(), d);
     }
 
-    public static void addEmployeeToDepartment(int deptId, Employee e) {
+    public void addEmployeeToDepartment(int deptId, Employee e) {
         Department d = getDepartment(deptId);
         e.setDepartment(d);
     }
 
-    public static List<Employee> getAllEmployeesOfDepartment(Department d) {
+    public List<Employee> getAllEmployeesOfDepartment(Department d) {
         List<Employee> queriedEmployees = new ArrayList<>();
         employees
                 .values()

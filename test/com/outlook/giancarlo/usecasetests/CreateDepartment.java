@@ -24,7 +24,7 @@ public class CreateDepartment {
     public void execute() {
         Department d = new Department(id, name);
 
-        PayrollRepository.add(d);
+        repository.add(d);
     }
 
 }

@@ -71,7 +71,7 @@ public class PayrollTest {
 
             cd.execute();
 
-            Department department = PayrollRepository.getDepartment(deptId);
+            Department department = repository.getDepartment(deptId);
             assertThat(department.getName(), is("Accounting"));
             assertThat(department.getId(), is(3));
         }
@@ -95,7 +95,7 @@ public class PayrollTest {
         public void ItShouldBeAbleToAddAEmployeeToASpecificDepartment() {
             Employee e = repository.getEmployee(empId);
 
-            PayrollRepository.addEmployeeToDepartment(deptId, e);
+            repository.addEmployeeToDepartment(deptId, e);
 
             assertThat(e.getDepartmentId(), is(2));
             assertThat(e.getDepartmentName(), is("Management"));
@@ -117,11 +117,11 @@ public class PayrollTest {
         usecase3.execute();
 
         Employee e1 = repository.getEmployee(7);
-        PayrollRepository.addEmployeeToDepartment(deptId, e1);
+        repository.addEmployeeToDepartment(deptId, e1);
 
-        Department d = PayrollRepository.getDepartment(deptId);
+        Department d = repository.getDepartment(deptId);
 
-        List<Employee> actualList = PayrollRepository.getAllEmployeesOfDepartment(d);
+        List<Employee> actualList = repository.getAllEmployeesOfDepartment(d);
 
         assertThat(actualList.size(), is(1));
     }
