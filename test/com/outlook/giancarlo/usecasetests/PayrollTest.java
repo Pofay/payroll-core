@@ -17,6 +17,10 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  *
@@ -25,11 +29,11 @@ import static org.junit.Assert.assertThat;
 @RunWith(HierarchicalContextRunner.class)
 public class PayrollTest {
 
-    PayrollRepository repository;
+    InMemoryPayrollRepository repository;
 
     @Before
     public void beforeEach() {
-        repository = new PayrollRepository();
+        repository = new InMemoryPayrollRepository();
     }
 
     @After
@@ -119,9 +123,7 @@ public class PayrollTest {
         Employee e1 = repository.getEmployee(7);
         repository.addEmployeeToDepartment(deptId, e1);
 
-        Department d = repository.getDepartment(deptId);
-
-        List<Employee> actualList = repository.getAllEmployeesOfDepartment(d);
+        List<Employee> actualList = repository.getAllEmployeesOfDepartment(deptId);
 
         assertThat(actualList.size(), is(1));
     }

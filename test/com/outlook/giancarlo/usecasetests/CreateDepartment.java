@@ -13,9 +13,9 @@ public class CreateDepartment {
 
     private final String name;
     private final int id;
-    private PayrollRepository repository;
+    private InMemoryPayrollRepository repository;
 
-    public CreateDepartment(PayrollRepository repository, int deptId, String deptName) {
+    public CreateDepartment(InMemoryPayrollRepository repository, int deptId, String deptName) {
         this.id = deptId;
         this.name = deptName;
         this.repository = repository;

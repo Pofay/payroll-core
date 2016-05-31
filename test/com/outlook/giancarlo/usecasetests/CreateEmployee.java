@@ -15,9 +15,9 @@ public class CreateEmployee {
     private final String firstName;
     private final int id;
     private final Department department;
-    private PayrollRepository repository;
+    private InMemoryPayrollRepository repository;
 
-    public CreateEmployee(PayrollRepository repository, int empId, String firstName, String lastName) {
+    public CreateEmployee(InMemoryPayrollRepository repository, int empId, String firstName, String lastName) {
         this.id = empId;
         this.firstName = firstName;
         this.lastName = lastName;
