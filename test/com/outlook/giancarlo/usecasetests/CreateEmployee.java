@@ -15,18 +15,20 @@ public class CreateEmployee {
     private final String firstName;
     private final int id;
     private final Department department;
+    private PayrollRepository repository;
 
-    public CreateEmployee(int id, String firstName, String lastName) {
-        this.id = id;
+    public CreateEmployee(PayrollRepository repository, int empId, String firstName, String lastName) {
+        this.id = empId;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.repository = repository;
         this.department = new Department(1, "Unassigned");
     }
 
     public void execute() {
         Employee e = new Employee(id, firstName, lastName);
         e.setDepartment(department);
-        
+
         PayrollRepository.add(e);
     }
 
