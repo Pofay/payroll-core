@@ -12,9 +12,11 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.hamcrest.CoreMatchers.is;
+import org.junit.After;
 import static org.junit.Assert.assertThat;
 import org.junit.Before;
-import org.junit.Ignore;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  *
@@ -22,6 +24,16 @@ import org.junit.Ignore;
  */
 @RunWith(HierarchicalContextRunner.class)
 public class PayrollTest {
+
+    @Before
+    public void beforeEach() {
+
+    }
+
+    @After
+    public void afterEach() {
+        PayrollRepository.reset();
+    }
 
     public class EntityCreationContext {
 
@@ -90,7 +102,7 @@ public class PayrollTest {
 
     //@Ignore
     @Test
-    public void ItShouldBeAbleToGetAllEmployeesThatAreUnassgined() {
+    public void ItShouldBeAbleToGetTheEmployeesOfASpecificDepartment() {
         int deptId = 2;
         CreateDepartment cd = new CreateDepartment(deptId, "Computer Science");
 
@@ -108,43 +120,8 @@ public class PayrollTest {
 
         Department d = PayrollRepository.getDepartment(deptId);
 
-        Employee e2 = PayrollRepository.getEmployee(5);
-        Employee e3 = PayrollRepository.getEmployee(6);
-        List<Employee> expectedList = Arrays.asList(e2, e3);
-
         List<Employee> actualList = PayrollRepository.getAllEmployeesOfDepartment(d);
 
-        assertThat(actualList.size(), is(expectedList.size()));
-    }
-
-   
-    @Test
-    public void ItShouldBeAbleToGetAllEmployeesOfASpecificDepartment() {
-        int deptId = 3;
-        CreateDepartment cd = new CreateDepartment(deptId, "Accounting");
-        cd.execute();
-
-        CreateEmployee usecase1 = new CreateEmployee(2, "Gian Carlo", "Gilos");
-        CreateEmployee usecase2 = new CreateEmployee(deptId, "Fernando", "Cejas");
-        CreateEmployee usecase3 = new CreateEmployee(4, "Matt", "Brown");
-
-        usecase1.execute();
-        usecase2.execute();
-        usecase3.execute();
-
-        Employee e1 = PayrollRepository.getEmployee(2);
-        Employee e2 = PayrollRepository.getEmployee(deptId);
-
-        List<Employee> expectedEmployees = new ArrayList<>();
-        expectedEmployees.add(e1);
-        expectedEmployees.add(e2);
-
-        PayrollRepository.addEmployeeToDepartment(deptId, e1);
-        PayrollRepository.addEmployeeToDepartment(deptId, e2);
-
-        Department d = PayrollRepository.getDepartment(deptId);
-        List<Employee> employees = PayrollRepository.getAllEmployeesOfDepartment(d);
-
-        assertThat(employees.size(), is(expectedEmployees.size()));
+        assertThat(actualList.size(), is(1));
     }
 }

@@ -50,4 +50,9 @@ public class PayrollRepository {
         return queriedEmployees;
     }
 
+    public static void reset() {
+        employees.clear();
+        departments.clear();
+    }
+
 }
