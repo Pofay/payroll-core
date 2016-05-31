@@ -16,7 +16,11 @@ public class CreateDepartment implements Usecase {
     private PayrollRepository repository;
 
     public CreateDepartment(PayrollRepository repository, int deptId, String deptName) {
-        this.id = deptId;
+        if (deptId <= 0) {
+            throw new IllegalArgumentException("Department Id must be a positive number".toUpperCase());
+        } else {
+            this.id = deptId;
+        }
         this.name = deptName;
         this.repository = repository;
     }
