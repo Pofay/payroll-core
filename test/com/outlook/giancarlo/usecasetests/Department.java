@@ -18,7 +18,7 @@ public class Department {
 
     private final String name;
     private final int id;
-    private Map<Integer, Employee> employees;
+    private final Map<Integer, Employee> employees;
 
     public Department(int id, String name) {
         this.id = id;
