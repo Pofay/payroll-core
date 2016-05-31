@@ -9,7 +9,7 @@ package com.outlook.giancarlo.usecasetests;
  *
  * @author pofay
  */
-public class CreateDepartment {
+public class CreateDepartment implements Usecase {
 
     private final String name;
     private final int id;
@@ -21,6 +21,7 @@ public class CreateDepartment {
         this.repository = repository;
     }
 
+    @Override
     public void execute() {
         Department d = new Department(id, name);
 

@@ -42,21 +42,15 @@ public class InMemoryPayrollRepository implements PayrollRepository {
     @Override
     public void addEmployeeToDepartment(int deptId, Employee e) {
         Department d = getDepartment(deptId);
-        e.setDepartment(d);
+        d.addEmployee(e);
     }
 
     @Override
     public List<Employee> getAllEmployeesOfDepartment(int deptId) {
-        List<Employee> queriedEmployees = new ArrayList<>();
-        employees
-                .values()
-                .stream()
-                .filter(e -> e.getDepartmentId() == deptId)
-                .forEach(e -> queriedEmployees.add(e));
-        return queriedEmployees;
+        Department d = getDepartment(deptId);
+        return d.getAllEmployees();
     }
 
-    
     public void reset() {
         employees.clear();
         departments.clear();

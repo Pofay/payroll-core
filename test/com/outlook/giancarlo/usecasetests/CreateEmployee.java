@@ -9,7 +9,7 @@ package com.outlook.giancarlo.usecasetests;
  *
  * @author pofay
  */
-public class CreateEmployee {
+public class CreateEmployee implements Usecase {
 
     private final String lastName;
     private final String firstName;
@@ -25,6 +25,7 @@ public class CreateEmployee {
         this.department = new Department(1, "Unassigned");
     }
 
+    @Override
     public void execute() {
         Employee e = new Employee(id, firstName, lastName);
         e.setDepartment(department);
