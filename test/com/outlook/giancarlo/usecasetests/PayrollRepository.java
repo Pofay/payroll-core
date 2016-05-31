@@ -19,7 +19,7 @@ public class PayrollRepository {
     private static final Map<Integer, Employee> employees = new HashMap<>();
     private static final Map<Integer, Department> departments = new HashMap<>();
 
-    public static Employee getEmployee(int empId) {
+    public Employee getEmployee(int empId) {
         return employees.get(empId);
     }
 

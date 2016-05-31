@@ -25,14 +25,16 @@ import static org.junit.Assert.assertThat;
 @RunWith(HierarchicalContextRunner.class)
 public class PayrollTest {
 
+    PayrollRepository repository;
+
     @Before
     public void beforeEach() {
-
+        repository = new PayrollRepository();
     }
 
     @After
     public void afterEach() {
-        PayrollRepository.reset();
+        repository.reset();
     }
 
     public class EntityCreationContext {
@@ -44,7 +46,7 @@ public class PayrollTest {
 
             ce.execute();
 
-            Employee e = PayrollRepository.getEmployee(empId);
+            Employee e = repository.getEmployee(empId);
             String actualName = String.format("%s %s", e.getFirstName(), e.getLastName());
             assertThat(actualName, is("Gian Carlo Gilos"));
             assertThat(e.getId(), is(1));
@@ -56,7 +58,7 @@ public class PayrollTest {
 
             ce.execute();
 
-            Employee e = PayrollRepository.getEmployee(2);
+            Employee e = repository.getEmployee(2);
             assertThat(e.getDepartmentName(), is("Unassigned"));
             assertThat(e.getDepartmentId(), is(1));
         }
@@ -91,7 +93,7 @@ public class PayrollTest {
 
         @Test
         public void ItShouldBeAbleToAddAEmployeeToASpecificDepartment() {
-            Employee e = PayrollRepository.getEmployee(empId);
+            Employee e = repository.getEmployee(empId);
 
             PayrollRepository.addEmployeeToDepartment(deptId, e);
 
@@ -100,7 +102,6 @@ public class PayrollTest {
         }
     }
 
-    //@Ignore
     @Test
     public void ItShouldBeAbleToGetTheEmployeesOfASpecificDepartment() {
         int deptId = 2;
@@ -115,7 +116,7 @@ public class PayrollTest {
         usecase2.execute();
         usecase3.execute();
 
-        Employee e1 = PayrollRepository.getEmployee(7);
+        Employee e1 = repository.getEmployee(7);
         PayrollRepository.addEmployeeToDepartment(deptId, e1);
 
         Department d = PayrollRepository.getDepartment(deptId);
