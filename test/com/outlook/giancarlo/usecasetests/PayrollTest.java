@@ -67,7 +67,7 @@ public class PayrollTest {
         public void ItShouldBeAbleToCreateANewDepartment() {
             int deptId = 3;
             String deptName = "Accounting";
-            CreateDepartment cd = new CreateDepartment(deptId, deptName);
+            CreateDepartment cd = new CreateDepartment(repository, deptId, deptName);
 
             cd.execute();
 
@@ -85,7 +85,7 @@ public class PayrollTest {
 
         @Before
         public void setup() {
-            CreateDepartment cd = new CreateDepartment(deptId, "Management");
+            CreateDepartment cd = new CreateDepartment(repository, deptId, "Management");
             cd.execute();
             CreateEmployee ce = new CreateEmployee(repository, empId, "Gian Carlo", "Gilos");
             ce.execute();
@@ -105,7 +105,7 @@ public class PayrollTest {
     @Test
     public void ItShouldBeAbleToGetTheEmployeesOfASpecificDepartment() {
         int deptId = 2;
-        CreateDepartment cd = new CreateDepartment(deptId, "Computer Science");
+        CreateDepartment cd = new CreateDepartment(repository, deptId, "Computer Science");
 
         CreateEmployee usecase1 = new CreateEmployee(repository, 5, "Happah", "Brown");
         CreateEmployee usecase2 = new CreateEmployee(repository, 6, "Ferrer", "Rallat");

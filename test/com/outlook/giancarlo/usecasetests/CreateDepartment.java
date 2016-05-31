@@ -13,16 +13,18 @@ public class CreateDepartment {
 
     private final String name;
     private final int id;
+    private PayrollRepository repository;
 
-    public CreateDepartment(int id, String name) {
-        this.id = id;
-        this.name= name;
+    public CreateDepartment(PayrollRepository repository, int deptId, String deptName) {
+        this.id = deptId;
+        this.name = deptName;
+        this.repository = repository;
     }
 
     public void execute() {
         Department d = new Department(id, name);
-        
+
         PayrollRepository.add(d);
     }
-    
+
 }
