@@ -16,8 +16,8 @@ import java.util.Map;
  */
 public class PayrollRepository {
 
-    private static final Map<Integer, Employee> employees = new HashMap<>();
-    private static final Map<Integer, Department> departments = new HashMap<>();
+    private final Map<Integer, Employee> employees = new HashMap<>();
+    private final Map<Integer, Department> departments = new HashMap<>();
 
     public Employee getEmployee(int empId) {
         return employees.get(empId);
@@ -50,7 +50,7 @@ public class PayrollRepository {
         return queriedEmployees;
     }
 
-    public static void reset() {
+    public void reset() {
         employees.clear();
         departments.clear();
     }
