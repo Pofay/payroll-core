@@ -21,14 +21,21 @@ public class InMemoryPayrollRepository implements PayrollRepository {
 
     @Override
     public Employee getEmployee(int empId) {
-        return employees.get(empId);
+        Employee e = employees.get(empId);
+        if (e == null) {
+            throw new EmployeeDoesNotExistException(
+                    String.format("Employee with id of %d does not exist", empId).toUpperCase());
+        } else {
+            return e;
+        }
     }
 
     @Override
     public Department getDepartment(int deptId) {
         Department d = departments.get(deptId);
         if (d == null) {
-            throw new DepartmentDoesNotExistException("Department does not exist".toUpperCase());
+            throw new DepartmentDoesNotExistException(
+                    String.format("Department with id of %d does not exist", deptId).toUpperCase());
         } else {
             return d;
         }
