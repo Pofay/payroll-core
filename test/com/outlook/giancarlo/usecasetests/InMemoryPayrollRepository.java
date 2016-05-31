@@ -26,7 +26,12 @@ public class InMemoryPayrollRepository implements PayrollRepository {
 
     @Override
     public Department getDepartment(int deptId) {
-        return departments.get(deptId);
+        Department d = departments.get(deptId);
+        if (d == null) {
+            throw new DepartmentDoesNotExistException("Department does not exist".toUpperCase());
+        } else {
+            return d;
+        }
     }
 
     @Override

@@ -20,6 +20,7 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import org.junit.Assert;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -126,5 +127,26 @@ public class PayrollTest {
         List<Employee> actualList = repository.getAllEmployeesOfDepartment(deptId);
 
         assertThat(actualList.size(), is(1));
+    }
+
+    @Test
+    public void ItShouldThrowAnExceptionWhenAddingAnEmployeeToANonExistingDepartment() {
+        int deptId = 4;
+        int empId = 2;
+
+        CreateEmployee ce = new CreateEmployee(repository, empId, "Gian Carlo", "Gilos");
+
+        ce.execute();
+
+        Employee e = repository.getEmployee(empId);
+        
+        try {
+            repository.addEmployeeToDepartment(deptId, e);
+            Assert.fail("Should have Thrown Exception");
+        } catch (DepartmentDoesNotExistException exception) {
+            String expectedExceptionMessage = "Department does not Exist";
+            assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
+        }
+        
     }
 }
