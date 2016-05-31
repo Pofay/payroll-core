@@ -34,7 +34,7 @@ public class Department {
         return id;
     }
 
-    void addEmployee(Employee e) {
+    public void addEmployee(Employee e) {
         employees.put(e.getId(), e);
         e.setDepartment(this);
     }
