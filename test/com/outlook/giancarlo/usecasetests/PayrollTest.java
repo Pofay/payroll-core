@@ -31,16 +31,11 @@ import static org.junit.Assert.fail;
 @RunWith(HierarchicalContextRunner.class)
 public class PayrollTest {
 
-    InMemoryPayrollRepository repository;
+    PayrollRepository repository;
 
     @Before
     public void beforeEach() {
         repository = new InMemoryPayrollRepository();
-    }
-
-    @After
-    public void afterEach() {
-        repository.reset();
     }
 
     public class EntityCreationContext {

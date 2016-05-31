@@ -15,9 +15,9 @@ public class CreateEmployee implements Usecase {
     private final String firstName;
     private final int id;
     private final Department department;
-    private InMemoryPayrollRepository repository;
+    private PayrollRepository repository;
 
-    public CreateEmployee(InMemoryPayrollRepository repository, int empId, String firstName, String lastName) {
+    public CreateEmployee(PayrollRepository repository, int empId, String firstName, String lastName) {
         if (empId <= 0) {
             throw new IllegalArgumentException("Employee Id should be a positive number".toUpperCase());
         } else {

@@ -62,10 +62,4 @@ public class InMemoryPayrollRepository implements PayrollRepository {
         Department d = getDepartment(deptId);
         return d.getAllEmployees();
     }
-
-    public void reset() {
-        employees.clear();
-        departments.clear();
-    }
-
 }
