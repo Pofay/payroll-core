@@ -24,4 +24,20 @@ public interface PayrollRepository {
     Department getDepartment(int deptId);
 
     Employee getEmployee(int empId);
+
+    public static class EmployeeDoesNotExistException extends RuntimeException {
+
+        public EmployeeDoesNotExistException(String message) {
+            super(message);
+        }
+
+    }
+
+    public static class DepartmentDoesNotExistException extends RuntimeException {
+
+        public DepartmentDoesNotExistException(String message) {
+            super(message);
+        }
+
+    }
 }

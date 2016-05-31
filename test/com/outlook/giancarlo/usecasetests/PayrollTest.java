@@ -6,29 +6,11 @@
 package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.CoreMatchers.is;
-import org.junit.After;
-import static org.junit.Assert.assertThat;
 import org.junit.Before;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
 import org.junit.Assert;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -168,7 +150,7 @@ public class PayrollTest {
             try {
                 repository.addEmployeeToDepartment(deptId, e);
                 Assert.fail("Should have Thrown Exception");
-            } catch (DepartmentDoesNotExistException exception) {
+            } catch (PayrollRepository.DepartmentDoesNotExistException exception) {
                 String expectedExceptionMessage
                         = String.format("Department with id of %d does not exist", deptId);
                 assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
@@ -185,7 +167,7 @@ public class PayrollTest {
 
                 Employee e = repository.getEmployee(0);
                 fail("Should have thrown Exception");
-            } catch (EmployeeDoesNotExistException exception) {
+            } catch (PayrollRepository.EmployeeDoesNotExistException exception) {
                 String expectedExceptionMessage
                         = String.format("Employee with id of %d does not exist", 0);
                 assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
