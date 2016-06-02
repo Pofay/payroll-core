@@ -11,11 +11,18 @@ package com.outlook.giancarlo.usecasetests;
  */
 public class AddEmployeeToDepartment {
 
+    private final PayrollRepository repository;
+    private final int deptId;
+    private final Employee employee;
+
     public AddEmployeeToDepartment(PayrollRepository repository, int deptId, Employee e) {
+        this.repository = repository;
+        this.deptId = deptId;
+        this.employee = e;
     }
 
     void execute() {
-        
+        repository.addEmployeeToDepartment(deptId, employee);
     }
-    
+
 }
