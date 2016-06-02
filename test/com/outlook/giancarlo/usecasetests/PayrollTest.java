@@ -18,6 +18,12 @@ import org.junit.Ignore;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -108,7 +114,7 @@ public class PayrollTest {
         }
     }
 
-    public class AddEmployeeToDepartment {
+    public class AddEmployeeToDepartmentContext {
 
         int empId = 1;
         int deptId = 2;
@@ -127,8 +133,9 @@ public class PayrollTest {
         public void ItShouldBeAbleToAddAEmployeeToASpecificDepartment() {
             Employee e = repository.getEmployee(empId);
 
+//            AddEmployeeToDepartment aetd = new AddEmployeeToDepartment(repository, deptId, e);
+//            aetd.execute();
             repository.addEmployeeToDepartment(deptId, e);
-
             String expectedDepartmentName = "Management";
             assertThat(e.getDepartmentId(), is(deptId));
             assertThat(e.getDepartmentName(), is(expectedDepartmentName));
@@ -137,6 +144,7 @@ public class PayrollTest {
         @Test
         public void ItShouldThrowAnExceptionWhenAddingAnEmployeeToANonExistingDepartment() {
             Employee e = repository.getEmployee(empId);
+            int deptId = 1;
 
             try {
                 repository.addEmployeeToDepartment(deptId, e);
