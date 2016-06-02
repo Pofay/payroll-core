@@ -20,14 +20,12 @@ public class InMemoryPayrollRepository implements PayrollRepository {
 
     @Override
     public Employee getEmployeeById(int empId) {
-
         return employees.get(empId);
 
     }
 
     @Override
     public Department getDepartmentById(int deptId) {
-
         return departments.get(deptId);
     }
 
@@ -47,7 +45,7 @@ public class InMemoryPayrollRepository implements PayrollRepository {
     }
 
     @Override
-    public List<Employee> getAllEmployeesOfDepartment(int deptId) {
+    public List<Employee> getAllEmployeesWithDepartmentIdOf(int deptId) {
         Department d = getDepartmentById(deptId);
         return d.getAllEmployees();
     }

@@ -13,6 +13,7 @@ public class Employee {
 
     private final int id;
     private final String firstName;
+
     private final String lastName;
     private Department department;
 
@@ -46,4 +47,12 @@ public class Employee {
         return department.getName();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        Employee e = (Employee) obj;
+        if (this.getId() == e.getId()) {
+            return true;
+        }
+        return false;
+    }
 }

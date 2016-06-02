@@ -19,7 +19,7 @@ public interface PayrollRepository {
 
     void addEmployeeToDepartment(Department d, Employee e);
 
-    List<Employee> getAllEmployeesOfDepartment(int deptId);
+    List<Employee> getAllEmployeesWithDepartmentIdOf(int deptId);
 
     Department getDepartmentById(int deptId);
 

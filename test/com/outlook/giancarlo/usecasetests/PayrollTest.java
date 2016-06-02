@@ -12,52 +12,7 @@ import org.junit.runner.RunWith;
 import org.junit.Before;
 import org.junit.Assert;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import org.junit.Ignore;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -167,8 +122,7 @@ public class PayrollTest {
 
         @Test
         public void ItShouldBeAbleToAddAEmployeeToASpecificDepartment() {
-            AddEmployeeToDepartment aetd = new AddEmployeeToDepartment(repository, deptId, empId);
-            aetd.execute();
+            executeAddEmployeeToDepartment(deptId, empId);
 
             Employee e = repository.getEmployeeById(empId);
             String expectedDepartmentName = "Management";
@@ -178,61 +132,72 @@ public class PayrollTest {
 
         @Test
         public void ItShouldThrowAnExceptionWhenAddingAnEmployeeToANonExistingDepartment() {
-            int deptId = 1;
+            int notExistingdeptId = 1;
 
             try {
-                AddEmployeeToDepartment aetd = new AddEmployeeToDepartment(repository, deptId, empId);
-                aetd.execute();
+                executeAddEmployeeToDepartment(notExistingdeptId, empId);
                 Assert.fail("Should have Thrown Exception");
             } catch (PayrollRepository.DepartmentDoesNotExistException exception) {
                 String expectedExceptionMessage
-                        = String.format("Department with id of %d does not exist", deptId);
+                        = String.format("Department with id of %d does not exist", notExistingdeptId);
                 assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
             }
         }
 
     }
 
-//    @Test
-//    public void ItShouldBeAbleToGetAnEmployeeFromADepartment() {
-//        int deptId = 2;
-//        String deptName = "Computer Science";
-//
-//        executeDepartmentCreation(deptId, deptName);
-//
-//        String empFirstNames[] = {"Happah", "Ferrer", "Matthew"};
-//        String empLastNames[] = {"Brown", "Rallat", "Cooper"};
-//        int empIds[] = {5, 6, 7};
-//
-//        for (int i = 0; i < empFirstNames.length; i++) {
-//            executeEmployeeCreation(empIds[i], empFirstNames[i], empLastNames[i]);
-//        }
-//
-//        Employee e1 = repository.getEmployee(7);
-//        repository.addEmployeeToDepartment(deptId, e1);
-//
-//        List<Employee> actualList = repository.getAllEmployeesOfDepartment(deptId);
-//
-//        assertThat(actualList.size(), is(1));
-//    }
-//    @Ignore
-//    @Test
-//    public void ItShouldThrowAnExceptionWhenQueryingForEmployeeThatDoesNotExist() {
-//        int empId = 3;
-//        String firstName = "Gian Carlo";
-//        String lastName = "Gilos";
-//
-//        executeEmployeeCreation(empId, firstName, lastName);
-//        try {
-//
-//            Employee e = repository.getEmployee(0);
-//            fail("Should have thrown Exception");
-//        } catch (PayrollRepository.EmployeeDoesNotExistException exception) {
-//            String expectedExceptionMessage
-//                    = String.format("Employee with id of %d does not exist", 0);
-//            assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
-//        }
-//    }
+    private void executeAddEmployeeToDepartment(int deptId, int empId) {
+        AddEmployeeToDepartment aetd = new AddEmployeeToDepartment(repository, deptId, empId);
+        aetd.execute();
+    }
+
+    @Test
+    public void ItShouldBeAbleToGetAnEmployeeFromADepartment() {
+        int deptId = 2;
+        String deptName = "Computer Science";
+
+        executeDepartmentCreation(deptId, deptName);
+
+        String empFirstNames[] = {"Happah", "Ferrer", "Matthew"};
+        String empLastNames[] = {"Brown", "Rallat", "Cooper"};
+        int empIds[] = {5, 6, 7};
+        int idOfLastEmp = 7;
+
+        for (int i = 0; i < empFirstNames.length; i++) {
+            executeEmployeeCreation(empIds[i], empFirstNames[i], empLastNames[i]);
+        }
+
+        AddEmployeeToDepartment aetd = new AddEmployeeToDepartment(repository, deptId, idOfLastEmp);
+        aetd.execute();
+
+        int first = 0;
+        List<Employee> actualList = repository.getAllEmployeesWithDepartmentIdOf(deptId);
+        Employee actualEmp = actualList.get(first);
+        
+        Employee expected = repository.getEmployeeById(idOfLastEmp);
+        assertThat(actualList.size(), is(1));
+        assertThat(actualEmp, is(expected));
+    }
+    //    }
+    //    @Ignore
+    //    @Test
+    //    public void ItShouldThrowAnExceptionWhenQueryingForEmployeeThatDoesNotExist() {
+    //        int empId = 3;
+    //        String firstName = "Gian Carlo";
+    //        String lastName = "Gilos";
+    //
+    //        executeEmployeeCreation(empId, firstName, lastName);
+    //        try {
+    //
+    //            Employee e = repository.getEmployee(0);
+    //            fail("Should have thrown Exception");
+    //        } catch (PayrollRepository.EmployeeDoesNotExistException exception) {
+    //            String expectedExceptionMessage
+    //                    = String.format("Employee with id of %d does not exist", 0);
+    //            assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
+    //        }
+    //    }
+
     private void executeEmployeeCreation(final int empId, String firstName, String lastName) {
         CreateEmployee ce = new CreateEmployee(repository, empId, firstName, lastName);
         ce.execute();
