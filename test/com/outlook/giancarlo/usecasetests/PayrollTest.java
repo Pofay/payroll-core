@@ -15,6 +15,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -146,39 +150,45 @@ public class PayrollTest {
 
     }
 
+    public class FilteringEmployeeByDepartmentContext {
+
+        int deptId = 2;
+        int idOfLastEmp = 7;
+
+        @Before
+        public void beforeEach() {
+            String deptName = "Computer Science";
+
+            executeDepartmentCreation(deptId, deptName);
+
+            String empFirstNames[] = {"Happah", "Ferrer", "Matthew"};
+            String empLastNames[] = {"Brown", "Rallat", "Cooper"};
+            int empIds[] = {5, 6, 7};
+
+            for (int i = 0; i < empFirstNames.length; i++) {
+                executeEmployeeCreation(empIds[i], empFirstNames[i], empLastNames[i]);
+            }
+
+            executeAddEmployeeToDepartment(deptId, idOfLastEmp);
+        }
+
+        @Test
+        public void ItShouldBeAbleToFilterAnEmployeeByItsDepartment() {
+            int first = 0;
+            List<Employee> actualList = repository.getAllEmployeesWithDepartmentIdOf(deptId);
+            Employee actualEmp = actualList.get(first);
+
+            Employee expected = repository.getEmployeeById(idOfLastEmp);
+            assertThat(actualList.size(), is(1));
+            assertThat(actualEmp, is(expected));
+        }
+    }
+
     private void executeAddEmployeeToDepartment(int deptId, int empId) {
         AddEmployeeToDepartment aetd = new AddEmployeeToDepartment(repository, deptId, empId);
         aetd.execute();
     }
 
-    @Test
-    public void ItShouldBeAbleToGetAnEmployeeFromADepartment() {
-        int deptId = 2;
-        String deptName = "Computer Science";
-
-        executeDepartmentCreation(deptId, deptName);
-
-        String empFirstNames[] = {"Happah", "Ferrer", "Matthew"};
-        String empLastNames[] = {"Brown", "Rallat", "Cooper"};
-        int empIds[] = {5, 6, 7};
-        int idOfLastEmp = 7;
-
-        for (int i = 0; i < empFirstNames.length; i++) {
-            executeEmployeeCreation(empIds[i], empFirstNames[i], empLastNames[i]);
-        }
-
-        AddEmployeeToDepartment aetd = new AddEmployeeToDepartment(repository, deptId, idOfLastEmp);
-        aetd.execute();
-
-        int first = 0;
-        List<Employee> actualList = repository.getAllEmployeesWithDepartmentIdOf(deptId);
-        Employee actualEmp = actualList.get(first);
-        
-        Employee expected = repository.getEmployeeById(idOfLastEmp);
-        assertThat(actualList.size(), is(1));
-        assertThat(actualEmp, is(expected));
-    }
-   
     private void executeEmployeeCreation(final int empId, String firstName, String lastName) {
         CreateEmployee ce = new CreateEmployee(repository, empId, firstName, lastName);
         ce.execute();
