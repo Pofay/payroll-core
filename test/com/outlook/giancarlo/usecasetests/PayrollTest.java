@@ -14,6 +14,7 @@ import org.junit.Assert;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import org.junit.Ignore;
 
 /**
  *
@@ -34,25 +35,32 @@ public class PayrollTest {
         @Test
         public void ItShouldBeAbleToCreateAnEmployee() {
             final int empId = 1;
-            CreateEmployee ce = new CreateEmployee(repository, empId, "Gian Carlo", "Gilos");
+            String firstName = "Gian Carlo";
+            String lastName = "Gilos";
+            CreateEmployee ce = new CreateEmployee(repository, empId, firstName, lastName);
 
             ce.execute();
 
             Employee e = repository.getEmployee(empId);
             String actualName = String.format("%s %s", e.getFirstName(), e.getLastName());
             assertThat(actualName, is("Gian Carlo Gilos"));
-            assertThat(e.getId(), is(1));
+            assertThat(e.getId(), is(empId));
         }
 
         @Test
-        public void ACreatedEmployeeShouldHaveADefaultDepartment() {
-            CreateEmployee ce = new CreateEmployee(repository, 2, "John", "Imperial");
+        public void ACreatedEmployeeShouldHaveADefaultUnassignedDepartment() {
+            int empId = 2;
+            String firstName = "John";
+            String lastName = "Imperial";
+            CreateEmployee ce = new CreateEmployee(repository, empId, firstName, lastName);
 
             ce.execute();
 
-            Employee e = repository.getEmployee(2);
-            assertThat(e.getDepartmentName(), is("Unassigned"));
-            assertThat(e.getDepartmentId(), is(1));
+            int expectedDeptId = 1;
+            String expectedDepartmentName = "Unassigned";
+            Employee e = repository.getEmployee(empId);
+            assertThat(e.getDepartmentName(), is(expectedDepartmentName));
+            assertThat(e.getDepartmentId(), is(expectedDeptId));
         }
 
         @Test
@@ -64,14 +72,18 @@ public class PayrollTest {
             cd.execute();
 
             Department department = repository.getDepartment(deptId);
-            assertThat(department.getName(), is("Accounting"));
-            assertThat(department.getId(), is(3));
+            String expectedDepartmentName = "Accounting";
+            assertThat(department.getName(), is(expectedDepartmentName));
+            assertThat(department.getId(), is(deptId));
         }
 
         @Test
         public void ItShouldThrowAnExceptionWhenCreatingAnEmployeeWithAnIdOflesserThan1() {
             try {
-                CreateEmployee ce1 = new CreateEmployee(repository, 0, "Raul", "Watson");
+                int empId = 0;
+                String firstName = "Raul";
+                String lastName = "Watson";
+                CreateEmployee ce1 = new CreateEmployee(repository, empId, firstName, lastName);
                 fail("Should have thrown Exception");
             } catch (IllegalArgumentException e) {
                 String expectedMessage = "Employee Id should be a positive number";
@@ -82,7 +94,9 @@ public class PayrollTest {
         @Test
         public void ItShouldThrowAnExceptionWhenCreatingADepartmentWithAnIdLesserThan1() {
             try {
-                CreateDepartment cd = new CreateDepartment(repository, 0, "Computer Science");
+                int deptId = 0;
+                String deptName = "Computer Science";
+                CreateDepartment cd = new CreateDepartment(repository, deptId, deptName);
                 fail("Should have thrown Exception");
             } catch (IllegalArgumentException e) {
                 String expectedMessage = "Department Id must be a positive number";
@@ -109,15 +123,17 @@ public class PayrollTest {
 
                 repository.addEmployeeToDepartment(deptId, e);
 
-                assertThat(e.getDepartmentId(), is(2));
-                assertThat(e.getDepartmentName(), is("Management"));
+                String expectedDepartmentName = "Management";
+                assertThat(e.getDepartmentId(), is(deptId));
+                assertThat(e.getDepartmentName(), is(expectedDepartmentName));
             }
         }
 
         @Test
         public void ItShouldBeAbleToGetTheEmployeesOfASpecificDepartment() {
             int deptId = 2;
-            CreateDepartment cd = new CreateDepartment(repository, deptId, "Computer Science");
+            String deptName = "Computer Science";
+            CreateDepartment cd = new CreateDepartment(repository, deptId, deptName);
 
             CreateEmployee usecase1 = new CreateEmployee(repository, 5, "Happah", "Brown");
             CreateEmployee usecase2 = new CreateEmployee(repository, 6, "Ferrer", "Rallat");
@@ -136,12 +152,15 @@ public class PayrollTest {
             assertThat(actualList.size(), is(1));
         }
 
+        
         @Test
         public void ItShouldThrowAnExceptionWhenAddingAnEmployeeToANonExistingDepartment() {
             int deptId = 4;
             int empId = 2;
+            String firstName = "Gian Carlo";
+            String lastName = "Gilos";
 
-            CreateEmployee ce = new CreateEmployee(repository, empId, "Gian Carlo", "Gilos");
+            CreateEmployee ce = new CreateEmployee(repository, empId, firstName, lastName);
 
             ce.execute();
 
@@ -160,7 +179,9 @@ public class PayrollTest {
         @Test
         public void ItShouldThrowAnExceptionWhenQueryingForEmployeeThatDoesNotExist() {
             int empId = 3;
-            CreateEmployee ce = new CreateEmployee(repository, empId, "Gian Carlo", "Gilos");
+            String firstName = "Gian Carlo";
+            String lastName = "Gilos";
+            CreateEmployee ce = new CreateEmployee(repository, empId, firstName, lastName);
 
             ce.execute();
             try {
