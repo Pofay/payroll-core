@@ -1,7 +1,6 @@
 language: java
 sudo: false
 notifications:
-  slack:
-    on_success: always
+  slack: dmc-dev:GQNLSaa4pIZ1vrONBpVXaPuA
 jdk:
   - oraclejdk8
