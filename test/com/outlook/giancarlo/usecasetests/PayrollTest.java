@@ -85,7 +85,7 @@ public class PayrollTest {
             String lastName = "Watson";
 
             try {
-                CreateEmployee ce1 = new CreateEmployee(repository, empId, firstName, lastName);
+                CreateEmployee ce = new CreateEmployee(repository, empId, firstName, lastName);
                 fail("Should have thrown Exception");
             } catch (IllegalArgumentException e) {
                 String expectedMessage = "Employee Id should be a positive number";
