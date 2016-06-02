@@ -21,10 +21,15 @@ public class AddEmployeeToDepartment {
         this.empId = empId;
     }
 
-    void execute() {
+    public void execute() {
         Employee e = repository.getEmployeeById(empId);
         Department d = repository.getDepartmentById(deptId);
-        repository.addEmployeeToDepartment(d, e);
-    }
+        if (d == null) {
+            throw new PayrollRepository.DepartmentDoesNotExistException(
+                    String.format("Department with id of %d does not exist", deptId).toUpperCase());
+        } else {
+            repository.addEmployeeToDepartment(d, e);
+        }
 
+    }
 }
