@@ -9,7 +9,7 @@ package com.outlook.giancarlo.usecasetests;
  *
  * @author pofay
  */
-public class AddEmployeeToDepartment {
+public class AddEmployeeToDepartment implements Usecase{
 
     private final PayrollRepository repository;
     private final int deptId;
@@ -21,6 +21,7 @@ public class AddEmployeeToDepartment {
         this.empId = empId;
     }
 
+    @Override
     public void execute() {
         Employee e = repository.getEmployeeById(empId);
         Department d = repository.getDepartmentById(deptId);
