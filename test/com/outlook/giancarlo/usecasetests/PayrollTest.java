@@ -178,26 +178,7 @@ public class PayrollTest {
         assertThat(actualList.size(), is(1));
         assertThat(actualEmp, is(expected));
     }
-    //    }
-    //    @Ignore
-    //    @Test
-    //    public void ItShouldThrowAnExceptionWhenQueryingForEmployeeThatDoesNotExist() {
-    //        int empId = 3;
-    //        String firstName = "Gian Carlo";
-    //        String lastName = "Gilos";
-    //
-    //        executeEmployeeCreation(empId, firstName, lastName);
-    //        try {
-    //
-    //            Employee e = repository.getEmployee(0);
-    //            fail("Should have thrown Exception");
-    //        } catch (PayrollRepository.EmployeeDoesNotExistException exception) {
-    //            String expectedExceptionMessage
-    //                    = String.format("Employee with id of %d does not exist", 0);
-    //            assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
-    //        }
-    //    }
-
+   
     private void executeEmployeeCreation(final int empId, String firstName, String lastName) {
         CreateEmployee ce = new CreateEmployee(repository, empId, firstName, lastName);
         ce.execute();
