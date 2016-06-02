@@ -23,7 +23,8 @@ public class AddEmployeeToDepartment {
 
     void execute() {
         Employee e = repository.getEmployee(empId);
-        repository.addEmployeeToDepartment(deptId, e);
+        Department d = repository.getDepartment(deptId);
+        repository.addEmployeeToDepartment(d, e);
     }
 
 }

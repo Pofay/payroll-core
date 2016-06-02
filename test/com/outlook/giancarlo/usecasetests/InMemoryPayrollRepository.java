@@ -51,8 +51,7 @@ public class InMemoryPayrollRepository implements PayrollRepository {
     }
 
     @Override
-    public void addEmployeeToDepartment(int deptId, Employee e) {
-        Department d = getDepartment(deptId);
+    public void addEmployeeToDepartment(Department d, Employee e) {
         d.addEmployee(e);
     }
 

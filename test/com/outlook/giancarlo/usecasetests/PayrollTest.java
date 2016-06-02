@@ -134,70 +134,70 @@ public class PayrollTest {
             AddEmployeeToDepartment aetd = new AddEmployeeToDepartment(repository, deptId, empId);
             aetd.execute();
             
-            String expectedDepartmentName = "Management";
             Employee e = repository.getEmployee(empId);
+            String expectedDepartmentName = "Management";
             assertThat(e.getDepartmentId(), is(deptId));
             assertThat(e.getDepartmentName(), is(expectedDepartmentName));
         }
 
-        @Test
-        public void ItShouldThrowAnExceptionWhenAddingAnEmployeeToANonExistingDepartment() {
-            Employee e = repository.getEmployee(empId);
-            int deptId = 1;
-
-            try {
-                repository.addEmployeeToDepartment(deptId, e);
-                Assert.fail("Should have Thrown Exception");
-            } catch (PayrollRepository.DepartmentDoesNotExistException exception) {
-                String expectedExceptionMessage
-                        = String.format("Department with id of %d does not exist", deptId);
-                assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
-            }
-        }
+//        @Test
+//        public void ItShouldThrowAnExceptionWhenAddingAnEmployeeToANonExistingDepartment() {
+//            Employee e = repository.getEmployee(empId);
+//            int deptId = 1;
+//
+//            try {
+//                repository.addEmployeeToDepartment(deptId, e);
+//                Assert.fail("Should have Thrown Exception");
+//            } catch (PayrollRepository.DepartmentDoesNotExistException exception) {
+//                String expectedExceptionMessage
+//                        = String.format("Department with id of %d does not exist", deptId);
+//                assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
+//            }
+//        }
 
     }
 
-    @Test
-    public void ItShouldBeAbleToGetAnEmployeeFromADepartment() {
-        int deptId = 2;
-        String deptName = "Computer Science";
+//    @Test
+//    public void ItShouldBeAbleToGetAnEmployeeFromADepartment() {
+//        int deptId = 2;
+//        String deptName = "Computer Science";
+//
+//        executeDepartmentCreation(deptId, deptName);
+//
+//        String empFirstNames[] = {"Happah", "Ferrer", "Matthew"};
+//        String empLastNames[] = {"Brown", "Rallat", "Cooper"};
+//        int empIds[] = {5, 6, 7};
+//
+//        for (int i = 0; i < empFirstNames.length; i++) {
+//            executeEmployeeCreation(empIds[i], empFirstNames[i], empLastNames[i]);
+//        }
+//
+//        Employee e1 = repository.getEmployee(7);
+//        repository.addEmployeeToDepartment(deptId, e1);
+//
+//        List<Employee> actualList = repository.getAllEmployeesOfDepartment(deptId);
+//
+//        assertThat(actualList.size(), is(1));
+//    }
 
-        executeDepartmentCreation(deptId, deptName);
-
-        String empFirstNames[] = {"Happah", "Ferrer", "Matthew"};
-        String empLastNames[] = {"Brown", "Rallat", "Cooper"};
-        int empIds[] = {5, 6, 7};
-
-        for (int i = 0; i < empFirstNames.length; i++) {
-            executeEmployeeCreation(empIds[i], empFirstNames[i], empLastNames[i]);
-        }
-
-        Employee e1 = repository.getEmployee(7);
-        repository.addEmployeeToDepartment(deptId, e1);
-
-        List<Employee> actualList = repository.getAllEmployeesOfDepartment(deptId);
-
-        assertThat(actualList.size(), is(1));
-    }
-
-    @Ignore
-    @Test
-    public void ItShouldThrowAnExceptionWhenQueryingForEmployeeThatDoesNotExist() {
-        int empId = 3;
-        String firstName = "Gian Carlo";
-        String lastName = "Gilos";
-
-        executeEmployeeCreation(empId, firstName, lastName);
-        try {
-
-            Employee e = repository.getEmployee(0);
-            fail("Should have thrown Exception");
-        } catch (PayrollRepository.EmployeeDoesNotExistException exception) {
-            String expectedExceptionMessage
-                    = String.format("Employee with id of %d does not exist", 0);
-            assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
-        }
-    }
+//    @Ignore
+//    @Test
+//    public void ItShouldThrowAnExceptionWhenQueryingForEmployeeThatDoesNotExist() {
+//        int empId = 3;
+//        String firstName = "Gian Carlo";
+//        String lastName = "Gilos";
+//
+//        executeEmployeeCreation(empId, firstName, lastName);
+//        try {
+//
+//            Employee e = repository.getEmployee(0);
+//            fail("Should have thrown Exception");
+//        } catch (PayrollRepository.EmployeeDoesNotExistException exception) {
+//            String expectedExceptionMessage
+//                    = String.format("Employee with id of %d does not exist", 0);
+//            assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
+//        }
+//    }
 
     private void executeEmployeeCreation(final int empId, String firstName, String lastName) {
         CreateEmployee ce = new CreateEmployee(repository, empId, firstName, lastName);
