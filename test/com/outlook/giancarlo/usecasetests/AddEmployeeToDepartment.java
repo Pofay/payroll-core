@@ -22,8 +22,8 @@ public class AddEmployeeToDepartment {
     }
 
     void execute() {
-        Employee e = repository.getEmployee(empId);
-        Department d = repository.getDepartment(deptId);
+        Employee e = repository.getEmployeeById(empId);
+        Department d = repository.getDepartmentById(deptId);
         repository.addEmployeeToDepartment(d, e);
     }
 

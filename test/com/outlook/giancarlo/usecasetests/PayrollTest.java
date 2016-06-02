@@ -24,6 +24,42 @@ import static org.junit.Assert.fail;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -49,7 +85,7 @@ public class PayrollTest {
 
             executeEmployeeCreation(empId, firstName, lastName);
 
-            Employee e = repository.getEmployee(empId);
+            Employee e = repository.getEmployeeById(empId);
             String actualName = String.format("%s %s", e.getFirstName(), e.getLastName());
             assertThat(actualName, is("Gian Carlo Gilos"));
             assertThat(e.getId(), is(empId));
@@ -65,7 +101,7 @@ public class PayrollTest {
 
             int expectedDeptId = 1;
             String expectedDepartmentName = "Unassigned";
-            Employee e = repository.getEmployee(empId);
+            Employee e = repository.getEmployeeById(empId);
             assertThat(e.getDepartmentName(), is(expectedDepartmentName));
             assertThat(e.getDepartmentId(), is(expectedDeptId));
         }
@@ -77,7 +113,7 @@ public class PayrollTest {
 
             executeDepartmentCreation(deptId, deptName);
 
-            Department department = repository.getDepartment(deptId);
+            Department department = repository.getDepartmentById(deptId);
             String expectedDepartmentName = "Accounting";
             assertThat(department.getName(), is(expectedDepartmentName));
             assertThat(department.getId(), is(deptId));
@@ -134,7 +170,7 @@ public class PayrollTest {
             AddEmployeeToDepartment aetd = new AddEmployeeToDepartment(repository, deptId, empId);
             aetd.execute();
             
-            Employee e = repository.getEmployee(empId);
+            Employee e = repository.getEmployeeById(empId);
             String expectedDepartmentName = "Management";
             assertThat(e.getDepartmentId(), is(deptId));
             assertThat(e.getDepartmentName(), is(expectedDepartmentName));

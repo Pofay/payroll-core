@@ -19,7 +19,7 @@ public class InMemoryPayrollRepository implements PayrollRepository {
     private final Map<Integer, Department> departments = new HashMap<>();
 
     @Override
-    public Employee getEmployee(int empId) {
+    public Employee getEmployeeById(int empId) {
         Employee e = employees.get(empId);
         if (e == null) {
             throw new EmployeeDoesNotExistException(
@@ -30,7 +30,7 @@ public class InMemoryPayrollRepository implements PayrollRepository {
     }
 
     @Override
-    public Department getDepartment(int deptId) {
+    public Department getDepartmentById(int deptId) {
         Department d = departments.get(deptId);
         if (d == null) {
             throw new DepartmentDoesNotExistException(
@@ -57,7 +57,7 @@ public class InMemoryPayrollRepository implements PayrollRepository {
 
     @Override
     public List<Employee> getAllEmployeesOfDepartment(int deptId) {
-        Department d = getDepartment(deptId);
+        Department d = getDepartmentById(deptId);
         return d.getAllEmployees();
     }
 }

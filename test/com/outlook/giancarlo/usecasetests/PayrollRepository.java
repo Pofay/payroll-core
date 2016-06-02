@@ -21,9 +21,9 @@ public interface PayrollRepository {
 
     List<Employee> getAllEmployeesOfDepartment(int deptId);
 
-    Department getDepartment(int deptId);
+    Department getDepartmentById(int deptId);
 
-    Employee getEmployee(int empId);
+    Employee getEmployeeById(int empId);
 
     public static class EmployeeDoesNotExistException extends RuntimeException {
 
