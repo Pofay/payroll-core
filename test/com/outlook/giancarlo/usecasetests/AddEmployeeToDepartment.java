@@ -13,16 +13,17 @@ public class AddEmployeeToDepartment {
 
     private final PayrollRepository repository;
     private final int deptId;
-    private final Employee employee;
+    private final int empId;
 
-    public AddEmployeeToDepartment(PayrollRepository repository, int deptId, Employee e) {
+    public AddEmployeeToDepartment(PayrollRepository repository, int deptId, int empId) {
         this.repository = repository;
         this.deptId = deptId;
-        this.employee = e;
+        this.empId = empId;
     }
 
     void execute() {
-        repository.addEmployeeToDepartment(deptId, employee);
+        Employee e = repository.getEmployee(empId);
+        repository.addEmployeeToDepartment(deptId, e);
     }
 
 }

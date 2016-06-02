@@ -131,12 +131,11 @@ public class PayrollTest {
 
         @Test
         public void ItShouldBeAbleToAddAEmployeeToASpecificDepartment() {
-            Employee e = repository.getEmployee(empId);
-
-            AddEmployeeToDepartment aetd = new AddEmployeeToDepartment(repository, deptId, e);
+            AddEmployeeToDepartment aetd = new AddEmployeeToDepartment(repository, deptId, empId);
             aetd.execute();
             
             String expectedDepartmentName = "Management";
+            Employee e = repository.getEmployee(empId);
             assertThat(e.getDepartmentId(), is(deptId));
             assertThat(e.getDepartmentName(), is(expectedDepartmentName));
         }
