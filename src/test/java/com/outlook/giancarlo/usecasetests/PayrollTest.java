@@ -18,6 +18,14 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -211,10 +219,10 @@ public class PayrollTest {
         public void ItDoesNotAddAnUnknownEmployeeToAnExistingDepartment() {
             int deptId = 10;
             int nonExistingEmpId = 40;
-            
+
             executeDepartmentCreation(deptId, "SomeDepartment");
             executeAddEmployeeToDepartment(deptId, nonExistingEmpId);
-            
+
             List<Employee> employees = repository.getAllEmployeesWithDepartmentIdOf(deptId);
 
             assertThat(employees.size(), is(0));

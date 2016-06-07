@@ -35,8 +35,8 @@ public class Department {
     }
 
     public void addEmployee(Employee e) {
-        employees.put(e.getId(), e);
         e.setDepartment(this);
+        employees.put(e.getId(), e);
     }
 
     public List<Employee> getAllEmployees() {

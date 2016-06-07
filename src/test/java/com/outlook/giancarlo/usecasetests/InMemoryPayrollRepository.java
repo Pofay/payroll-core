@@ -51,13 +51,8 @@ public class InMemoryPayrollRepository implements PayrollRepository {
     }
 
     @Override
-    public void transferEmployeeToDepartment(Department d, Employee e) {
-        if (!e.equals(Employee.UNKNOWN)) {
-            Department previous = getDepartmentById(e.getDepartmentId());
-            previous.remove(e);
-            d.addEmployee(e);
-        }
-
+    public void addEmployeeToDepartment(Department d, Employee e) {
+        d.addEmployee(e);
     }
 
     @Override

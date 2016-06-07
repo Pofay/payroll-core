@@ -24,7 +24,11 @@ public class TransferEmployeeToDepartment implements Usecase {
     @Override
     public void execute() {
         Employee e = repository.getEmployeeById(empId);
-        Department d = repository.getDepartmentById(deptId);
-        repository.transferEmployeeToDepartment(d, e);
+        if (!e.equals(Employee.UNKNOWN)) {
+            Department previous = repository.getDepartmentById(e.getDepartmentId());
+            Department next = repository.getDepartmentById(deptId);
+            previous.remove(e);
+            repository.addEmployeeToDepartment(next, e);
+        }
     }
 }

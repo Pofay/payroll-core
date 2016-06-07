@@ -17,7 +17,7 @@ public interface PayrollRepository {
 
     void add(Department d);
 
-    void transferEmployeeToDepartment(Department d, Employee e);
+    void addEmployeeToDepartment(Department d, Employee e);
 
     List<Employee> getAllEmployeesWithDepartmentIdOf(int deptId);
 

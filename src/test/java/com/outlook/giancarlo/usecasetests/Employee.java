@@ -17,7 +17,7 @@ public class Employee {
     private final String firstName;
     private final String lastName;
 
-    private Department department;
+    protected Department department;
 
     public Employee(int id, String firstName, String lastName) {
         this.id = id;
@@ -59,7 +59,7 @@ public class Employee {
 
         public UnknownEmployee(int empId, String firstName, String lastName) {
             super(empId, firstName, lastName);
-            setDepartment(new Department(0, "Unassigned"));
+            department = new Department(0, "Unassigned");
         }
     }
 }
