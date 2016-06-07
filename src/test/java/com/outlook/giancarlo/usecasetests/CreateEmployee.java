@@ -23,17 +23,18 @@ public class CreateEmployee implements Usecase {
         } else {
             this.id = empId;
         }
+        int unassignedDepartmentId = 0;
         this.firstName = firstName;
         this.lastName = lastName;
         this.repository = repository;
-        this.department = new Department(0, "Unassigned");
+        this.department = repository.getDepartmentById(unassignedDepartmentId);
     }
 
     @Override
     public void execute() {
         Employee e = new Employee(id, firstName, lastName);
+        department.addEmployee(e);
         e.setDepartment(department);
-
         repository.add(e);
     }
 

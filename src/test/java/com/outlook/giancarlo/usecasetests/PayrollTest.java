@@ -14,6 +14,9 @@ import org.junit.Assert;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -149,6 +152,8 @@ public class PayrollTest {
 
         int deptId = 2;
         int idOfLastEmp = 7;
+        String empFirstNames[] = {"Happah", "Ferrer", "Matthew"};
+        String empLastNames[] = {"Brown", "Rallat", "Cooper"};
 
         @Before
         public void beforeEach() {
@@ -156,8 +161,6 @@ public class PayrollTest {
 
             executeDepartmentCreation(deptId, deptName);
 
-            String empFirstNames[] = {"Happah", "Ferrer", "Matthew"};
-            String empLastNames[] = {"Brown", "Rallat", "Cooper"};
             int empIds[] = {5, 6, 7};
 
             for (int i = 0; i < empFirstNames.length; i++) {
@@ -166,16 +169,24 @@ public class PayrollTest {
 
             executeAddEmployeeToDepartment(deptId, idOfLastEmp);
         }
-
+ 
         @Test
         public void ItShouldBeAbleToFilterAnEmployeeByItsDepartment() {
             int first = 0;
             List<Employee> actualList = repository.getAllEmployeesWithDepartmentIdOf(deptId);
-            Employee actualEmp = actualList.get(first);
+            Employee actualEmp = actualList.get(first);                  
 
             Employee expected = repository.getEmployeeById(idOfLastEmp);
             assertThat(actualList.size(), is(1));
             assertThat(actualEmp, is(expected));
+        }
+        
+        @Test
+        public void ItShouldBeAbleToFilterAllEmployeesThatBelongToTheUnassignedDepartment() {
+            int unassignedDeptId = 0;
+            List<Employee> employees =repository.getAllEmployeesWithDepartmentIdOf(unassignedDeptId);
+            
+            assertThat(employees.size(), is(2));
         }
     }
 

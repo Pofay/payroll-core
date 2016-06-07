@@ -18,6 +18,10 @@ public class InMemoryPayrollRepository implements PayrollRepository {
     private final Map<Integer, Employee> employees = new HashMap<>();
     private final Map<Integer, Department> departments = new HashMap<>();
 
+    public InMemoryPayrollRepository() {
+        departments.put(0, new Department(0, "Unassigned"));
+    }
+
     @Override
     public Employee getEmployeeById(int empId) {
         return employees.get(empId);
@@ -40,7 +44,9 @@ public class InMemoryPayrollRepository implements PayrollRepository {
     }
 
     @Override
-    public void addEmployeeToDepartment(Department d, Employee e) {
+    public void transferEmployeeToDepartment(Department d, Employee e) {
+        Department previous = getDepartmentById(e.getDepartmentId());
+        previous.remove(e);
         d.addEmployee(e);
     }
 

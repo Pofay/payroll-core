@@ -13,8 +13,8 @@ public class Employee {
 
     private final int id;
     private final String firstName;
-
     private final String lastName;
+
     private Department department;
 
     public Employee(int id, String firstName, String lastName) {
@@ -26,7 +26,7 @@ public class Employee {
     public void setDepartment(Department d) {
         this.department = d;
     }
-
+    
     public String getFirstName() {
         return firstName;
     }

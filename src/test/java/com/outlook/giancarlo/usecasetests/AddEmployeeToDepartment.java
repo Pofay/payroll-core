@@ -29,7 +29,7 @@ public class AddEmployeeToDepartment implements Usecase{
             throw new PayrollRepository.DepartmentDoesNotExistException(
                     String.format("Department with id of %d does not exist", deptId).toUpperCase());
         } else {
-            repository.addEmployeeToDepartment(d, e);
+            repository.transferEmployeeToDepartment(d, e);
         }
 
     }
