@@ -9,13 +9,13 @@ package com.outlook.giancarlo.usecasetests;
  *
  * @author pofay
  */
-public class AddEmployeeToDepartment implements Usecase {
+public class TransferEmployeeToDepartment implements Usecase {
 
     private final PayrollRepository repository;
     private final int deptId;
     private final int empId;
 
-    public AddEmployeeToDepartment(PayrollRepository repository, int deptId, int empId) {
+    public TransferEmployeeToDepartment(PayrollRepository repository, int deptId, int empId) {
         this.repository = repository;
         this.deptId = deptId;
         this.empId = empId;

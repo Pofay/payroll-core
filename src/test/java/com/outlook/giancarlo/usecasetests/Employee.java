@@ -11,6 +11,8 @@ package com.outlook.giancarlo.usecasetests;
  */
 public class Employee {
 
+    public static final Employee UNKNOWN = new UnknownEmployee(0, "Unknown", "Unknown");
+
     private final int id;
     private final String firstName;
     private final String lastName;
@@ -26,7 +28,7 @@ public class Employee {
     public void setDepartment(Department d) {
         this.department = d;
     }
-    
+
     public String getFirstName() {
         return firstName;
     }

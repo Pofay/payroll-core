@@ -14,6 +14,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -196,16 +200,29 @@ public class PayrollTest {
             Employee e = repository.getEmployeeById(nonExistingEmpId);
 
             assertNotNull(e);
-            assertThat(e.getId(), is(nonExistingEmpId));
+            assertThat(e.getId(), is(0));
             assertThat(e.getFirstName(), is("Unknown"));
             assertThat(e.getLastName(), is("Unknown"));
             assertThat(e.getDepartmentName(), is("Unassigned"));
-            assertThat(e.getDepartmentId(),is(0));
+            assertThat(e.getDepartmentId(), is(0));
+        }
+
+        @Test
+        public void ItDoesNotAddAnUnknownEmployeeToAnExistingDepartment() {
+            int deptId = 10;
+            int nonExistingEmpId = 40;
+            
+            executeDepartmentCreation(deptId, "SomeDepartment");
+            executeAddEmployeeToDepartment(deptId, nonExistingEmpId);
+            
+            List<Employee> employees = repository.getAllEmployeesWithDepartmentIdOf(deptId);
+
+            assertThat(employees.size(), is(0));
         }
     }
 
     private void executeAddEmployeeToDepartment(int deptId, int empId) {
-        AddEmployeeToDepartment aetd = new AddEmployeeToDepartment(repository, deptId, empId);
+        TransferEmployeeToDepartment aetd = new TransferEmployeeToDepartment(repository, deptId, empId);
         aetd.execute();
     }
 

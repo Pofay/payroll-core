@@ -27,7 +27,7 @@ public class InMemoryPayrollRepository implements PayrollRepository {
         if (employees.containsKey(empId)) {
             return employees.get(empId);
         } else {
-            return new Employee.UnknownEmployee(empId, "Unknown", "Unknown");
+            return Employee.UNKNOWN;
         }
     }
 
@@ -52,9 +52,12 @@ public class InMemoryPayrollRepository implements PayrollRepository {
 
     @Override
     public void transferEmployeeToDepartment(Department d, Employee e) {
-        Department previous = getDepartmentById(e.getDepartmentId());
-        previous.remove(e);
-        d.addEmployee(e);
+        if (!e.equals(Employee.UNKNOWN)) {
+            Department previous = getDepartmentById(e.getDepartmentId());
+            previous.remove(e);
+            d.addEmployee(e);
+        }
+
     }
 
     @Override
