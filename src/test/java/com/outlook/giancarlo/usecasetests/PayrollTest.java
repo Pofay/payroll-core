@@ -26,6 +26,22 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -230,7 +246,7 @@ public class PayrollTest {
     }
 
     private void executeAddEmployeeToDepartment(int deptId, int empId) {
-        TransferEmployeeToDepartment aetd = new TransferEmployeeToDepartment(repository, deptId, empId);
+        ChangeEmployeeDepartment aetd = new ChangeEmployeeDepartment(repository, deptId, empId);
         aetd.execute();
     }
 
