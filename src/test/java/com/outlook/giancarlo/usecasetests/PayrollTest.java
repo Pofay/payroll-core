@@ -53,7 +53,7 @@ public class PayrollTest {
 
             executeEmployeeCreation(empId, firstName, lastName);
 
-            int expectedDeptId = 1;
+            int expectedDeptId = 0;
             String expectedDepartmentName = "Unassigned";
             Employee e = repository.getEmployeeById(empId);
             assertThat(e.getDepartmentName(), is(expectedDepartmentName));

@@ -26,7 +26,7 @@ public class CreateEmployee implements Usecase {
         this.firstName = firstName;
         this.lastName = lastName;
         this.repository = repository;
-        this.department = new Department(1, "Unassigned");
+        this.department = new Department(0, "Unassigned");
     }
 
     @Override
