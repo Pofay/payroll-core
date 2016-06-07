@@ -10,29 +10,8 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.Before;
-import org.junit.Assert;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -150,21 +129,6 @@ public class PayrollTest {
             assertThat(e.getDepartmentName(), is(expectedDepartmentName));
         }
 
-//        
-//        @Test
-//        public void ItShouldThrowAnExceptionWhenAddingAnEmployeeToANonExistingDepartment() {
-//            int notExistingdeptId = 1;
-//
-//            try {
-//                executeAddEmployeeToDepartment(notExistingdeptId, empId);
-//                Assert.fail("Should have Thrown Exception");
-//            } catch (PayrollRepository.DepartmentDoesNotExistException exception) {
-//                String expectedExceptionMessage
-//                        = String.format("Department with id of %d does not exist", notExistingdeptId);
-//                assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
-//            }
-//        }
-
     }
 
     public class FilteringEmployeeByDepartmentContext {
@@ -209,7 +173,7 @@ public class PayrollTest {
         }
     }
 
-    public class UnknownsContext {
+    public class NullObjectContext {
 
         @Test
         public void ItDoesNothingWhenTransferringAnEmployeeToANonExistingDepartment() {
@@ -217,13 +181,26 @@ public class PayrollTest {
             String lastName = "Gilos";
             String firstName = "Jacob";
             int unknownDeptId = 9;
-            
+
             executeEmployeeCreation(empId, firstName, lastName);
             executeAddEmployeeToDepartment(unknownDeptId, empId);
-            
+
             Employee e = repository.getEmployeeById(empId);
             assertThat(e.getDepartmentName(), is("Unassigned"));
             assertThat(e.getDepartmentId(), is(0));
+        }
+
+        @Test
+        public void ItShouldReturnAnUnknownEmployeeWhenQueryingForNonExistingEmployeeInRepository() {
+            int nonExistingEmpId = 5;
+            Employee e = repository.getEmployeeById(nonExistingEmpId);
+
+            assertNotNull(e);
+            assertThat(e.getId(), is(nonExistingEmpId));
+            assertThat(e.getFirstName(), is("Unknown"));
+            assertThat(e.getLastName(), is("Unknown"));
+            assertThat(e.getDepartmentName(), is("Unassigned"));
+            assertThat(e.getDepartmentId(),is(0));
         }
     }
 

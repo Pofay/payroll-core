@@ -52,4 +52,12 @@ public class Employee {
         Employee e = (Employee) obj;
         return this.getId() == e.getId();
     }
+
+    public static class UnknownEmployee extends Employee {
+
+        public UnknownEmployee(int empId, String firstName, String lastName) {
+            super(empId, firstName, lastName);
+            setDepartment(new Department(0, "Unassigned"));
+        }
+    }
 }

@@ -24,8 +24,11 @@ public class InMemoryPayrollRepository implements PayrollRepository {
 
     @Override
     public Employee getEmployeeById(int empId) {
-        return employees.get(empId);
-
+        if (employees.containsKey(empId)) {
+            return employees.get(empId);
+        } else {
+            return new Employee.UnknownEmployee(empId, "Unknown", "Unknown");
+        }
     }
 
     @Override
