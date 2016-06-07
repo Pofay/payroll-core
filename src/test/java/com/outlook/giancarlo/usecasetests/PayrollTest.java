@@ -17,6 +17,24 @@ import static org.junit.Assert.fail;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -132,19 +150,20 @@ public class PayrollTest {
             assertThat(e.getDepartmentName(), is(expectedDepartmentName));
         }
 
-        @Test
-        public void ItShouldThrowAnExceptionWhenAddingAnEmployeeToANonExistingDepartment() {
-            int notExistingdeptId = 1;
-
-            try {
-                executeAddEmployeeToDepartment(notExistingdeptId, empId);
-                Assert.fail("Should have Thrown Exception");
-            } catch (PayrollRepository.DepartmentDoesNotExistException exception) {
-                String expectedExceptionMessage
-                        = String.format("Department with id of %d does not exist", notExistingdeptId);
-                assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
-            }
-        }
+//        
+//        @Test
+//        public void ItShouldThrowAnExceptionWhenAddingAnEmployeeToANonExistingDepartment() {
+//            int notExistingdeptId = 1;
+//
+//            try {
+//                executeAddEmployeeToDepartment(notExistingdeptId, empId);
+//                Assert.fail("Should have Thrown Exception");
+//            } catch (PayrollRepository.DepartmentDoesNotExistException exception) {
+//                String expectedExceptionMessage
+//                        = String.format("Department with id of %d does not exist", notExistingdeptId);
+//                assertThat(exception.getMessage(), is(expectedExceptionMessage.toUpperCase()));
+//            }
+//        }
 
     }
 
@@ -169,24 +188,42 @@ public class PayrollTest {
 
             executeAddEmployeeToDepartment(deptId, idOfLastEmp);
         }
- 
+
         @Test
         public void ItShouldBeAbleToFilterAnEmployeeByItsDepartment() {
             int first = 0;
             List<Employee> actualList = repository.getAllEmployeesWithDepartmentIdOf(deptId);
-            Employee actualEmp = actualList.get(first);                  
+            Employee actualEmp = actualList.get(first);
 
             Employee expected = repository.getEmployeeById(idOfLastEmp);
             assertThat(actualList.size(), is(1));
             assertThat(actualEmp, is(expected));
         }
-        
+
         @Test
         public void ItShouldBeAbleToFilterAllEmployeesThatBelongToTheUnassignedDepartment() {
             int unassignedDeptId = 0;
-            List<Employee> employees =repository.getAllEmployeesWithDepartmentIdOf(unassignedDeptId);
-            
+            List<Employee> employees = repository.getAllEmployeesWithDepartmentIdOf(unassignedDeptId);
+
             assertThat(employees.size(), is(2));
+        }
+    }
+
+    public class UnknownsContext {
+
+        @Test
+        public void ItDoesNothingWhenTransferringAnEmployeeToANonExistingDepartment() {
+            int empId = 2;
+            String lastName = "Gilos";
+            String firstName = "Jacob";
+            int unknownDeptId = 9;
+            
+            executeEmployeeCreation(empId, firstName, lastName);
+            executeAddEmployeeToDepartment(unknownDeptId, empId);
+            
+            Employee e = repository.getEmployeeById(empId);
+            assertThat(e.getDepartmentName(), is("Unassigned"));
+            assertThat(e.getDepartmentId(), is(0));
         }
     }
 

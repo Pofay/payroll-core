@@ -30,7 +30,11 @@ public class InMemoryPayrollRepository implements PayrollRepository {
 
     @Override
     public Department getDepartmentById(int deptId) {
-        return departments.get(deptId);
+        if (departments.containsKey(deptId)) {
+            return departments.get(deptId);
+        } else {
+            return new Department.UnknownDeparment(deptId, "Unknown");
+        }
     }
 
     @Override

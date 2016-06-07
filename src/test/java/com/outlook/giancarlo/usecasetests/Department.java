@@ -46,4 +46,24 @@ public class Department {
     public void remove(Employee e) {
         employees.remove(e.getId());
     }
+    
+    public static class UnknownDeparment extends Department{
+        
+        public UnknownDeparment(int id, String name) {
+            super(id, name);
+        }
+
+        @Override
+        public void remove(Employee e) {
+        }
+
+        @Override
+        public List<Employee> getAllEmployees() {
+            return null;
+        }
+
+        @Override
+        public void addEmployee(Employee e) {
+        }   
+    }
 }

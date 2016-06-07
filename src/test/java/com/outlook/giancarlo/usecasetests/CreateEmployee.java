@@ -34,7 +34,6 @@ public class CreateEmployee implements Usecase {
     public void execute() {
         Employee e = new Employee(id, firstName, lastName);
         department.addEmployee(e);
-        e.setDepartment(department);
         repository.add(e);
     }
 
