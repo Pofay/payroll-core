@@ -14,8 +14,7 @@ public class CreateEmployee implements Usecase {
     private final String lastName;
     private final String firstName;
     private final int id;
-    private final Department department;
-    private PayrollRepository repository;
+    private final PayrollRepository repository;
 
     public CreateEmployee(PayrollRepository repository, int empId, String firstName, String lastName) {
         if (empId <= 0) {
@@ -23,17 +22,14 @@ public class CreateEmployee implements Usecase {
         } else {
             this.id = empId;
         }
-        int unassignedDepartmentId = 0;
         this.firstName = firstName;
         this.lastName = lastName;
         this.repository = repository;
-        this.department = repository.getDepartmentById(unassignedDepartmentId);
     }
 
     @Override
     public void execute() {
         Employee e = new Employee(id, firstName, lastName);
-        department.addEmployee(e);
         repository.add(e);
     }
 

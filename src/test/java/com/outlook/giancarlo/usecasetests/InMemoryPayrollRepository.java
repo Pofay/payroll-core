@@ -16,10 +16,8 @@ import java.util.Map;
 public class InMemoryPayrollRepository implements PayrollRepository {
 
     private final Map<Integer, Employee> employees = new HashMap<>();
-    private final Map<Integer, Department> departments = new HashMap<>();
 
     public InMemoryPayrollRepository() {
-        departments.put(0, new Department(0, "Unassigned"));
     }
 
     @Override
@@ -32,32 +30,12 @@ public class InMemoryPayrollRepository implements PayrollRepository {
     }
 
     @Override
-    public Department getDepartmentById(int deptId) {
-        if (departments.containsKey(deptId)) {
-            return departments.get(deptId);
-        } else {
-            return new Department.UnknownDeparment(deptId, "Unknown");
-        }
-    }
-
-    @Override
     public void add(Employee e) {
         employees.put(e.getId(), e);
     }
 
     @Override
-    public void add(Department d) {
-        departments.put(d.getId(), d);
-    }
-
-    @Override
-    public void addEmployeeToDepartment(Department d, Employee e) {
-        d.addEmployee(e);
-    }
-
-    @Override
     public List<Employee> getAllEmployeesWithDepartmentIdOf(int deptId) {
-        Department d = getDepartmentById(deptId);
-        return d.getAllEmployees();
-    }
+        return null;
+  }
 }

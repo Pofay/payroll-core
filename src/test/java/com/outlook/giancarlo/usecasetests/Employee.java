@@ -17,16 +17,10 @@ public class Employee {
     private final String firstName;
     private final String lastName;
 
-    protected Department department;
-
     public Employee(int id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public void setDepartment(Department d) {
-        this.department = d;
     }
 
     public String getFirstName() {
@@ -40,26 +34,15 @@ public class Employee {
     public int getId() {
         return id;
     }
-
-    public int getDepartmentId() {
-        return department.getId();
-    }
-
-    public String getDepartmentName() {
-        return department.getName();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        Employee e = (Employee) obj;
-        return this.getId() == e.getId();
+    
+    public int getDeptId(){
+        return 0;
     }
 
     public static class UnknownEmployee extends Employee {
 
         public UnknownEmployee(int empId, String firstName, String lastName) {
             super(empId, firstName, lastName);
-            department = new Department(0, "Unassigned");
         }
     }
 }
