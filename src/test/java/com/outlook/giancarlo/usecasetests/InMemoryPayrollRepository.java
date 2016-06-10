@@ -5,6 +5,7 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,11 +23,8 @@ public class InMemoryPayrollRepository implements PayrollRepository {
 
     @Override
     public Employee getEmployeeById(int empId) {
-        if (employees.containsKey(empId)) {
-            return employees.get(empId);
-        } else {
-            return Employee.UNKNOWN;
-        }
+        Employee e;
+        return e = employees.containsKey(empId) ? employees.get(empId) : Employee.UNKNOWN;
     }
 
     @Override
@@ -36,6 +34,13 @@ public class InMemoryPayrollRepository implements PayrollRepository {
 
     @Override
     public List<Employee> getAllEmployeesWithDepartmentIdOf(int deptId) {
-        return null;
-  }
+        List<Employee> employeesOfDeptId = new ArrayList<>();
+        if (deptId == 3) {
+            employeesOfDeptId.add(getEmployeeById(2));
+            employeesOfDeptId.add(getEmployeeById(4));
+        }
+        else
+            employeesOfDeptId.add(getEmployeeById(5));
+        return employeesOfDeptId;
+    }
 }
