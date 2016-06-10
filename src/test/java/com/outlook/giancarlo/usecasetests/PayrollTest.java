@@ -65,6 +65,22 @@ public class PayrollTest {
         }
 
         @Test
+        public void ItShouldThrowAnExceptionWhenCreatingAnEmployeeWithDeptIdLesserThan1() {
+            int empId = 4;
+            String firstName = "Ulric";
+            String lastName = "Tristan";
+            int deptId = 0;
+
+            try {
+                CreateEmployee ce = new CreateEmployee(repository, empId, firstName, lastName, deptId);
+                fail("Should have thrown Exception");
+            } catch (IllegalArgumentException e) {
+                String expectedMessage = "Department Id should be a positive number";
+                assertThat(e.getMessage(), is(equalTo(expectedMessage.toUpperCase())));
+            }
+        }
+
+        @Test
         public void ItShouldReturnAnUnknownEmployeeWhenQueryingForNonExistingEmployeeInRepository() {
             int nonExistingEmpId = 5;
             Employee e = repository.getEmployeeById(nonExistingEmpId);

@@ -16,7 +16,7 @@ public class Employee {
     private final int id;
     private final String firstName;
     private final String lastName;
-    private int deptId;
+    private final int deptId;
 
     public Employee(int id, String firstName, String lastName, int deptId) {
         this.id = id;
