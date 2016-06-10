@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface PayrollRepository {
 
-    void add(Employee e);
+    void createEmployeeFrom(EmployeeTemplate template);
 
     List<Employee> getAllEmployeesWithDepartmentIdOf(int deptId);
 

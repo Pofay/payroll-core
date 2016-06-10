@@ -33,8 +33,8 @@ public class CreateEmployee implements Usecase {
 
     @Override
     public void execute() {
-        Employee e = new Employee(id, firstName, lastName, deptId);
-        repository.add(e);
+        EmployeeTemplate template = new EmployeeTemplate(id, deptId, firstName, lastName);
+        repository.createEmployeeFrom(template);
     }
 
 }
