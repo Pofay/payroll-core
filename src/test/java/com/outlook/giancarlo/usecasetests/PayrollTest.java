@@ -97,31 +97,39 @@ public class PayrollTest {
             }
         }
 
-        @Test
-        public void ItShouldBeAbleToGetAllEmployeesWithASpecificDepartmentId() {
-            executeEmployeeCreation(2, 3, "Gian Carlo", "Gilos");
-            executeEmployeeCreation(4, 3, "Raul", "Watson");
-            executeEmployeeCreation(5, 2, "Ulric", "Tristan");
+        public class QueryEmployeeByDepartmentId {
 
-            Employee e1 = repository.getEmployeeById(2);
-            Employee e2 = repository.getEmployeeById(4);
-            List<Employee> expected = Arrays.asList(e1, e2);
+            int empId1 = 2;
+            int empId2 = 4;
+            int empId3 = 5;
+            int deptId1 = 3;
+            int deptId2 = 2;
 
-            List<Employee> employees = repository.getAllEmployeesWithDepartmentIdOf(3);
-            assertThat(employees, is(equalTo(expected)));
-        }
-        
-        @Test
-        public void ItShouldBeAbleToGetAllEmployeesWithAnotherDepartmentId() {
-            executeEmployeeCreation(2, 3, "Gian Carlo", "Gilos");
-            executeEmployeeCreation(4, 3, "Raul", "Watson");
-            executeEmployeeCreation(5, 2, "Ulric", "Tristan");
-            
-            Employee e1 = repository.getEmployeeById(5);
-            List<Employee> expected = Arrays.asList(e1);
+            @Before
+            public void beforeEach() {
+                executeEmployeeCreation(empId1, deptId1, "Gian Carlo", "Gilos");
+                executeEmployeeCreation(empId2, deptId1, "Raul", "Watson");
+                executeEmployeeCreation(empId3, deptId2, "Ulric", "Tristan");
+            }
 
-            List<Employee> employees = repository.getAllEmployeesWithDepartmentIdOf(2);
-            assertThat(employees, is(equalTo(expected)));
+            @Test
+            public void ItShouldBeAbleToGetAllEmployeesWithASpecificDepartmentId() {
+                Employee e1 = repository.getEmployeeById(empId1);
+                Employee e2 = repository.getEmployeeById(empId2);
+                List<Employee> expected = Arrays.asList(e1, e2);
+
+                List<Employee> employees = repository.getAllEmployeesWithDepartmentIdOf(deptId1);
+                assertThat(employees, is(equalTo(expected)));
+            }
+
+            @Test
+            public void ItShouldBeAbleToGetAllEmployeesWithAnotherDepartmentId() {
+                Employee e1 = repository.getEmployeeById(empId3);
+                List<Employee> expected = Arrays.asList(e1);
+
+                List<Employee> employees = repository.getAllEmployeesWithDepartmentIdOf(deptId2);
+                assertThat(employees, is(equalTo(expected)));
+            }
         }
 
         private void executeEmployeeCreation(final int empId, int deptId, String firstName, String lastName) {
