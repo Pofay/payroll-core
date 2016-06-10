@@ -35,12 +35,11 @@ public class InMemoryPayrollRepository implements PayrollRepository {
     @Override
     public List<Employee> getAllEmployeesWithDepartmentIdOf(int deptId) {
         List<Employee> employeesOfDeptId = new ArrayList<>();
-        if (deptId == 3) {
-            employeesOfDeptId.add(getEmployeeById(2));
-            employeesOfDeptId.add(getEmployeeById(4));
+        for (Employee e : employees.values()) {
+            if (e.getDeptId() == deptId) {
+                employeesOfDeptId.add(e);
+            }
         }
-        else
-            employeesOfDeptId.add(getEmployeeById(5));
         return employeesOfDeptId;
     }
 }
