@@ -6,6 +6,7 @@
 package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
+import static org.hamcrest.CoreMatchers.equalTo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.Before;
@@ -35,13 +36,15 @@ public class PayrollTest {
             final int empId = 1;
             String firstName = "Gian Carlo";
             String lastName = "Gilos";
+            int deptId = 4;
 
-            executeEmployeeCreation(empId, firstName, lastName);
+            executeEmployeeCreation(empId, firstName, lastName, deptId);
 
             Employee e = repository.getEmployeeById(empId);
             String actualName = String.format("%s %s", e.getFirstName(), e.getLastName());
             assertThat(actualName, is("Gian Carlo Gilos"));
             assertThat(e.getId(), is(empId));
+            assertThat(e.getDeptId(), is(equalTo(deptId)));
         }
 
         @Test
@@ -49,9 +52,10 @@ public class PayrollTest {
             int empId = 0;
             String firstName = "Raul";
             String lastName = "Watson";
+            int deptId = 3;
 
             try {
-                CreateEmployee ce = new CreateEmployee(repository, empId, firstName, lastName);
+                CreateEmployee ce = new CreateEmployee(repository, empId, firstName, lastName, deptId);
                 fail("Should have thrown Exception");
             } catch (IllegalArgumentException e) {
                 String expectedMessage = "Employee Id should be a positive number";
@@ -72,8 +76,8 @@ public class PayrollTest {
             assertThat(e.getDeptId(), is(0));
         }
 
-        private void executeEmployeeCreation(final int empId, String firstName, String lastName) {
-            CreateEmployee ce = new CreateEmployee(repository, empId, firstName, lastName);
+        private void executeEmployeeCreation(final int empId, String firstName, String lastName, int deptId) {
+            CreateEmployee ce = new CreateEmployee(repository, empId, firstName, lastName, deptId);
             ce.execute();
         }
     }
