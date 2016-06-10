@@ -28,8 +28,8 @@ public class InMemoryPayrollRepository implements PayrollRepository {
     }
 
     @Override
-    public void createEmployeeFrom(EmployeeTemplate template) {
-        Employee e = new Employee(template.empId, template.firstName, template.lastName, template.deptId);
+    public void createEmployee(int id, int deptId, String firstName, String lastName) {
+        Employee e = new Employee(id, firstName, lastName, deptId);
         employees.put(e.getId(), e);
     }
 
