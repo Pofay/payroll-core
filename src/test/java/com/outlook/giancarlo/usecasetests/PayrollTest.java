@@ -146,7 +146,6 @@ public class PayrollTest {
             }
         }
 
-        @Ignore
         @Test
         public void ItShouldBeAbleToChangeTheNameOfAnEmployee() {
             int empId = 6;
@@ -156,13 +155,32 @@ public class PayrollTest {
             executeEmployeeCreation(empId, deptId, firstName, lastName);
 
             String changeFirstName = "Pofay";
-            ChangeEmployeeName cen = new ChangeEmployeeName(empId, changeFirstName, lastName);
+            ChangeEmployeeName cen = new ChangeEmployeeName(repository, empId,
+                    deptId, changeFirstName, lastName);
 
             cen.execute();
 
             String expected = "Pofay Gilos";
             Employee e = repository.getEmployeeById(empId);
             assertThat(e.getName(), is(equalTo(expected)));
+        }
+
+        @Test
+        public void ItShouldBeAbleToChangeTheDepartmentIdOfAnEmployee() {
+            int empId = 6;
+            int deptId = 7;
+            String firstName = "Gian Carlo";
+            String lastName = "Gilos";
+            executeEmployeeCreation(empId, deptId, firstName, lastName);
+
+            int changedDeptId = 9;
+            ChangeEmployeeDepartmentId ced = new ChangeEmployeeDepartmentId(repository,
+                    empId, changedDeptId, firstName, lastName);
+
+            ced.execute();
+
+            Employee e = repository.getEmployeeById(empId);
+            assertThat(e.getDeptId(), is(equalTo(changedDeptId)));
         }
 
         private void executeEmployeeCreation(final int empId, int deptId, String firstName, String lastName) {

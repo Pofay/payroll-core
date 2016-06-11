@@ -9,21 +9,21 @@ package com.outlook.giancarlo.usecasetests;
  *
  * @author pofay
  */
-public class ChangeEmployeeName {
+public class ChangeEmployeeDepartmentId {
 
     private final PayrollRepository repository;
-    private final int empId;
-    private final String firstName;
     private final String lastName;
+    private final String firstName;
     private final int deptId;
+    private final int empId;
 
-    public ChangeEmployeeName(PayrollRepository repository, int empId
-            , int deptId, String changeFirstName, String lastName) {
-        this.repository = repository;
-        this.deptId = deptId;
+    public ChangeEmployeeDepartmentId(PayrollRepository repository,
+            int empId, int changedDeptId, String firstName, String lastName) {
         this.empId = empId;
-        this.firstName = changeFirstName;
+        this.deptId = changedDeptId;
+        this.firstName = firstName;
         this.lastName = lastName;
+        this.repository = repository;
     }
 
     public void execute() {
