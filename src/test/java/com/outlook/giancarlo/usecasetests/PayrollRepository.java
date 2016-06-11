@@ -18,4 +18,6 @@ public interface PayrollRepository {
     List<Employee> getAllEmployeesWithDepartmentIdOf(int deptId);
 
     Employee getEmployeeById(int empId);
+
+    public List<Employee> getAllEmployees();
 }

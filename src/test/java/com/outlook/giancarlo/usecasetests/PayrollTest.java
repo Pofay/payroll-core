@@ -6,6 +6,7 @@
 package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -96,7 +97,7 @@ public class PayrollTest {
             }
         }
 
-        public class QueryEmployeeByDepartmentId {
+        public class QueryEmployees {
 
             int empId1 = 2;
             int empId2 = 4;
@@ -127,6 +128,21 @@ public class PayrollTest {
                 List<Employee> expected = Arrays.asList(e1);
 
                 List<Employee> employees = repository.getAllEmployeesWithDepartmentIdOf(deptId2);
+                assertThat(employees, is(equalTo(expected)));
+            }
+
+            @Test
+            public void ItShouldBeAbleToGetAllEmployees() {
+                Employee e1 = repository.getEmployeeById(empId1);
+                Employee e2 = repository.getEmployeeById(empId2);
+                Employee e3 = repository.getEmployeeById(empId3);
+                List<Employee> expected = new ArrayList<>();
+                expected.add(e1);
+                expected.add(e2);
+                expected.add(e3);
+
+                List<Employee> employees = repository.getAllEmployees();
+                
                 assertThat(employees, is(equalTo(expected)));
             }
         }

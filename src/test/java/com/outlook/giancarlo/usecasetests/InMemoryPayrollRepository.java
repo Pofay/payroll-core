@@ -44,4 +44,9 @@ public class InMemoryPayrollRepository implements PayrollRepository {
                 });
         return employeesOfDeptId;
     }
+
+    @Override
+    public List<Employee> getAllEmployees() {
+        return new ArrayList<>(employees.values());
+    }
 }
