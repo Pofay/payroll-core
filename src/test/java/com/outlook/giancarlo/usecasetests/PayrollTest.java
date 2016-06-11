@@ -177,59 +177,58 @@ public class PayrollTest {
             }
         }
 
-        @Test
-        public void ItShouldBeAbleToChangeTheFirstNameOfAnEmployee() {
+        public class ChangeEmployeeContext {
+
             int empId = 6;
             int deptId = 7;
             String firstName = "Gian Carlo";
             String lastName = "Gilos";
-            executeEmployeeCreation(empId, deptId, new EmployeeName(firstName, lastName));
 
-            String changeFirstName = "Pofay";
-            ChangeEmployee ce = new ChangeEmployeeName(repository, empId,
-                    new EmployeeName(changeFirstName, lastName));
+            @Before
+            public void beforeEach() {
+                executeEmployeeCreation(empId, deptId, new EmployeeName(firstName, lastName));
+            }
 
-            ce.execute();
+            @Test
+            public void ItShouldBeAbleToChangeTheFirstNameOfAnEmployee() {
+                String changeFirstName = "Pofay";
+                ChangeEmployee ce = new ChangeEmployeeName(repository, empId,
+                        new EmployeeName(changeFirstName, lastName));
 
-            String expected = "Pofay Gilos";
-            Employee e = repository.getEmployeeById(empId);
-            assertThat(e.getName(), is(equalTo(expected)));
-        }
+                ce.execute();
 
-        @Test
-        public void ItShouldBeAbleToChangeTheDepartmentIdOfAnEmployee() {
-            int empId = 6;
-            int deptId = 7;
-            String firstName = "Gian Carlo";
-            String lastName = "Gilos";
-            executeEmployeeCreation(empId, deptId, new EmployeeName(firstName, lastName));
+                String expected = "Pofay Gilos";
+                Employee e = repository.getEmployeeById(empId);
+                assertThat(e.getName(), is(equalTo(expected)));
+            }
 
-            int changedDeptId = 9;
-            ChangeEmployee ce = new ChangeEmployeeDepartmentId(repository,
-                    empId, changedDeptId);
+            @Test
+            public void ItShouldBeAbleToChangeTheDepartmentIdOfAnEmployee() {
+                executeEmployeeCreation(empId, deptId, new EmployeeName(firstName, lastName));
 
-            ce.execute();
+                int changedDeptId = 9;
+                ChangeEmployee ce = new ChangeEmployeeDepartmentId(repository,
+                        empId, changedDeptId);
 
-            Employee e = repository.getEmployeeById(empId);
-            assertThat(e.getDeptId(), is(equalTo(changedDeptId)));
-        }
+                ce.execute();
 
-        @Test
-        public void ItShouldBeAbleToChangeTheLastNameOfAnEmployee() {
-            int empId = 6;
-            int deptId = 7;
-            String firstName = "Gian Carlo";
-            String lastName = "Gilos";
-            executeEmployeeCreation(empId, deptId, new EmployeeName(firstName, lastName));
+                Employee e = repository.getEmployeeById(empId);
+                assertThat(e.getDeptId(), is(equalTo(changedDeptId)));
+            }
 
-            String changedLastName = "Tumulak";
-            ChangeEmployee ce = new ChangeEmployeeName(repository, empId,
-                    new EmployeeName(firstName, changedLastName));
+            @Test
+            public void ItShouldBeAbleToChangeTheLastNameOfAnEmployee() {
+                executeEmployeeCreation(empId, deptId, new EmployeeName(firstName, lastName));
 
-            ce.execute();
+                String changedLastName = "Tumulak";
+                ChangeEmployee ce = new ChangeEmployeeName(repository, empId,
+                        new EmployeeName(firstName, changedLastName));
 
-            Employee e = repository.getEmployeeById(empId);
-            assertThat(e.getName(), is("Gian Carlo Tumulak"));
+                ce.execute();
+
+                Employee e = repository.getEmployeeById(empId);
+                assertThat(e.getName(), is("Gian Carlo Tumulak"));
+            }
         }
 
         private void executeEmployeeCreation(final int empId, int deptId, EmployeeName name) {
