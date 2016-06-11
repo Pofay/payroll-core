@@ -12,23 +12,20 @@ package com.outlook.giancarlo.usecasetests;
 public class ChangeEmployeeDepartmentId {
 
     private final PayrollRepository repository;
-    private final String lastName;
-    private final String firstName;
     private final int deptId;
     private final int empId;
 
     public ChangeEmployeeDepartmentId(PayrollRepository repository,
-            int empId, int changedDeptId, String firstName, String lastName) {
+            int empId, int changedDeptId) {
         this.empId = empId;
         this.deptId = changedDeptId;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.repository = repository;
     }
 
     public void execute() {
-        throw new UnsupportedOperationException();
-        //repository.createNewEmployee(empId, deptId, firstName, lastName);
+        Employee e = repository.getEmployeeById(empId);
+        e.changeDeptIdTo(deptId);
+        repository.save(e);
     }
 
 }

@@ -14,8 +14,8 @@ public class Employee {
     public static final Employee UNKNOWN = new UnknownEmployee(0, 0, new EmployeeName("Unknown", "Unknown"));
 
     private final int id;
-    private final int deptId;
-    private final EmployeeName name;
+    private int deptId;
+    private EmployeeName name;
 
     public Employee(int id, int deptId, EmployeeName name) {
         this.id = id;
@@ -27,15 +27,20 @@ public class Employee {
         return String.format("%s %s", name.first, name.last);
     }
 
-//    public String getLastName() {
-//        return lastName;
-//    }
     public int getId() {
         return id;
     }
 
     public int getDeptId() {
         return deptId;
+    }
+
+    public void changeNameTo(EmployeeName name) {
+        this.name = name;
+    }
+
+    public void changeDeptIdTo(int deptId) {
+        this.deptId = deptId;
     }
 
     public static class UnknownEmployee extends Employee {

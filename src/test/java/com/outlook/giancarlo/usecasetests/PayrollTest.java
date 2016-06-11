@@ -30,6 +30,22 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -161,7 +177,6 @@ public class PayrollTest {
             }
         }
 
-        @Ignore
         @Test
         public void ItShouldBeAbleToChangeTheFirstNameOfAnEmployee() {
             int empId = 6;
@@ -172,7 +187,7 @@ public class PayrollTest {
 
             String changeFirstName = "Pofay";
             ChangeEmployeeName cen = new ChangeEmployeeName(repository, empId,
-                    deptId, changeFirstName, lastName);
+                    new EmployeeName(changeFirstName, lastName));
 
             cen.execute();
 
@@ -181,7 +196,6 @@ public class PayrollTest {
             assertThat(e.getName(), is(equalTo(expected)));
         }
 
-        @Ignore
         @Test
         public void ItShouldBeAbleToChangeTheDepartmentIdOfAnEmployee() {
             int empId = 6;
@@ -192,7 +206,7 @@ public class PayrollTest {
 
             int changedDeptId = 9;
             ChangeEmployeeDepartmentId ced = new ChangeEmployeeDepartmentId(repository,
-                    empId, changedDeptId, firstName, lastName);
+                    empId, changedDeptId);
 
             ced.execute();
 
@@ -200,7 +214,7 @@ public class PayrollTest {
             assertThat(e.getDeptId(), is(equalTo(changedDeptId)));
         }
 
-        @Ignore
+       
         @Test
         public void ItShouldBeAbleToChangeTheLastNameOfAnEmployee() {
             int empId = 6;
@@ -210,9 +224,10 @@ public class PayrollTest {
             executeEmployeeCreation(empId, deptId, new EmployeeName(firstName, lastName));
 
             String changedLastName = "Tumulak";
-            ChangeEmployeeLastName celn = new ChangeEmployeeLastName(repository, empId, deptId, firstName, changedLastName);
-
-            celn.execute();
+            ChangeEmployeeName cen = new ChangeEmployeeName(repository, empId,
+                    new EmployeeName(firstName, changedLastName));
+            
+            cen.execute();
 
             Employee e = repository.getEmployeeById(empId);
             assertThat(e.getName(), is("Gian Carlo Tumulak"));
