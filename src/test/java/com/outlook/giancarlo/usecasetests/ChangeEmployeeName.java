@@ -17,17 +17,22 @@ public class ChangeEmployeeName {
     private final String lastName;
     private final int deptId;
 
-    public ChangeEmployeeName(PayrollRepository repository, int empId
-            , int deptId, String changeFirstName, String lastName) {
+    public ChangeEmployeeName(PayrollRepository repository, int empId, int deptId, String firstName, String lastName) {
         this.repository = repository;
         this.deptId = deptId;
         this.empId = empId;
-        this.firstName = changeFirstName;
+        this.firstName = firstName;
         this.lastName = lastName;
     }
 
     public void execute() {
-        repository.createNewEmployee(empId, deptId, firstName, lastName);
+
+        throw new UnsupportedOperationException();
+//        Employee e =repository.getEmployeeById(empId);
+//        
+//       
+//        
+//        repository.save(e);
     }
 
 }

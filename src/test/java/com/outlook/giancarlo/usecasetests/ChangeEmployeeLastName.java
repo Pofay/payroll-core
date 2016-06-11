@@ -18,7 +18,7 @@ public class ChangeEmployeeLastName {
     private final PayrollRepository repository;
 
     public ChangeEmployeeLastName(PayrollRepository repository, int empId, int deptId, String firstName, String lastName) {
-        this.repository =repository;
+        this.repository = repository;
         this.empId = empId;
         this.deptId = deptId;
         this.firstName = firstName;
@@ -26,7 +26,8 @@ public class ChangeEmployeeLastName {
     }
 
     public void execute() {
-        repository.createNewEmployee(empId, deptId, firstName, lastName);
+        throw new UnsupportedOperationException();
+        //repository.createNewEmployee(empId, deptId, firstName, lastName);
     }
-    
+
 }

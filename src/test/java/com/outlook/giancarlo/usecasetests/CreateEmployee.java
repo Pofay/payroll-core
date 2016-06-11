@@ -11,29 +11,28 @@ package com.outlook.giancarlo.usecasetests;
  */
 public class CreateEmployee implements Usecase {
 
-    private final String lastName;
-    private final String firstName;
     private final int id;
     private final PayrollRepository repository;
     private final int deptId;
+    private final EmployeeName empName;
 
-    public CreateEmployee(PayrollRepository repository, int empId, int deptId, String firstName, String lastName) {
+    public CreateEmployee(PayrollRepository repository, int empId, int deptId, EmployeeName name) {
         if (empId <= 0) {
             throw new IllegalArgumentException("Employee Id should be a positive number".toUpperCase());
         }
         if (deptId <= 0) {
             throw new IllegalArgumentException("Department Id should be a positive number".toUpperCase());
         }
-        this.id = empId;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.repository = repository;
+        this.id = empId;
         this.deptId = deptId;
+        this.empName = name;
     }
 
     @Override
     public void execute() {
-        repository.createNewEmployee(id, deptId, firstName, lastName);
+        Employee e = new Employee(id, deptId, empName);
+        repository.save(e);
     }
 
 }

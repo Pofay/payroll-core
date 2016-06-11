@@ -11,28 +11,27 @@ package com.outlook.giancarlo.usecasetests;
  */
 public class Employee {
 
-    public static final Employee UNKNOWN = new UnknownEmployee(0, "Unknown", "Unknown", 0);
+    public static final Employee UNKNOWN = new UnknownEmployee(0, 0, new EmployeeName("Unknown", "Unknown"));
 
     private final int id;
-    private final String firstName;
-    private final String lastName;
+//    private final String firstName;
+//    private final String lastName;
     private final int deptId;
+    private final EmployeeName name;
 
-    public Employee(int id, String firstName, String lastName, int deptId) {
+    public Employee(int id, int deptId, EmployeeName name) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.deptId = deptId;
     }
 
     public String getName() {
-        return String.format("%s %s", firstName, lastName);
+        return String.format("%s %s", name.first, name.last);
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
+//    public String getLastName() {
+//        return lastName;
+//    }
     public int getId() {
         return id;
     }
@@ -43,8 +42,8 @@ public class Employee {
 
     public static class UnknownEmployee extends Employee {
 
-        public UnknownEmployee(int empId, String firstName, String lastName, int deptId) {
-            super(empId, firstName, lastName, deptId);
+        public UnknownEmployee(int empId, int deptId, EmployeeName name) {
+            super(empId, deptId, name);
         }
     }
 }

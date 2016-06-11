@@ -27,11 +27,11 @@ public class InMemoryPayrollRepository implements PayrollRepository {
         return e = employees.containsKey(empId) ? employees.get(empId) : Employee.UNKNOWN;
     }
 
-    @Override
-    public void createNewEmployee(int id, int deptId, String firstName, String lastName) {
-        Employee e = new Employee(id, firstName, lastName, deptId);
-        employees.put(e.getId(), e);
-    }
+//    @Override
+//    public void createNewEmployee(int id, int deptId, String firstName, String lastName) {
+//        Employee e = new Employee(id, deptId, firstName, lastName);
+//        employees.put(e.getId(), e);
+//    }
 
     @Override
     public List<Employee> getAllEmployeesWithDepartmentIdOf(int deptId) {
@@ -48,5 +48,10 @@ public class InMemoryPayrollRepository implements PayrollRepository {
     @Override
     public List<Employee> getAllEmployees() {
         return new ArrayList<>(employees.values());
+    }
+
+    @Override
+    public void save(Employee e) {
+        employees.put(e.getId(), e);
     }
 }
