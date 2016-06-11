@@ -25,8 +25,8 @@ public class Employee {
         this.deptId = deptId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return String.format("%s %s", firstName, lastName);
     }
 
     public String getLastName() {

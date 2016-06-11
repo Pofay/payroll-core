@@ -33,7 +33,7 @@ public class CreateEmployee implements Usecase {
 
     @Override
     public void execute() {
-        repository.createEmployee(id, deptId, firstName, lastName);
+        repository.createNewEmployee(id, deptId, firstName, lastName);
     }
 
 }

@@ -17,6 +17,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import org.junit.Ignore;
 
 /**
  *
@@ -44,8 +45,7 @@ public class PayrollTest {
             executeEmployeeCreation(empId, deptId, firstName, lastName);
 
             Employee e = repository.getEmployeeById(empId);
-            String actualName = String.format("%s %s", e.getFirstName(), e.getLastName());
-            assertThat(actualName, is("Gian Carlo Gilos"));
+            assertThat(e.getName(), is("Gian Carlo Gilos"));
             assertThat(e.getId(), is(empId));
             assertThat(e.getDeptId(), is(equalTo(deptId)));
         }
@@ -91,8 +91,7 @@ public class PayrollTest {
 
                 assertNotNull(e);
                 assertThat(e.getId(), is(0));
-                assertThat(e.getFirstName(), is("Unknown"));
-                assertThat(e.getLastName(), is("Unknown"));
+                assertThat(e.getName(), is("Unknown Unknown"));
                 assertThat(e.getDeptId(), is(0));
             }
         }
@@ -142,9 +141,28 @@ public class PayrollTest {
                 expected.add(e3);
 
                 List<Employee> employees = repository.getAllEmployees();
-                
+
                 assertThat(employees, is(equalTo(expected)));
             }
+        }
+
+        @Ignore
+        @Test
+        public void ItShouldBeAbleToChangeTheNameOfAnEmployee() {
+            int empId = 6;
+            int deptId = 7;
+            String firstName = "Gian Carlo";
+            String lastName = "Gilos";
+            executeEmployeeCreation(empId, deptId, firstName, lastName);
+
+            String changeFirstName = "Pofay";
+            ChangeEmployeeName cen = new ChangeEmployeeName(empId, changeFirstName, lastName);
+
+            cen.execute();
+
+            String expected = "Pofay Gilos";
+            Employee e = repository.getEmployeeById(empId);
+            assertThat(e.getName(), is(equalTo(expected)));
         }
 
         private void executeEmployeeCreation(final int empId, int deptId, String firstName, String lastName) {
