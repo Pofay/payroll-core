@@ -9,21 +9,18 @@ package com.outlook.giancarlo.usecasetests;
  *
  * @author pofay
  */
-public class ChangeEmployeeDepartmentId {
+public class ChangeEmployeeDepartmentId extends ChangeEmployee {
 
-    private final PayrollRepository repository;
     private final int deptId;
-    private final int empId;
 
     public ChangeEmployeeDepartmentId(PayrollRepository repository,
             int empId, int changedDeptId) {
-        this.empId = empId;
+        super(repository, empId);
         this.deptId = changedDeptId;
-        this.repository = repository;
     }
 
-    public void execute() {
-        Employee e = repository.getEmployeeById(empId);
+    @Override
+    protected void change(Employee e) {
         e.changeDeptIdTo(deptId);
         repository.save(e);
     }
