@@ -14,8 +14,6 @@ public class Employee {
     public static final Employee UNKNOWN = new UnknownEmployee(0, 0, new EmployeeName("Unknown", "Unknown"));
 
     private final int id;
-//    private final String firstName;
-//    private final String lastName;
     private final int deptId;
     private final EmployeeName name;
 
