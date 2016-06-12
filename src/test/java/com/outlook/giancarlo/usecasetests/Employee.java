@@ -43,6 +43,10 @@ public class Employee {
         this.deptId = deptId;
     }
 
+    public HourlyClassification getClassification() {
+        return new HourlyClassification();
+    }
+
     public static class UnknownEmployee extends Employee {
 
         public UnknownEmployee(int empId, int deptId, EmployeeName name) {

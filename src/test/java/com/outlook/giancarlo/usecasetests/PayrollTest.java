@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.Before;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -33,6 +34,8 @@ public class PayrollTest {
     }
 
     public class EntityCreationContext {
+
+        private final double DELTA = 1.0;
 
         @Test
         public void ItShouldBeAbleToCreateAnEmployee() {
@@ -82,7 +85,25 @@ public class PayrollTest {
                 String expectedMessage = "Department Id should be a positive number";
                 assertThat(e.getMessage(), is(equalTo(expectedMessage.toUpperCase())));
             }
+        }
 
+        @Test
+        public void ItShouldBeAbleToCreateANewHourlyEmployee() {
+            int empId = 8;
+            int deptId = 6;
+            String firstName = "Adrian";
+            String lastName = "Williams";
+            double hourlyRate = 9.00;
+            EmployeeName name = new EmployeeName(firstName, lastName);
+            CreateHourlyEmployee cnhe = new CreateHourlyEmployee(repository, empId, deptId, name, hourlyRate);
+
+            cnhe.execute();
+
+            Employee e = repository.getEmployeeById(empId);
+            HourlyClassification hc = e.getClassification();
+
+            assertNotNull(hc);
+            assertEquals(hourlyRate, hc.getRate(), DELTA);
         }
     }
 
