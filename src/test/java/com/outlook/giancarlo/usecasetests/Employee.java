@@ -16,11 +16,16 @@ public class Employee {
     private final int id;
     private int deptId;
     private EmployeeName name;
+    private HourlyClassification classfication;
 
     public Employee(int id, int deptId, EmployeeName name) {
         this.id = id;
         this.name = name;
         this.deptId = deptId;
+    }
+
+    public void setClassification(HourlyClassification classification) {
+        this.classfication = classification;
     }
 
     public String getName() {
@@ -44,7 +49,7 @@ public class Employee {
     }
 
     public HourlyClassification getClassification() {
-        return new HourlyClassification();
+        return classfication;
     }
 
     public static class UnknownEmployee extends Employee {

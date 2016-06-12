@@ -11,8 +11,14 @@ package com.outlook.giancarlo.usecasetests;
  */
 public class HourlyClassification {
 
+    private final double rate;
+
+    public HourlyClassification(double hourlyRate) {
+        this.rate = hourlyRate;
+    }
+
     public double getRate() {
-        return 9.00;
+        return rate;
     }
 
 }

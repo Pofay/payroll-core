@@ -105,6 +105,25 @@ public class PayrollTest {
             assertNotNull(hc);
             assertEquals(hourlyRate, hc.getRate(), DELTA);
         }
+
+        @Test
+        public void ItShouldBeAbleToCreateANewHourlyEmployeeWithADifferentRate() {
+            int empId = 10;
+            int deptId = 4;
+            String firstName = "Mark";
+            String lastName = "Williams";
+            double hourlyRate = 7.50;
+            EmployeeName name = new EmployeeName(firstName, lastName);
+            CreateHourlyEmployee cnhe = new CreateHourlyEmployee(repository, empId, deptId, name, hourlyRate);
+
+            cnhe.execute();
+
+            Employee e = repository.getEmployeeById(empId);
+            HourlyClassification hc = e.getClassification();
+
+            assertNotNull(hc);
+            assertEquals(hourlyRate, hc.getRate(), DELTA);
+        }
     }
 
     public class NullObjectContext {
