@@ -15,9 +15,9 @@ public class CreateHourlyEmployee {
     private final EmployeeName name;
     private final int deptId;
     private final int empId;
-    private final PayrollRepository repository;
+    private final InMemoryPayrollRepository repository;
     
-    public CreateHourlyEmployee(PayrollRepository repository, int empId,
+    public CreateHourlyEmployee(InMemoryPayrollRepository repository, int empId,
             int deptId, EmployeeName name, double hourlyRate) {
         this.repository = repository;
         this.empId = empId;

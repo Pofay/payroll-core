@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 @RunWith(HierarchicalContextRunner.class)
 public class PayrollTest {
 
-    PayrollRepository repository;
+    InMemoryPayrollRepository repository;
 
     @Before
     public void beforeEach() {

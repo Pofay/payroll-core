@@ -11,10 +11,10 @@ package com.outlook.giancarlo.usecasetests;
  */
 public abstract class ChangeEmployee {
 
-    protected final PayrollRepository repository;
+    protected final InMemoryPayrollRepository repository;
     protected final int empId;
 
-    public ChangeEmployee(PayrollRepository repository, int empId) {
+    public ChangeEmployee(InMemoryPayrollRepository repository, int empId) {
         this.repository = repository;
         this.empId = empId;
     }

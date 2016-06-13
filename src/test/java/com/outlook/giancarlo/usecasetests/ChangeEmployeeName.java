@@ -13,7 +13,7 @@ public class ChangeEmployeeName extends ChangeEmployee {
 
     private final EmployeeName name;
 
-    public ChangeEmployeeName(PayrollRepository repository, int empId, EmployeeName name) {
+    public ChangeEmployeeName(InMemoryPayrollRepository repository, int empId, EmployeeName name) {
         super(repository, empId);
         this.name = name;
     }

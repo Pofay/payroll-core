@@ -9,14 +9,14 @@ package com.outlook.giancarlo.usecasetests;
  *
  * @author pofay
  */
-public class CreateEmployee implements Usecase {
+public class CreateEmployee {
 
     private final int id;
-    private final PayrollRepository repository;
+    private final InMemoryPayrollRepository repository;
     private final int deptId;
     private final EmployeeName empName;
 
-    public CreateEmployee(PayrollRepository repository, int empId, int deptId, EmployeeName name) {
+    public CreateEmployee(InMemoryPayrollRepository repository, int empId, int deptId, EmployeeName name) {
         if (empId <= 0) {
             throw new IllegalArgumentException("Employee Id should be a positive number".toUpperCase());
         }
@@ -29,7 +29,6 @@ public class CreateEmployee implements Usecase {
         this.empName = name;
     }
 
-    @Override
     public void execute() {
         Employee e = new Employee(id, deptId, empName);
         repository.save(e);
