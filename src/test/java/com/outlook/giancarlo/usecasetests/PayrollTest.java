@@ -6,6 +6,8 @@
 package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +16,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.Before;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
@@ -95,9 +104,8 @@ public class PayrollTest {
             String lastName = "Williams";
             double hourlyRate = 9.00;
             EmployeeName name = new EmployeeName(firstName, lastName);
-            CreateHourlyEmployee cnhe = new CreateHourlyEmployee(repository, empId, deptId, name, hourlyRate);
 
-            cnhe.execute();
+            executeCreateHourlyEmployee(empId, deptId, name, hourlyRate);
 
             Employee e = repository.getEmployeeById(empId);
             HourlyClassification hc = e.getClassification();
@@ -114,15 +122,40 @@ public class PayrollTest {
             String lastName = "Williams";
             double hourlyRate = 7.50;
             EmployeeName name = new EmployeeName(firstName, lastName);
-            CreateHourlyEmployee cnhe = new CreateHourlyEmployee(repository, empId, deptId, name, hourlyRate);
 
-            cnhe.execute();
+            executeCreateHourlyEmployee(empId, deptId, name, hourlyRate);
 
             Employee e = repository.getEmployeeById(empId);
             HourlyClassification hc = e.getClassification();
 
             assertNotNull(hc);
             assertEquals(hourlyRate, hc.getRate(), DELTA);
+        }
+
+        @Test
+        public void ItShouldBeAbleToPostATimecardToAEmployee() {
+            int empId = 10;
+            int deptId = 4;
+            String firstName = "Mark";
+            String lastName = "Williams";
+            double hourlyRate = 7.50;
+            EmployeeName name = new EmployeeName(firstName, lastName);
+            executeCreateHourlyEmployee(empId, deptId, name, hourlyRate);
+            LocalDate dateIssued = LocalDate.of(2016, Month.JUNE, 14);
+            PostTimecard post = new PostTimecard(repository, empId, dateIssued);
+
+            post.execute();
+
+            Employee e = repository.getEmployeeById(empId);
+            Timecard t = e.getTimecardIssuedOn(dateIssued);
+            assertThat(t, is(notNullValue()));
+            assertThat(t.getDateIssued(), is(dateIssued));
+
+        }
+
+        private void executeCreateHourlyEmployee(int empId, int deptId, EmployeeName name, double hourlyRate) {
+            CreateHourlyEmployee cnhe = new CreateHourlyEmployee(repository, empId, deptId, name, hourlyRate);
+            cnhe.execute();
         }
     }
 

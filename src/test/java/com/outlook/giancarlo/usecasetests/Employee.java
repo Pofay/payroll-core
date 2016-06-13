@@ -5,6 +5,8 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author pofay
@@ -50,6 +52,10 @@ public class Employee {
 
     public HourlyClassification getClassification() {
         return classfication;
+    }
+
+    public Timecard getTimecardIssuedOn(LocalDate dateIssued) {
+        return new Timecard();
     }
 
     public static class UnknownEmployee extends Employee {
