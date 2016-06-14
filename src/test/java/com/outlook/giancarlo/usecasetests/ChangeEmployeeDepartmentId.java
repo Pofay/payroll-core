@@ -21,7 +21,6 @@ public class ChangeEmployeeDepartmentId extends ChangeEmployee{
 
     protected void change(Employee e) {
         e.changeDeptIdTo(deptId);
-        repository.save(e);
     }
 
 }

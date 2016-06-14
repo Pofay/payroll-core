@@ -21,7 +21,6 @@ public class ChangeEmployeeName extends ChangeEmployee {
     @Override
     protected void change(Employee e) {
         e.changeNameTo(name);
-        repository.save(e);
     }
     
     
