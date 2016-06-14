@@ -59,7 +59,6 @@ public class Employee {
     }
 
     public Timecard getTimecardIssuedOn(LocalDate dateIssued) {
-        //return new Timecard(dateIssued);
         return timecards.get(dateIssued);
     }
 

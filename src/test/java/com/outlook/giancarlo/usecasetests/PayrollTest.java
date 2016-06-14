@@ -113,24 +113,9 @@ public class PayrollTest {
             assertNotNull(hc);
             assertEquals(hourlyRate, hc.getRate(), DELTA);
         }
+    }
 
-        @Test
-        public void ItShouldBeAbleToCreateANewHourlyEmployeeWithADifferentRate() {
-            int empId = 10;
-            int deptId = 4;
-            String firstName = "Mark";
-            String lastName = "Williams";
-            double hourlyRate = 7.50;
-            EmployeeName name = new EmployeeName(firstName, lastName);
-
-            executeCreateHourlyEmployee(empId, deptId, name, hourlyRate);
-
-            Employee e = repository.getEmployeeById(empId);
-            HourlyClassification hc = e.getClassification();
-
-            assertNotNull(hc);
-            assertEquals(hourlyRate, hc.getRate(), DELTA);
-        }
+    public class HourlyEmployeeContext {
 
         @Test
         public void ItShouldBeAbleToPostATimecardToAEmployee() {
@@ -150,33 +135,27 @@ public class PayrollTest {
             Timecard t = e.getTimecardIssuedOn(dateIssued);
             assertThat(t, is(notNullValue()));
             assertThat(t.getDateIssued(), is(dateIssued));
-
         }
+    }
 
-        @Test
-        public void ItShouldBeAbleToPostATimecardtoAnEmployeeOnADifferentDate() {
-            int empId = 50;
-            int deptId = 4;
-            String firstName = "Mark";
-            String lastName = "Gador";
-            double hourlyRate = 5.50;
-            EmployeeName name = new EmployeeName(firstName, lastName);
-            executeCreateHourlyEmployee(empId, deptId, name, hourlyRate);
-            LocalDate dateIssued = LocalDate.of(2016, Month.JUNE, 16);
-            PostTimecard post = new PostTimecard(repository, empId, dateIssued);
+    @Test
+    public void ItShouldBeAbleToPostATimecardtoAnEmployeeOnADifferentDate() {
+        int empId = 50;
+        int deptId = 4;
+        String firstName = "Mark";
+        String lastName = "Gador";
+        double hourlyRate = 5.50;
+        EmployeeName name = new EmployeeName(firstName, lastName);
+        executeCreateHourlyEmployee(empId, deptId, name, hourlyRate);
+        LocalDate dateIssued = LocalDate.of(2016, Month.JUNE, 16);
+        PostTimecard post = new PostTimecard(repository, empId, dateIssued);
 
-            post.execute();
+        post.execute();
 
-            Employee e = repository.getEmployeeById(empId);
-            Timecard t = e.getTimecardIssuedOn(dateIssued);
-            assertThat(t, is(notNullValue()));
-            assertThat(t.getDateIssued(), is(dateIssued));
-        }
-
-        private void executeCreateHourlyEmployee(int empId, int deptId, EmployeeName name, double hourlyRate) {
-            CreateHourlyEmployee cnhe = new CreateHourlyEmployee(repository, empId, deptId, name, hourlyRate);
-            cnhe.execute();
-        }
+        Employee e = repository.getEmployeeById(empId);
+        Timecard t = e.getTimecardIssuedOn(dateIssued);
+        assertThat(t, is(notNullValue()));
+        assertThat(t.getDateIssued(), is(dateIssued));
     }
 
     public class NullObjectContext {
@@ -303,4 +282,8 @@ public class PayrollTest {
         ce.execute();
     }
 
+    private void executeCreateHourlyEmployee(int empId, int deptId, EmployeeName name, double hourlyRate) {
+        CreateHourlyEmployee cnhe = new CreateHourlyEmployee(repository, empId, deptId, name, hourlyRate);
+        cnhe.execute();
+    }
 }
