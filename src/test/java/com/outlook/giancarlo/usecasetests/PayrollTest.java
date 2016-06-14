@@ -162,24 +162,28 @@ public class PayrollTest {
             String lastName = "Williams";
             double hourlyRate = 8.50;
             EmployeeName name = new EmployeeName(firstName, lastName);
-            
+
             executeCreateHourlyEmployee(empId, deptId, name, hourlyRate);
         }
 
         @Test
         public void ItShouldBeAbleToPostATimecardToAEmployeeOnDateIssued() {
             LocalDate dateIssued = LocalDate.of(2016, Month.JUNE, 14);
-            PostTimecard post = new PostTimecard(repository, empId, dateIssued);
 
-            post.execute();
+            postTimecardTo(empId, dateIssued);
 
             Employee e = repository.getEmployeeById(empId);
             Timecard t = e.getTimecardIssuedOn(dateIssued);
             assertThat(t, is(notNullValue()));
             assertThat(t.getDateIssued(), is(dateIssued));
         }
+        private void postTimecardTo(int empId, LocalDate dateIssued) {
+            PostTimecard post = new PostTimecard(repository, empId, dateIssued);
+
+            post.execute();
+        }
     }
-    
+
     public class NullObjectContext {
 
         @Test
