@@ -27,6 +27,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -115,17 +127,23 @@ public class PayrollTest {
         }
     }
 
-    public class HourlyEmployeeContext {
+    public class PostATimecardContext {
 
-        @Test
-        public void ItShouldBeAbleToPostATimecardToAEmployee() {
-            int empId = 30;
+        int empId = 30;
+
+        @Before
+        public void beforeEach() {
             int deptId = 5;
             String firstName = "Cory";
             String lastName = "Williams";
             double hourlyRate = 8.50;
             EmployeeName name = new EmployeeName(firstName, lastName);
+            
             executeCreateHourlyEmployee(empId, deptId, name, hourlyRate);
+        }
+
+        @Test
+        public void ItShouldBeAbleToPostATimecardToAEmployee() {
             LocalDate dateIssued = LocalDate.of(2016, Month.JUNE, 14);
             PostTimecard post = new PostTimecard(repository, empId, dateIssued);
 
