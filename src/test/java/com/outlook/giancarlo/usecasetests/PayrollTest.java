@@ -213,7 +213,7 @@ public class PayrollTest {
             Instant instant = LocalDateTime.of(date, expectedTime)
                     .atZone(ZoneOffset.ofHours(8))
                     .toInstant();
-            Clock mock = Clock.fixed(instant, ZoneId.systemDefault());
+            Clock mock = Clock.fixed(instant, ZoneId.of("Asia/Singapore"));
             return mock;
         }
     }
