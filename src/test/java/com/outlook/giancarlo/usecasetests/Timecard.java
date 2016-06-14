@@ -6,7 +6,6 @@
 package com.outlook.giancarlo.usecasetests;
 
 import java.time.LocalDate;
-import java.time.Month;
 
 /**
  *
@@ -14,7 +13,13 @@ import java.time.Month;
  */
 public class Timecard {
 
+    private final LocalDate dateIssued;
+
+    public Timecard(LocalDate dateIssued) {
+        this.dateIssued = dateIssued;
+    }
+
     public LocalDate getDateIssued() {
-        return LocalDate.of(2016, Month.JUNE, 14);
+        return dateIssued;
     }
 }

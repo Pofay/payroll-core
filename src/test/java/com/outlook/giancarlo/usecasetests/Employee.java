@@ -6,6 +6,8 @@
 package com.outlook.giancarlo.usecasetests;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -19,11 +21,13 @@ public class Employee {
     private int deptId;
     private EmployeeName name;
     private HourlyClassification classfication;
+    private HashMap<LocalDate, Timecard> timecards;
 
     public Employee(int id, int deptId, EmployeeName name) {
         this.id = id;
         this.name = name;
         this.deptId = deptId;
+        timecards = new HashMap<>();
     }
 
     public void setClassification(HourlyClassification classification) {
@@ -55,7 +59,12 @@ public class Employee {
     }
 
     public Timecard getTimecardIssuedOn(LocalDate dateIssued) {
-        return new Timecard();
+        //return new Timecard(dateIssued);
+        return timecards.get(dateIssued);
+    }
+
+    public void addTimecard(Timecard t) {
+        timecards.put(t.getDateIssued(),t);
     }
 
     public static class UnknownEmployee extends Employee {

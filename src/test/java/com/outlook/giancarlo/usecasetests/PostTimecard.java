@@ -13,10 +13,21 @@ import java.time.LocalDate;
  */
 public class PostTimecard {
 
+    private final InMemoryPayrollRepository repository;
+    private final LocalDate dateIssued;
+    private final int empId;
+
     public PostTimecard(InMemoryPayrollRepository repository, int empId, LocalDate dateIssued) {
+        this.repository= repository;
+        this.empId = empId;
+        this.dateIssued = dateIssued;
     }
 
     public void execute() {
+        Employee e = repository.getEmployeeById(empId);
+        Timecard t = new Timecard(dateIssued);
+        e.addTimecard(t);
+        repository.save(e);
     }
     
 }
