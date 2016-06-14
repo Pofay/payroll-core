@@ -177,27 +177,12 @@ public class PayrollTest {
         }
 
         @Test
-        public void ItShouldBeAbleToPunchInAnHourlyEmployeeAtADifferentTime() {
-            LocalTime expectedTime = LocalTime.of(8, 30);
-            Clock mock = createMockClock(expectedTime, dateIssued);
-            TimeSource timeSource = new TimeSource(mock);
-
-            PunchInEmployee pi = new PunchInEmployee(repository, empId, timeSource);
-
-            pi.execute();
-
-            Employee e = repository.getEmployeeById(empId);
-            Timecard t = e.getTimecardIssuedOn(dateIssued);
-            assertThat(t.getInitialTime(), is(equalTo(expectedTime)));
-        }
-
-        @Test
         public void ItShouldBeAbleToPunchInAnHourlyEmployeeOnADifferentDate() {
             LocalTime expectedTime = LocalTime.of(9, 30);
             LocalDate differentDate = LocalDate.of(2016, Month.JUNE, 16);
             Clock mock = createMockClock(expectedTime, differentDate);
             TimeSource timeSource = new TimeSource(mock);
-            
+
             postTimecardTo(empId, differentDate);
 
             PunchInEmployee pi = new PunchInEmployee(repository, empId, timeSource);
