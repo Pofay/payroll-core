@@ -210,7 +210,7 @@ public class PayrollTest {
         }
 
         private Clock createMockClock(LocalTime expectedTime, LocalDate date) {
-            Instant instant = LocalDateTime.of(dateIssued, expectedTime)
+            Instant instant = LocalDateTime.of(date, expectedTime)
                     .atZone(ZoneOffset.ofHours(8))
                     .toInstant();
             Clock mock = Clock.fixed(instant, ZoneId.systemDefault());
