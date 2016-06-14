@@ -6,9 +6,14 @@
 package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -140,29 +145,43 @@ public class PayrollTest {
 
     public class PunchInTimecardContext {
 
-        @Test
-        public void ItShouldBeAbleToPunchInAnHourlyEmployee() {
-            int empId = 20;
+        int empId = 20;
+        LocalDate dateIssued;
+
+        @Before
+        public void beforeEach() {
             int deptId = 4;
             String firstName = "Mikel";
             String lastName = "Garcia";
             EmployeeName name = new EmployeeName(firstName, lastName);
             double hourlyRate = 6.50;
+            dateIssued = LocalDate.of(2016, Month.JUNE, 15);
 
             executeCreateHourlyEmployee(empId, deptId, name, hourlyRate);
-
-            LocalDate dateIssued = LocalDate.of(2016, Month.JUNE, 15);
-            LocalTime expectedTime = LocalTime.of(10, 30);
-
             postTimecardTo(empId, dateIssued);
+        }
 
-            PunchInEmployee pi = new PunchInEmployee(repository, empId, dateIssued);
+        @Test
+        public void ItShouldBeAbleToPunchInAnHourlyEmployee() {
+            LocalTime expectedTime = LocalTime.of(10, 30);
+            Clock mock = createMockClock(expectedTime, dateIssued);
+            TimeSource timeSource = new TimeSource(mock);
+
+            PunchInEmployee pi = new PunchInEmployee(repository, empId, timeSource);
 
             pi.execute();
 
             Employee e = repository.getEmployeeById(empId);
             Timecard t = e.getTimecardIssuedOn(dateIssued);
             assertThat(t.getInitialTime(), is(equalTo(expectedTime)));
+        }
+
+        private Clock createMockClock(LocalTime expectedTime, LocalDate date) {
+            Instant instant = LocalDateTime.of(dateIssued, expectedTime)
+                    .atZone(ZoneOffset.ofHours(8))
+                    .toInstant();
+            Clock mock = Clock.fixed(instant, ZoneId.systemDefault());
+            return mock;
         }
     }
 

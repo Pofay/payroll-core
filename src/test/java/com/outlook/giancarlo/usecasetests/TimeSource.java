@@ -5,18 +5,15 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
-import java.time.LocalDate;
+import java.time.Clock;
 
 /**
  *
  * @author pofay
  */
-public class PunchInEmployee {
+public class TimeSource {
 
-    PunchInEmployee(InMemoryPayrollRepository repository, int empId, TimeSource ts) {
-    }
-
-    void execute() {
+    TimeSource(Clock clock) {
     }
     
 }
