@@ -155,27 +155,7 @@ public class PayrollTest {
             assertThat(t.getDateIssued(), is(dateIssued));
         }
     }
-
-    @Test
-    public void ItShouldBeAbleToPostATimecardtoAnEmployeeOnADifferentDate() {
-        int empId = 50;
-        int deptId = 4;
-        String firstName = "Mark";
-        String lastName = "Gador";
-        double hourlyRate = 5.50;
-        EmployeeName name = new EmployeeName(firstName, lastName);
-        executeCreateHourlyEmployee(empId, deptId, name, hourlyRate);
-        LocalDate dateIssued = LocalDate.of(2016, Month.JUNE, 16);
-        PostTimecard post = new PostTimecard(repository, empId, dateIssued);
-
-        post.execute();
-
-        Employee e = repository.getEmployeeById(empId);
-        Timecard t = e.getTimecardIssuedOn(dateIssued);
-        assertThat(t, is(notNullValue()));
-        assertThat(t.getDateIssued(), is(dateIssued));
-    }
-
+    
     public class NullObjectContext {
 
         @Test
