@@ -23,7 +23,7 @@ public class TimeSource {
     }
 
     LocalDate getCurrentDate() {
-        return LocalDate.of(2016, Month.JUNE, 15);
+        return LocalDate.now(clock);
     }
 
     LocalTime now() {
