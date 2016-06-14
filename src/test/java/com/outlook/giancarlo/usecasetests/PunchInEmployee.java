@@ -13,10 +13,21 @@ import java.time.LocalDate;
  */
 public class PunchInEmployee {
 
-    PunchInEmployee(InMemoryPayrollRepository repository, int empId, TimeSource ts) {
+    private final InMemoryPayrollRepository repository;
+    private final int empId;
+    private final TimeSource timeSource;
+
+    public PunchInEmployee(InMemoryPayrollRepository repository, int empId, TimeSource ts) {
+        this.repository = repository;
+        this.empId = empId;
+        this.timeSource = ts;
     }
 
-    void execute() {
+    public void execute() {
+        Employee e = repository.getEmployeeById(empId);
+        Timecard t = e.getTimecardIssuedOn(timeSource.getCurrentDate());
+        t.punchIn(timeSource);
+        repository.save(e);
     }
-    
+
 }

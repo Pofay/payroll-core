@@ -27,6 +27,24 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -164,6 +182,21 @@ public class PayrollTest {
         @Test
         public void ItShouldBeAbleToPunchInAnHourlyEmployee() {
             LocalTime expectedTime = LocalTime.of(10, 30);
+            Clock mock = createMockClock(expectedTime, dateIssued);
+            TimeSource timeSource = new TimeSource(mock);
+
+            PunchInEmployee pi = new PunchInEmployee(repository, empId, timeSource);
+
+            pi.execute();
+
+            Employee e = repository.getEmployeeById(empId);
+            Timecard t = e.getTimecardIssuedOn(dateIssued);
+            assertThat(t.getInitialTime(), is(equalTo(expectedTime)));
+        }
+
+        @Test
+        public void ItShouldBeAbleToPunchInAnHourlyEmployeeAtADifferentTime() {
+            LocalTime expectedTime = LocalTime.of(8, 30);
             Clock mock = createMockClock(expectedTime, dateIssued);
             TimeSource timeSource = new TimeSource(mock);
 

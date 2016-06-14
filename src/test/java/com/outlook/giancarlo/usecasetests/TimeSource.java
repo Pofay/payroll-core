@@ -6,6 +6,9 @@
 package com.outlook.giancarlo.usecasetests;
 
 import java.time.Clock;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
 
 /**
  *
@@ -13,7 +16,18 @@ import java.time.Clock;
  */
 public class TimeSource {
 
-    TimeSource(Clock clock) {
+    private final Clock clock;
+
+    public TimeSource(Clock clock) {
+        this.clock = clock;
     }
-    
+
+    LocalDate getCurrentDate() {
+        return LocalDate.of(2016, Month.JUNE, 15);
+    }
+
+    LocalTime now() {
+        return LocalTime.now(clock);
+    }
+
 }

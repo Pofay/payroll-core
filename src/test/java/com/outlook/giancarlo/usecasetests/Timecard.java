@@ -15,6 +15,7 @@ import java.time.LocalTime;
 public class Timecard {
 
     private final LocalDate dateIssued;
+    private LocalTime initialTime;
 
     public Timecard(LocalDate dateIssued) {
         this.dateIssued = dateIssued;
@@ -23,8 +24,12 @@ public class Timecard {
     public LocalDate getDateIssued() {
         return dateIssued;
     }
-    
-    public LocalTime getInitialTime(){
-        return LocalTime.of(10, 30);
+
+    public LocalTime getInitialTime() {
+        return initialTime;
+    }
+
+    public void punchIn(TimeSource timeSource) {
+        this.initialTime = timeSource.now();
     }
 }
