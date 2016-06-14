@@ -7,6 +7,7 @@ package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,48 +16,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.Before;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertEquals;
@@ -177,10 +136,33 @@ public class PayrollTest {
             assertThat(t, is(notNullValue()));
             assertThat(t.getDateIssued(), is(dateIssued));
         }
-        private void postTimecardTo(int empId, LocalDate dateIssued) {
-            PostTimecard post = new PostTimecard(repository, empId, dateIssued);
+    }
 
-            post.execute();
+    public class PunchInTimecardContext {
+
+        @Test
+        public void ItShouldBeAbleToPunchInAnHourlyEmployee() {
+            int empId = 20;
+            int deptId = 4;
+            String firstName = "Mikel";
+            String lastName = "Garcia";
+            EmployeeName name = new EmployeeName(firstName, lastName);
+            double hourlyRate = 6.50;
+
+            executeCreateHourlyEmployee(empId, deptId, name, hourlyRate);
+
+            LocalDate dateIssued = LocalDate.of(2016, Month.JUNE, 15);
+            LocalTime expectedTime = LocalTime.of(10, 30);
+
+            postTimecardTo(empId, dateIssued);
+
+            PunchInEmployee pi = new PunchInEmployee(repository, empId, dateIssued);
+
+            pi.execute();
+
+            Employee e = repository.getEmployeeById(empId);
+            Timecard t = e.getTimecardIssuedOn(dateIssued);
+            assertThat(t.getInitialTime(), is(equalTo(expectedTime)));
         }
     }
 
@@ -311,5 +293,11 @@ public class PayrollTest {
     private void executeCreateHourlyEmployee(int empId, int deptId, EmployeeName name, double hourlyRate) {
         CreateHourlyEmployee cnhe = new CreateHourlyEmployee(repository, empId, deptId, name, hourlyRate);
         cnhe.execute();
+    }
+
+    private void postTimecardTo(int empId, LocalDate dateIssued) {
+        PostTimecard post = new PostTimecard(repository, empId, dateIssued);
+
+        post.execute();
     }
 }

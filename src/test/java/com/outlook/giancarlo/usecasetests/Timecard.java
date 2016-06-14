@@ -6,6 +6,7 @@
 package com.outlook.giancarlo.usecasetests;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  *
@@ -21,5 +22,9 @@ public class Timecard {
 
     public LocalDate getDateIssued() {
         return dateIssued;
+    }
+    
+    public LocalTime getInitialTime(){
+        return LocalTime.of(10, 30);
     }
 }
