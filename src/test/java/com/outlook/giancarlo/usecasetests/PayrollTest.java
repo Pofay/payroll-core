@@ -361,38 +361,21 @@ public class PayrollTest {
             Timecard t = e.getTimecardIssuedOn(dateIssued);
             assertThat(t.getClockedInTime(), is(equalTo(expectedTime)));
         }
-        
+
         @Test
         public void ItShouldBeAbleToClockOutAnHourlyEmployeeOnAGivenTime() {
-            LocalTime expectedTime = LocalTime.of(16,30);
+            LocalTime expectedTime = LocalTime.of(16, 30);
             Clock mock = createMockClock(expectedTime, dateIssued);
             TimeSource timeSource = new TimeSource(mock);
-            
+
             ClockOutEmployee co = new ClockOutEmployee(repository, empId, timeSource);
-            
+
             co.execute();
-            
+
             Employee e = repository.getEmployeeById(empId);
             Timecard t = e.getTimecardIssuedOn(dateIssued);
             assertThat(t.getClockedOutTime(), is(equalTo(expectedTime)));
         }
-        
-        @Test
-        public void ItShouldBeAbleToClockOutAnHourlyEmployeeAnotherTime() {
-            LocalTime expectedTime = LocalTime.of(17,30);
-            Clock mock = createMockClock(expectedTime, dateIssued);
-            TimeSource timeSource = new TimeSource(mock);
-            
-            ClockOutEmployee co = new ClockOutEmployee(repository, empId, timeSource);
-            
-            co.execute();
-            
-            Employee e = repository.getEmployeeById(empId);
-            Timecard t = e.getTimecardIssuedOn(dateIssued);
-            assertThat(t.getClockedOutTime(), is(equalTo(expectedTime)));
-        }
-        
-        
 
         private Clock createMockClock(LocalTime expectedTime, LocalDate date) {
             Instant instant = LocalDateTime.of(date, expectedTime)
