@@ -5,19 +5,17 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
-import java.time.LocalDate;
-
 /**
  *
  * @author pofay
  */
-public class PunchInEmployee {
+public class ClockInEmployee {
 
     private final InMemoryPayrollRepository repository;
     private final int empId;
     private final TimeSource timeSource;
 
-    public PunchInEmployee(InMemoryPayrollRepository repository, int empId, TimeSource ts) {
+    public ClockInEmployee(InMemoryPayrollRepository repository, int empId, TimeSource ts) {
         this.repository = repository;
         this.empId = empId;
         this.timeSource = ts;

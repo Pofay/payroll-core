@@ -27,6 +27,24 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -167,7 +185,7 @@ public class PayrollTest {
             Clock mock = createMockClock(expectedTime, dateIssued);
             TimeSource timeSource = new TimeSource(mock);
 
-            PunchInEmployee pi = new PunchInEmployee(repository, empId, timeSource);
+            ClockInEmployee pi = new ClockInEmployee(repository, empId, timeSource);
 
             pi.execute();
 
@@ -175,24 +193,8 @@ public class PayrollTest {
             Timecard t = e.getTimecardIssuedOn(dateIssued);
             assertThat(t.getInitialTime(), is(equalTo(expectedTime)));
         }
-
-        @Test
-        public void ItShouldBeAbleToPunchInAnHourlyEmployeeOnADifferentDate() {
-            LocalTime expectedTime = LocalTime.of(9, 30);
-            LocalDate differentDate = LocalDate.of(2016, Month.JUNE, 16);
-            Clock mock = createMockClock(expectedTime, differentDate);
-            TimeSource timeSource = new TimeSource(mock);
-
-            postTimecardTo(empId, differentDate);
-
-            PunchInEmployee pi = new PunchInEmployee(repository, empId, timeSource);
-
-            pi.execute();
-
-            Employee e = repository.getEmployeeById(empId);
-            Timecard t = e.getTimecardIssuedOn(differentDate);
-            assertThat(t.getInitialTime(), is(equalTo(expectedTime)));
-        }
+        
+        
 
         private Clock createMockClock(LocalTime expectedTime, LocalDate date) {
             Instant instant = LocalDateTime.of(date, expectedTime)
