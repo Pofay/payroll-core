@@ -24,7 +24,7 @@ public class ClockInEmployee {
     public void execute() {
         Employee e = repository.getEmployeeById(empId);
         Timecard t = e.getTimecardIssuedOn(timeSource.getCurrentDate());
-        t.punchIn(timeSource);
+        t.clockIn(timeSource);
         repository.save(e);
     }
 

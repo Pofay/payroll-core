@@ -25,11 +25,15 @@ public class Timecard {
         return dateIssued;
     }
 
-    public LocalTime getInitialTime() {
+    public LocalTime getClockedInTime() {
         return initialTime;
     }
 
-    public void punchIn(TimeSource timeSource) {
+    public void clockIn(TimeSource timeSource) {
         this.initialTime = timeSource.now();
+    }
+    
+    public LocalTime getClockedOutTime(){
+        return LocalTime.of(16, 30);
     }
 }
