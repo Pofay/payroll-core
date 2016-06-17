@@ -25,8 +25,9 @@ public class PostTimecard {
 
     public void execute() {
         Employee e = repository.getEmployeeById(empId);
+        HourlyClassification hc = e.getClassification();
         Timecard t = new Timecard(dateIssued);
-        e.addTimecard(t);
+        hc.addTimecard(t);
         repository.save(e);
     }
     

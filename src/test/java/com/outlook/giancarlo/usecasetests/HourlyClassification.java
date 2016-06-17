@@ -15,6 +15,7 @@ import java.time.LocalTime;
 public class HourlyClassification {
 
     private final double rate;
+    private Timecard timecards;
 
     public HourlyClassification(double hourlyRate) {
         this.rate = hourlyRate;
@@ -25,9 +26,14 @@ public class HourlyClassification {
     }
 
     public Timecard getTimecardIssuedOn(LocalDate dateIssued) {
-        Timecard t = new Timecard(dateIssued);
-        t.clockIn(LocalTime.of(10,30));
-        return t;
+       // Timecard t = new Timecard(dateIssued);
+       // t.clockIn(LocalTime.of(10,30));
+       // return t;
+       return timecards;
+    }
+
+    public void addTimecard(Timecard t) {
+        timecards=t;
     }
 
 }
