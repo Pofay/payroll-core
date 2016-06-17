@@ -172,7 +172,8 @@ public class PayrollTest {
             ci.execute();
 
             Employee e = repository.getEmployeeById(empId);
-            Timecard t = e.getTimecardIssuedOn(dateIssued);
+            HourlyClassification hc = e.getClassification();
+            Timecard t = hc.getTimecardIssuedOn(dateIssued);
             assertThat(t.getClockedInTime(), is(equalTo(expectedTime)));
         }
 

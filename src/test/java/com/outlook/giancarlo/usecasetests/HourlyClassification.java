@@ -5,6 +5,9 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  *
  * @author pofay
@@ -19,6 +22,12 @@ public class HourlyClassification {
 
     public double getRate() {
         return rate;
+    }
+
+    public Timecard getTimecardIssuedOn(LocalDate dateIssued) {
+        Timecard t = new Timecard(dateIssued);
+        t.clockIn(LocalTime.of(10,30));
+        return t;
     }
 
 }
