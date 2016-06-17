@@ -21,7 +21,7 @@ public class Employee {
     private int deptId;
     private EmployeeName name;
     private HourlyClassification classfication;
-    private HashMap<LocalDate, Timecard> timecards;
+    private final HashMap<LocalDate, Timecard> timecards;
 
     public Employee(int id, int deptId, EmployeeName name) {
         this.id = id;
