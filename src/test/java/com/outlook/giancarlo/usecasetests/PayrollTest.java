@@ -37,6 +37,7 @@ import org.junit.Ignore;
 public class PayrollTest {
 
     InMemoryPayrollRepository repository;
+    private final double DELTA = 1.0;
 
     @Before
     public void beforeEach() {
@@ -44,8 +45,6 @@ public class PayrollTest {
     }
 
     public class EntityCreationContext {
-
-        private final double DELTA = 1.0;
 
         @Test
         public void ItShouldBeAbleToCreateAnEmployee() {
@@ -169,9 +168,7 @@ public class PayrollTest {
             Clock mock = createMockClock(expectedTime, dateIssued);
             TimeSource timeSource = new TimeSource(mock);
 
-            ClockInEmployee ci = new ClockInEmployee(repository, empId, timeSource);
-
-            ci.execute();
+            executeClockInEmployee(empId, timeSource);
 
             Employee e = repository.getEmployeeById(empId);
             HourlyClassification hc = e.getClassification();
@@ -185,9 +182,7 @@ public class PayrollTest {
             Clock mock = createMockClock(expectedTime, dateIssued);
             TimeSource timeSource = new TimeSource(mock);
 
-            ClockOutEmployee co = new ClockOutEmployee(repository, empId, timeSource);
-
-            co.execute();
+            executeClockOutEmployee(empId, timeSource);
 
             Employee e = repository.getEmployeeById(empId);
             HourlyClassification hc = e.getClassification();
@@ -195,13 +190,35 @@ public class PayrollTest {
             assertThat(t.getClockedOutTime(), is(equalTo(expectedTime)));
         }
 
-        private Clock createMockClock(LocalTime expectedTime, LocalDate date) {
-            Instant instant = LocalDateTime.of(date, expectedTime)
-                    .atZone(ZoneOffset.ofHours(8))
-                    .toInstant();
-            Clock mock = Clock.fixed(instant, ZoneId.of("Asia/Singapore"));
-            return mock;
+    }
+
+    public class CalculateHoursForHourlyEmployeeContext {
+
+        @Test
+        public void ItShouldBeAbleToCalculateTheTotalHoursWhenTimecardHasClockedInAndClockedOut() {
+            int empId = 5;
+            double expectedHours = 8.0;
+            LocalDate dateIssued = LocalDate.of(2016, Month.JUNE, 17);
+            LocalTime clockedInTime = LocalTime.of(7, 30);
+            double hourlyRate = 8.0;
+
+            TimeSource timeInSource = new TimeSource(createMockClock(clockedInTime, dateIssued));
+            LocalTime clockedOutTime = LocalTime.of(16, 30);
+            TimeSource timeOutSource = new TimeSource(createMockClock(clockedOutTime, dateIssued));
+
+            executeCreateHourlyEmployee(5, 6, new EmployeeName("Lian Michael", "Gilos"), hourlyRate);
+            postTimecardTo(empId, dateIssued);
+            executeClockInEmployee(empId, timeInSource);
+            executeClockOutEmployee(empId, timeOutSource);
+
+            Employee e = repository.getEmployeeById(empId);
+            HourlyClassification hc = e.getClassification();
+            Timecard t = hc.getTimecardIssuedOn(dateIssued);
+
+            double actualTotalHours = t.getTotalHours();
+            assertEquals(expectedHours, actualTotalHours, DELTA);
         }
+
     }
 
     public class NullObjectContext {
@@ -328,6 +345,16 @@ public class PayrollTest {
         ce.execute();
     }
 
+    private void executeClockInEmployee(int empId, TimeSource timeSource) {
+        ClockInEmployee ci = new ClockInEmployee(repository, empId, timeSource);
+        ci.execute();
+    }
+
+    private void executeClockOutEmployee(int empId, TimeSource timeSource) {
+        ClockOutEmployee co = new ClockOutEmployee(repository, empId, timeSource);
+        co.execute();
+    }
+
     private void executeCreateHourlyEmployee(int empId, int deptId, EmployeeName name, double hourlyRate) {
         CreateHourlyEmployee cnhe = new CreateHourlyEmployee(repository, empId, deptId, name, hourlyRate);
         cnhe.execute();
@@ -337,5 +364,13 @@ public class PayrollTest {
         PostTimecard post = new PostTimecard(repository, empId, dateIssued);
 
         post.execute();
+    }
+
+    private Clock createMockClock(LocalTime expectedTime, LocalDate date) {
+        Instant instant = LocalDateTime.of(date, expectedTime)
+                .atZone(ZoneOffset.ofHours(8))
+                .toInstant();
+        Clock mock = Clock.fixed(instant, ZoneId.of("Asia/Singapore"));
+        return mock;
     }
 }

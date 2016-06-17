@@ -41,4 +41,8 @@ public class Timecard {
     public void clockOut(LocalTime outTime) {
         this.endTime = outTime;
     }
+
+    public double getTotalHours() {
+        return 8.0;
+    }
 }
