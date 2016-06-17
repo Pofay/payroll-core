@@ -24,7 +24,7 @@ public class ClockOutEmployee {
     void execute() {
         Employee e = repository.getEmployeeById(empId);
         Timecard t = e.getTimecardIssuedOn(timeSource.getCurrentDate());
-        t.clockOut(timeSource);
+        t.clockOut(timeSource.now());
         repository.save(e);
     }
     

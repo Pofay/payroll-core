@@ -30,15 +30,15 @@ public class Timecard {
         return initialTime;
     }
 
-    public void clockIn(TimeSource timeSource) {
-        this.initialTime = timeSource.now();
+    public void clockIn(LocalTime initialTime) {
+        this.initialTime = initialTime;
     }
     
     public LocalTime getClockedOutTime(){
         return endTime;
     }
 
-    public void clockOut(TimeSource timeSource) {
-        this.endTime = timeSource.now();
+    public void clockOut(LocalTime outTime) {
+        this.endTime = outTime;
     }
 }
