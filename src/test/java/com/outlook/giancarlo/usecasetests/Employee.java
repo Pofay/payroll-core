@@ -21,49 +21,39 @@ public class Employee {
     private int deptId;
     private EmployeeName name;
     private HourlyClassification classfication;
-    private final HashMap<LocalDate, Timecard> timecards;
 
     public Employee(int id, int deptId, EmployeeName name) {
         this.id = id;
         this.name = name;
         this.deptId = deptId;
-        timecards = new HashMap<>();
-    }
-
-    public void setClassification(HourlyClassification classification) {
-        this.classfication = classification;
-    }
-
-    public String getName() {
-        return String.format("%s %s", name.first, name.last);
     }
 
     public int getId() {
         return id;
     }
 
-    public int getDeptId() {
-        return deptId;
-    }
-
-    public void changeNameTo(EmployeeName name) {
-        this.name = name;
-    }
-
-    public void changeDeptIdTo(int deptId) {
-        this.deptId = deptId;
+    public void setClassification(HourlyClassification classification) {
+        this.classfication = classification;
     }
 
     public HourlyClassification getClassification() {
         return classfication;
     }
 
-    public Timecard getTimecardIssuedOn(LocalDate dateIssued) {
-        return timecards.get(dateIssued);
+    public void changeNameTo(EmployeeName name) {
+        this.name = name;
     }
 
-    public void addTimecard(Timecard t) {
-        timecards.put(t.getDateIssued(),t);
+    public String getName() {
+        return String.format("%s %s", name.first, name.last);
+    }
+
+    public void changeDeptIdTo(int deptId) {
+        this.deptId = deptId;
+    }
+
+    public int getDeptId() {
+        return deptId;
     }
 
     public static class UnknownEmployee extends Employee {

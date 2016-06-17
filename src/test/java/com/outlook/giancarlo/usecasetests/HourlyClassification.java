@@ -7,6 +7,7 @@ package com.outlook.giancarlo.usecasetests;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 
 /**
  *
@@ -15,10 +16,11 @@ import java.time.LocalTime;
 public class HourlyClassification {
 
     private final double rate;
-    private Timecard timecards;
+    private final HashMap<LocalDate, Timecard> timecards;
 
     public HourlyClassification(double hourlyRate) {
         this.rate = hourlyRate;
+        timecards = new HashMap<>();
     }
 
     public double getRate() {
@@ -26,14 +28,10 @@ public class HourlyClassification {
     }
 
     public Timecard getTimecardIssuedOn(LocalDate dateIssued) {
-       // Timecard t = new Timecard(dateIssued);
-       // t.clockIn(LocalTime.of(10,30));
-       // return t;
-       return timecards;
+        return timecards.get(dateIssued);
     }
 
     public void addTimecard(Timecard t) {
-        timecards=t;
+        timecards.put(t.getDateIssued(), t);
     }
-
 }
