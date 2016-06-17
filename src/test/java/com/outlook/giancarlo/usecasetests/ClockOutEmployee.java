@@ -15,15 +15,16 @@ public class ClockOutEmployee {
     private final int empId;
     private final InMemoryPayrollRepository repository;
 
-    ClockOutEmployee(InMemoryPayrollRepository repository, int empId, TimeSource timeSource) {
+    public ClockOutEmployee(InMemoryPayrollRepository repository, int empId, TimeSource timeSource) {
         this.repository = repository;
         this.empId = empId;
         this.timeSource = timeSource;
     }
 
-    void execute() {
+    public void execute() {
         Employee e = repository.getEmployeeById(empId);
-        Timecard t = e.getTimecardIssuedOn(timeSource.getCurrentDate());
+        HourlyClassification hc = e.getClassification();
+        Timecard t = hc.getTimecardIssuedOn(timeSource.getCurrentDate());
         t.clockOut(timeSource.now());
         repository.save(e);
     }

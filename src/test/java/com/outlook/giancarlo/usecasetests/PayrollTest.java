@@ -163,7 +163,6 @@ public class PayrollTest {
             postTimecardTo(empId, dateIssued);
         }
 
-        @Ignore
         @Test
         public void ItShouldBeAbleToClockInAnHourlyEmployeeOnAGIvenTime() {
             LocalTime expectedTime = LocalTime.of(10, 30);
@@ -180,7 +179,6 @@ public class PayrollTest {
             assertThat(t.getClockedInTime(), is(equalTo(expectedTime)));
         }
 
-        @Ignore
         @Test
         public void ItShouldBeAbleToClockOutAnHourlyEmployeeOnAGivenTime() {
             LocalTime expectedTime = LocalTime.of(16, 30);
@@ -192,7 +190,8 @@ public class PayrollTest {
             co.execute();
 
             Employee e = repository.getEmployeeById(empId);
-            Timecard t = e.getTimecardIssuedOn(dateIssued);
+            HourlyClassification hc = e.getClassification();
+            Timecard t = hc.getTimecardIssuedOn(dateIssued);
             assertThat(t.getClockedOutTime(), is(equalTo(expectedTime)));
         }
 
