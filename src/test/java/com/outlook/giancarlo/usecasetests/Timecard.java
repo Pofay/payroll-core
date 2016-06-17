@@ -43,6 +43,8 @@ public class Timecard {
     }
 
     public double getTotalHours() {
-        return 8.0;
+        double totalHours = 0.0;
+        totalHours = endTime.getHour()-initialTime.getHour() - 1;
+        return totalHours;
     }
 }
