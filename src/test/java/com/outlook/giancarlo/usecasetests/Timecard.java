@@ -16,6 +16,7 @@ public class Timecard {
 
     private final LocalDate dateIssued;
     private LocalTime initialTime;
+    private LocalTime endTime;
 
     public Timecard(LocalDate dateIssued) {
         this.dateIssued = dateIssued;
@@ -34,6 +35,10 @@ public class Timecard {
     }
     
     public LocalTime getClockedOutTime(){
-        return LocalTime.of(16, 30);
+        return endTime;
+    }
+
+    public void clockOut(TimeSource timeSource) {
+        this.endTime = timeSource.now();
     }
 }

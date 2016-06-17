@@ -11,10 +11,21 @@ package com.outlook.giancarlo.usecasetests;
  */
 public class ClockOutEmployee {
 
+    private final TimeSource timeSource;
+    private final int empId;
+    private final InMemoryPayrollRepository repository;
+
     ClockOutEmployee(InMemoryPayrollRepository repository, int empId, TimeSource timeSource) {
+        this.repository = repository;
+        this.empId = empId;
+        this.timeSource = timeSource;
     }
 
     void execute() {
+        Employee e = repository.getEmployeeById(empId);
+        Timecard t = e.getTimecardIssuedOn(timeSource.getCurrentDate());
+        t.clockOut(timeSource);
+        repository.save(e);
     }
     
 }
