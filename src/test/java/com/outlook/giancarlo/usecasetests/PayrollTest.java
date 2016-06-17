@@ -194,27 +194,34 @@ public class PayrollTest {
 
     public class CalculateHoursForHourlyEmployeeContext {
 
-        @Test
-        public void ItShouldBeAbleToCalculateTheTotalHoursWhenTimecardHasClockedInAndClockedOut() {
-            int empId = 5;
-            double expectedHours = 8.0;
-            LocalDate dateIssued = LocalDate.of(2016, Month.JUNE, 17);
-            LocalTime clockedInTime = LocalTime.of(7, 30);
-            double hourlyRate = 8.0;
+        LocalDate dateIssued;
+        int empId = 5;
 
-            TimeSource timeInSource = new TimeSource(createMockClock(clockedInTime, dateIssued));
+        TimeSource timeInSource;
+        TimeSource timeOutSource;
+        @Before
+        public void beforeEach() {
+            LocalTime clockedInTime = LocalTime.of(7, 30);
             LocalTime clockedOutTime = LocalTime.of(16, 30);
-            TimeSource timeOutSource = new TimeSource(createMockClock(clockedOutTime, dateIssued));
+            double hourlyRate = 8.0;
+            dateIssued = LocalDate.of(2016, Month.JUNE, 17);
+            timeInSource = new TimeSource(createMockClock(clockedInTime, dateIssued));
+            timeOutSource = new TimeSource(createMockClock(clockedOutTime, dateIssued));
 
             executeCreateHourlyEmployee(5, 6, new EmployeeName("Lian Michael", "Gilos"), hourlyRate);
             postTimecardTo(empId, dateIssued);
+        }
+
+        @Test
+        public void ItShouldBeAbleToCalculateTheTotalHoursWhenTimecardHasClockedInAndClockedOut() {
+            double expectedHours = 8.0;
+            
             executeClockInEmployee(empId, timeInSource);
             executeClockOutEmployee(empId, timeOutSource);
 
             Employee e = repository.getEmployeeById(empId);
             HourlyClassification hc = e.getClassification();
             Timecard t = hc.getTimecardIssuedOn(dateIssued);
-
             double actualTotalHours = t.getTotalHours();
             assertEquals(expectedHours, actualTotalHours, DELTA);
         }
