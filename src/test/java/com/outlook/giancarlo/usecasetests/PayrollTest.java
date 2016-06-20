@@ -208,13 +208,29 @@ public class PayrollTest {
         }
 
         @Test
-        public void ItShouldStillGiveOutADefaultOf0WhenExecutingGetTotalHoursWithAClockIn() {
+        public void ItShouldGiveOutADefaultOf0WhenExecutingGetTotalHoursWithOnlyClockIn() {
             double expectedHours = 0.0;
             LocalTime clockedInTime = LocalTime.of(8, 30);
             Clock mock = createMockClock(clockedInTime, dateIssued);
             TimeSource timeSource = new TimeSource(mock);
 
             executeClockInEmployee(empId, timeSource);
+
+            Employee e = repository.getEmployeeById(empId);
+            HourlyClassification hc = e.getClassification();
+            Timecard t = hc.getTimecardIssuedOn(dateIssued);
+
+            assertEquals(expectedHours, t.getTotalHours(), DELTA);
+        }
+
+        @Test
+        public void ItShouldGiveOutADefaultOf0WhenExecutingGetTotalHoursWithOnlyClockOut() {
+            double expectedHours = 0.0;
+            LocalTime clockedOutTime = LocalTime.of(16, 30);
+            Clock mock = createMockClock(clockedOutTime, dateIssued);
+            TimeSource timeSource = new TimeSource(mock);
+
+            executeClockOutEmployee(empId, timeSource);
 
             Employee e = repository.getEmployeeById(empId);
             HourlyClassification hc = e.getClassification();
