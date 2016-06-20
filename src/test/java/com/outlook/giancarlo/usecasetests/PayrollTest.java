@@ -197,13 +197,29 @@ public class PayrollTest {
         }
 
         @Test
-        public void ItShouldBeAbleToGiveOutADefault0WhenExecutingGetTotalHours(){
-            double expectedHours =0.0;
-            
+        public void ItShouldBeAbleToGiveOutADefault0WhenExecutingGetTotalHours() {
+            double expectedHours = 0.0;
+
             Employee e = repository.getEmployeeById(empId);
             HourlyClassification hc = e.getClassification();
             Timecard t = hc.getTimecardIssuedOn(dateIssued);
-            
+
+            assertEquals(expectedHours, t.getTotalHours(), DELTA);
+        }
+
+        @Test
+        public void ItShouldStillGiveOutADefaultOf0WhenExecutingGetTotalHoursWithAClockIn() {
+            double expectedHours = 0.0;
+            LocalTime clockedInTime = LocalTime.of(8, 30);
+            Clock mock = createMockClock(clockedInTime, dateIssued);
+            TimeSource timeSource = new TimeSource(mock);
+
+            executeClockInEmployee(empId, timeSource);
+
+            Employee e = repository.getEmployeeById(empId);
+            HourlyClassification hc = e.getClassification();
+            Timecard t = hc.getTimecardIssuedOn(dateIssued);
+
             assertEquals(expectedHours, t.getTotalHours(), DELTA);
         }
     }
@@ -215,6 +231,7 @@ public class PayrollTest {
 
         TimeSource timeInSource;
         TimeSource timeOutSource;
+
         @Before
         public void beforeEach() {
             LocalTime clockedInTime = LocalTime.of(7, 30);
@@ -231,7 +248,7 @@ public class PayrollTest {
         @Test
         public void ItShouldBeAbleToCalculateTheTotalHoursWhenTimecardHasClockedInAndClockedOut() {
             double expectedHours = 8.0;
-            
+
             executeClockInEmployee(empId, timeInSource);
             executeClockOutEmployee(empId, timeOutSource);
 
@@ -362,7 +379,6 @@ public class PayrollTest {
         }
 
     }
-    
 
     private void executeEmployeeCreation(final int empId, int deptId, EmployeeName name) {
         CreateEmployee ce = new CreateEmployee(repository, empId, deptId, name);
