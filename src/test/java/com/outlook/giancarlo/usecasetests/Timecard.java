@@ -46,6 +46,8 @@ public class Timecard {
 
     public double getTotalHours() {
         double totalHours = 0.0;
+        if(endTime.getHour() <= 0)
+            return totalHours;
         totalHours = endTime.getHour()-initialTime.getHour() - LUNCH_BREAK_OFFSET;
         return totalHours;
     }
