@@ -49,9 +49,6 @@ public class Timecard {
         if (endTime.getHour() <= 0 || initialTime.getHour() <= 0) {
             return totalHours;
         }
-//        if (initialTime.getHour() <= 0) {
-//            return totalHours;
-//        }
         totalHours = endTime.getHour() - initialTime.getHour() - LUNCH_BREAK_OFFSET;
         return totalHours;
     }
