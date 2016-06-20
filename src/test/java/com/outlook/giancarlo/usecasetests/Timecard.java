@@ -17,11 +17,14 @@ public class Timecard {
     private static final int LUNCH_BREAK_OFFSET = 1;
 
     private final LocalDate dateIssued;
-    private LocalTime initialTime = LocalTime.of(0, 0);
-    private LocalTime endTime = LocalTime.of(0, 0);
+    private LocalTime initialTime;
+    private LocalTime endTime;
 
     public Timecard(LocalDate dateIssued) {
         this.dateIssued = dateIssued;
+        initialTime = LocalTime.of(0, 0);
+        endTime = LocalTime.of(0, 0);
+        
     }
 
     public LocalDate getDateIssued() {
