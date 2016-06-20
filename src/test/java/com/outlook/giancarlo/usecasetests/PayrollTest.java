@@ -28,6 +28,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import org.junit.Ignore;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -144,7 +150,7 @@ public class PayrollTest {
         }
     }
 
-    public class HourlyTimecardContext {
+    public class TimecardBehaviorContext {
 
         int empId = 20;
         LocalDate dateIssued;
@@ -190,6 +196,16 @@ public class PayrollTest {
             assertThat(t.getClockedOutTime(), is(equalTo(expectedTime)));
         }
 
+        @Test
+        public void ItShouldBeAbleToGiveOutADefault0WhenExecutingGetTotalHours(){
+            double expectedHours =0.0;
+            
+            Employee e = repository.getEmployeeById(empId);
+            HourlyClassification hc = e.getClassification();
+            Timecard t = hc.getTimecardIssuedOn(dateIssued);
+            
+            assertEquals(expectedHours, t.getTotalHours(), DELTA);
+        }
     }
 
     public class CalculateHoursForHourlyEmployeeContext {
@@ -346,6 +362,7 @@ public class PayrollTest {
         }
 
     }
+    
 
     private void executeEmployeeCreation(final int empId, int deptId, EmployeeName name) {
         CreateEmployee ce = new CreateEmployee(repository, empId, deptId, name);
