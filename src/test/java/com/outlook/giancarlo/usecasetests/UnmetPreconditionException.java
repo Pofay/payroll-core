@@ -5,16 +5,13 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
-
 /**
  *
  * @author pofay
  */
-public class InvariantsTest {
-    
-    public InvariantsTest() {
+public class UnmetPreconditionException extends RuntimeException {
+
+    public UnmetPreconditionException(String toLowerCase) {
     }
-    
+
 }
