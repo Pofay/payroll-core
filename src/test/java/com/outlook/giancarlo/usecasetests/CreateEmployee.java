@@ -33,5 +33,4 @@ public class CreateEmployee {
         Employee e = new Employee(id, deptId, empName);
         repository.save(e);
     }
-
 }

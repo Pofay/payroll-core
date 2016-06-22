@@ -22,8 +22,9 @@ public class InMemoryPayrollRepository {
     }
 
     public Employee getEmployeeById(int empId) {
-        Employee e;
-        return e = employees.containsKey(empId) ? employees.get(empId) : Employee.UNKNOWN;
+//        Employee e;
+//        return e = employees.containsKey(empId) ? employees.get(empId) : Employee.UNKNOWN
+          return employees.containsKey(empId) ? employees.get(empId) : Employee.UNKNOWN; 
     }
 
     public List<Employee> getAllEmployeesWithDepartmentIdOf(int deptId) {
