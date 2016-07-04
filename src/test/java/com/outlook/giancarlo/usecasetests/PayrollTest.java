@@ -228,10 +228,6 @@ public class PayrollTest {
             assertEquals(expectedHours, t.getTotalHours(), DELTA);
         }
 
-        private TimeSource createStubTimeSource(LocalTime expectedTime, LocalDate dateIssued) {
-            Clock clock = createMockClock(expectedTime, dateIssued);
-            return new TimeSource(clock);
-        }
     }
 
     public class CalculateHoursForHourlyEmployeeContext {
@@ -246,12 +242,12 @@ public class PayrollTest {
         public void beforeEach() {
             LocalTime clockedInTime = LocalTime.of(7, 30);
             LocalTime clockedOutTime = LocalTime.of(16, 30);
-            double hourlyRate = 8.0;
+            double stubRate = 0.0;
             dateIssued = LocalDate.of(2016, Month.JUNE, 17);
-            timeInSource = new TimeSource(createMockClock(clockedInTime, dateIssued));
-            timeOutSource = new TimeSource(createMockClock(clockedOutTime, dateIssued));
+            timeInSource = createStubTimeSource(clockedInTime, dateIssued);
+            timeOutSource = createStubTimeSource(clockedOutTime, dateIssued);
 
-            executeCreateHourlyEmployee(5, 6, new EmployeeName("Lian Michael", "Gilos"), hourlyRate);
+            executeCreateHourlyEmployee(5, 6, new EmployeeName("Lian Michael", "Gilos"), stubRate);
             postTimecardTo(empId, dateIssued);
         }
 
@@ -269,6 +265,19 @@ public class PayrollTest {
             assertEquals(expectedHours, actualTotalHours, DELTA);
         }
 
+    }
+
+    private TimeSource createStubTimeSource(LocalTime expectedTime, LocalDate dateIssued) {
+        Clock clock = createMockClock(expectedTime, dateIssued);
+        return new TimeSource(clock);
+    }
+
+    private Clock createMockClock(LocalTime expectedTime, LocalDate date) {
+        Instant instant = LocalDateTime.of(date, expectedTime)
+                .atZone(ZoneOffset.ofHours(8))
+                .toInstant();
+        Clock mock = Clock.fixed(instant, ZoneId.of("Asia/Singapore"));
+        return mock;
     }
 
     public class NullObjectContext {
@@ -416,11 +425,4 @@ public class PayrollTest {
         post.execute();
     }
 
-    private Clock createMockClock(LocalTime expectedTime, LocalDate date) {
-        Instant instant = LocalDateTime.of(date, expectedTime)
-                .atZone(ZoneOffset.ofHours(8))
-                .toInstant();
-        Clock mock = Clock.fixed(instant, ZoneId.of("Asia/Singapore"));
-        return mock;
-    }
 }
