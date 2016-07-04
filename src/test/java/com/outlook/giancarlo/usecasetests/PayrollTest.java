@@ -164,8 +164,7 @@ public class PayrollTest {
         @Test
         public void ItShouldBeAbleToClockInAnHourlyEmployeeOnAGIvenTime() {
             LocalTime expectedTime = LocalTime.of(10, 30);
-            Clock mock = createMockClock(expectedTime, dateIssued);
-            TimeSource timeSource = new TimeSource(mock);
+            TimeSource timeSource = createStubTimeSource(expectedTime, dateIssued);
 
             executeClockInEmployee(empId, timeSource);
 
@@ -178,10 +177,9 @@ public class PayrollTest {
         @Test
         public void ItShouldBeAbleToClockOutAnHourlyEmployeeOnAGivenTime() {
             LocalTime expectedTime = LocalTime.of(16, 30);
-            Clock mock = createMockClock(expectedTime, dateIssued);
-            TimeSource timeSource = new TimeSource(mock);
+            TimeSource stub = createStubTimeSource(expectedTime, dateIssued);
 
-            executeClockOutEmployee(empId, timeSource);
+            executeClockOutEmployee(empId, stub);
 
             Employee e = repository.getEmployeeById(empId);
             HourlyClassification hc = e.getClassification();
@@ -204,8 +202,7 @@ public class PayrollTest {
         public void ItShouldGiveOutADefaultOf0WhenExecutingGetTotalHoursWithOnlyClockIn() {
             double expectedHours = 0.0;
             LocalTime clockedInTime = LocalTime.of(8, 30);
-            Clock mock = createMockClock(clockedInTime, dateIssued);
-            TimeSource timeSource = new TimeSource(mock);
+            TimeSource timeSource = createStubTimeSource(clockedInTime, dateIssued);
 
             executeClockInEmployee(empId, timeSource);
 
@@ -220,8 +217,7 @@ public class PayrollTest {
         public void ItShouldGiveOutADefaultOf0WhenExecutingGetTotalHoursWithOnlyClockOut() {
             double expectedHours = 0.0;
             LocalTime clockedOutTime = LocalTime.of(16, 30);
-            Clock mock = createMockClock(clockedOutTime, dateIssued);
-            TimeSource timeSource = new TimeSource(mock);
+            TimeSource timeSource = createStubTimeSource(clockedOutTime, dateIssued);
 
             executeClockOutEmployee(empId, timeSource);
 
@@ -230,6 +226,11 @@ public class PayrollTest {
             Timecard t = hc.getTimecardIssuedOn(dateIssued);
 
             assertEquals(expectedHours, t.getTotalHours(), DELTA);
+        }
+
+        private TimeSource createStubTimeSource(LocalTime expectedTime, LocalDate dateIssued) {
+            Clock clock = createMockClock(expectedTime, dateIssued);
+            return new TimeSource(clock);
         }
     }
 
