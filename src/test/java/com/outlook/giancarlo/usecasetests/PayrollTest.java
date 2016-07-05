@@ -27,6 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.mockito.Matchers.isNotNull;
 
 /**
  *
@@ -46,31 +47,34 @@ public class PayrollTest {
     public class EntityCreationContext {
 
         @Test
-        public void ItShouldBeAbleToCreateAnEmployee() {
+        public void ItShouldBeAbleToCreateAnHourlyEmployee() {
             final int empId = 1;
             String firstName = "Gian Carlo";
             String lastName = "Gilos";
             EmployeeName name = new EmployeeName(firstName, lastName);
+            double hourlyRate = 1.2;
             int deptId = 4;
 
-            executeEmployeeCreation(empId, deptId, name);
+            executeCreateHourlyEmployee(empId, deptId, name, hourlyRate);
 
             Employee e = repository.getEmployeeById(empId);
             assertThat(e.getName(), is("Gian Carlo Gilos"));
             assertThat(e.getId(), is(empId));
             assertThat(e.getDeptId(), is(equalTo(deptId)));
+            assertThat(e.getClassification(), is(notNullValue()));
         }
 
         @Test
         public void ItShouldThrowAnExceptionWhenCreatingAnEmployeeWithAnIdOflesserThan1() {
             int empId = 0;
+            int deptId = 3;
             String firstName = "Raul";
             String lastName = "Watson";
             EmployeeName name = new EmployeeName(firstName, lastName);
-            int deptId = 3;
+            double rate = 1.1;
 
             try {
-                CreateEmployee ce = new CreateEmployee(repository, empId, deptId, name);
+                CreateHourlyEmployee ce = new CreateHourlyEmployee(repository, empId, deptId, name, rate);
                 fail("Should have thrown Exception");
             } catch (IllegalArgumentException e) {
                 String expectedMessage = "Employee Id should be a positive number";
@@ -85,9 +89,10 @@ public class PayrollTest {
             String lastName = "Tristan";
             EmployeeName name = new EmployeeName(firstName, lastName);
             int deptId = 0;
+            double rate = 1.5;
 
             try {
-                CreateEmployee ce = new CreateEmployee(repository, empId, deptId, name);
+                CreateHourlyEmployee ce = new CreateHourlyEmployee(repository, empId, deptId, name, rate);
                 fail("Should have thrown Exception");
             } catch (IllegalArgumentException e) {
                 String expectedMessage = "Department Id should be a positive number";

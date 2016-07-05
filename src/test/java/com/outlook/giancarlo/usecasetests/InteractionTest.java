@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 /**
  *
  * @author pofay
@@ -23,7 +25,7 @@ public class InteractionTest {
         InMemoryPayrollRepository repo = mock(InMemoryPayrollRepository.class);
         
         @Test
-        public void interactionTest(){       
+        public void CreateEmployeeInteractionTest(){       
             int empId = 2;
             int deptId = 2 ;
             EmployeeName name = new EmployeeName("Pofay", "Gilos");
