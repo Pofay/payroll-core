@@ -402,11 +402,6 @@ public class PayrollTest {
 
     }
 
-    private void executeEmployeeCreation(final int empId, int deptId, EmployeeName name) {
-        CreateEmployee ce = new CreateEmployee(repository, empId, deptId, name);
-        ce.execute();
-    }
-
     private void executeClockInEmployee(int empId, TimeSource timeSource) {
         ClockInEmployee ci = new ClockInEmployee(repository, empId, timeSource);
         ci.execute();
