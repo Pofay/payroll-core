@@ -25,17 +25,6 @@ public class InteractionTest {
 
         InMemoryPayrollRepository repo = mock(InMemoryPayrollRepository.class);
 
-        @Test
-        public void CreateEmployeeInteractionTest() {
-            int empId = 2;
-            int deptId = 2;
-            EmployeeName name = new EmployeeName("Pofay", "Gilos");
-
-            CreateEmployee ce = new CreateEmployee(repo, empId, deptId, name);
-            ce.execute();
-
-            verify(repo).createNewEmployeeWith(empId, deptId, name);
-        }
 
         @Test
         public void CreateHourlyEmployeeInteractionTest() {
@@ -48,7 +37,6 @@ public class InteractionTest {
             ce.execute();
 
             verify(repo).createNewEmployeeWith(empId, deptId, name,stubRate);
-
         }
 
     }
