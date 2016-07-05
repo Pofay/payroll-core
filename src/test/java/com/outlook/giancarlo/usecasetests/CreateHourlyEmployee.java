@@ -34,9 +34,7 @@ public class CreateHourlyEmployee {
     }
 
     public void execute() {
-        Employee e = new Employee(empId, deptId, name);
-        e.setClassification(new HourlyClassification(hourlyRate));
-        repository.save(e);
+          repository.createNewEmployeeWith(empId, deptId, name, hourlyRate);
     }
 
 }

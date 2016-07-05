@@ -12,6 +12,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+
 /**
  *
  * @author pofay
@@ -20,23 +21,36 @@ import static org.mockito.Mockito.verify;
 @RunWith(HierarchicalContextRunner.class)
 public class InteractionTest {
 
-    
-    public class CreateEmployeeContext{
+    public class CreateEmployeeContext {
+
         InMemoryPayrollRepository repo = mock(InMemoryPayrollRepository.class);
-        
+
         @Test
-        public void CreateEmployeeInteractionTest(){       
+        public void CreateEmployeeInteractionTest() {
             int empId = 2;
-            int deptId = 2 ;
+            int deptId = 2;
             EmployeeName name = new EmployeeName("Pofay", "Gilos");
-            
+
             CreateEmployee ce = new CreateEmployee(repo, empId, deptId, name);
             ce.execute();
-            
+
             verify(repo).createNewEmployeeWith(empId, deptId, name);
         }
-        
-        
+
+        @Test
+        public void CreateHourlyEmployeeInteractionTest() {
+            int empId = 2;
+            int deptId = 2;
+            EmployeeName name = new EmployeeName("Pofay", "Gilos");
+            double stubRate = 1.7;
+
+            CreateHourlyEmployee ce = new CreateHourlyEmployee(repo, empId, deptId, name, stubRate);
+            ce.execute();
+
+            verify(repo).createNewEmployeeWith(empId, deptId, name,stubRate);
+
+        }
+
     }
-    
+
 }
