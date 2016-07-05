@@ -30,7 +30,6 @@ public class CreateEmployee {
     }
 
     public void execute() {
-        Employee e = new Employee(id, deptId, empName);
-        repository.save(e);
+        repository.createNewEmployeeWith(id, deptId, empName);
     }
 }

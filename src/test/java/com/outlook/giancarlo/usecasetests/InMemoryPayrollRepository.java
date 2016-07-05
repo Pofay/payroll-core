@@ -22,7 +22,7 @@ public class InMemoryPayrollRepository {
     }
 
     public Employee getEmployeeById(int empId) {
-          return employees.containsKey(empId) ? employees.get(empId) : Employee.UNKNOWN; 
+        return employees.containsKey(empId) ? employees.get(empId) : Employee.UNKNOWN;
     }
 
     public List<Employee> getAllEmployeesWithDepartmentIdOf(int deptId) {
@@ -34,6 +34,10 @@ public class InMemoryPayrollRepository {
                     employeesOfDeptId.add(e);
                 });
         return employeesOfDeptId;
+    }
+
+    public void createNewEmployeeWith(int empId, int deptId, EmployeeName name) {
+        save(new Employee(empId, deptId, name));
     }
 
     public List<Employee> getAllEmployees() {
