@@ -309,9 +309,10 @@ public class PayrollTest {
 
         @Before
         public void beforeEach() {
-            executeEmployeeCreation(empId1, deptId1, new EmployeeName("Gian Carlo", "Gilos"));
-            executeEmployeeCreation(empId2, deptId1, new EmployeeName("Raul", "Watson"));
-            executeEmployeeCreation(empId3, deptId2, new EmployeeName("Ulric", "Tristan"));
+            double stubRate = 1.0;
+            executeCreateHourlyEmployee(empId1, deptId1, new EmployeeName("Gian Carlo", "Gilos"), stubRate);
+            executeCreateHourlyEmployee(empId2, deptId1, new EmployeeName("Raul", "Watson"),stubRate);
+            executeCreateHourlyEmployee(empId3, deptId2, new EmployeeName("Ulric", "Tristan"),stubRate);
         }
 
         @Test
@@ -358,7 +359,8 @@ public class PayrollTest {
 
         @Before
         public void beforeEach() {
-            executeEmployeeCreation(empId, deptId, new EmployeeName(firstName, lastName));
+            double stubRate= 1.5;
+            executeCreateHourlyEmployee(empId, deptId, new EmployeeName(firstName, lastName), stubRate);
         }
 
         @Test
@@ -376,8 +378,6 @@ public class PayrollTest {
 
         @Test
         public void ItShouldBeAbleToChangeTheDepartmentIdOfAnEmployee() {
-            executeEmployeeCreation(empId, deptId, new EmployeeName(firstName, lastName));
-
             int changedDeptId = 9;
             ChangeEmployee ce = new ChangeEmployeeDepartmentId(repository,
                     empId, changedDeptId);
@@ -390,8 +390,6 @@ public class PayrollTest {
 
         @Test
         public void ItShouldBeAbleToChangeTheLastNameOfAnEmployee() {
-            executeEmployeeCreation(empId, deptId, new EmployeeName(firstName, lastName));
-
             String changedLastName = "Tumulak";
             ChangeEmployee ce = new ChangeEmployeeName(repository, empId,
                     new EmployeeName(firstName, changedLastName));
