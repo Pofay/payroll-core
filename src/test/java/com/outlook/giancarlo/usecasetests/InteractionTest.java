@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  *
@@ -35,7 +37,7 @@ public class InteractionTest {
             CreateHourlyEmployee ce = new CreateHourlyEmployee(repo, empId, deptId, name, stubRate);
             ce.execute();
 
-            verify(repo).createNewEmployeeWith(empId, deptId, name, stubRate);
+            verify(repo).createHourlyWeeklyPaidEmployee(empId, deptId, name, stubRate);
         }
 
         @Test

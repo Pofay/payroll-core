@@ -52,6 +52,10 @@ public class Employee {
         return deptId;
     }
 
+    public WeeklySchedule getPaymentSchedule() {
+        return new WeeklySchedule();
+    }
+
     public static class UnknownEmployee extends Employee {
 
         public UnknownEmployee(int empId, int deptId, EmployeeName name) {

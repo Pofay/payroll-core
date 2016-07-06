@@ -48,7 +48,7 @@ public class InMemoryPayrollRepository {
         employees.put(e.getId(), e);
     }
 
-    public void createNewEmployeeWith(int empId, int deptId, EmployeeName name, double rate) {
+    public void createHourlyWeeklyPaidEmployee(int empId, int deptId, EmployeeName name, double rate) {
         Employee e = new Employee(empId, deptId, name);
         e.setClassification(new HourlyClassification(rate));
         save(e);

@@ -34,7 +34,7 @@ public class CreateHourlyEmployee {
     }
 
     public void execute() {
-          repository.createNewEmployeeWith(empId, deptId, name, hourlyRate);
+          repository.createHourlyWeeklyPaidEmployee(empId, deptId, name, hourlyRate);
     }
 
 }
