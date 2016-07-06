@@ -5,6 +5,8 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author pofay
@@ -17,6 +19,11 @@ public class BiweeklySchedule implements PaymentSchedule{
     @Override
     public String toString() {
         return "biweekly"; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isPayDate(LocalDate payDate) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

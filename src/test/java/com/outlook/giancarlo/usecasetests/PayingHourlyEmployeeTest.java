@@ -56,9 +56,5 @@ public class PayingHourlyEmployeeTest {
         assertTrue(e.getPaymentSchedule() instanceof BiweeklySchedule);
     }
 
-    @Test
-    public void testMethod() {
-
-    }
 
 }

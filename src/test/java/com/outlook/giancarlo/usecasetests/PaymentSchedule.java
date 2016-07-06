@@ -5,10 +5,13 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author pofay
  */
 public interface PaymentSchedule {
     
+   boolean isPayDate(LocalDate payDate);
 }
