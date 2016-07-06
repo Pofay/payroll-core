@@ -6,25 +6,24 @@
 package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
+import java.time.LocalDate;
+import java.time.Month;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  *
  * @author pofay
  */
-
 @RunWith(HierarchicalContextRunner.class)
 public class InteractionTest {
 
     public class CreateEmployeeContext {
 
         InMemoryPayrollRepository repo = mock(InMemoryPayrollRepository.class);
-
 
         @Test
         public void CreateHourlyEmployeeInteractionTest() {
@@ -36,7 +35,25 @@ public class InteractionTest {
             CreateHourlyEmployee ce = new CreateHourlyEmployee(repo, empId, deptId, name, stubRate);
             ce.execute();
 
-            verify(repo).createNewEmployeeWith(empId, deptId, name,stubRate);
+            verify(repo).createNewEmployeeWith(empId, deptId, name, stubRate);
+        }
+
+        @Test
+        public void PostTimecardInteractionTest() {
+            int empId = 4;
+            int deptId = 5;
+            double stubRate = 1.0;
+            LocalDate stubDate = LocalDate.of(2, Month.MARCH, 14);
+            EmployeeName name = new EmployeeName("Gian Carlo", "Gilos");
+            Employee stub = new Employee(empId, deptId, name);
+            stub.setClassification(new HourlyClassification(stubRate));
+            when(repo.getEmployeeById(empId)).thenReturn(stub);
+            
+            
+            PostTimecard pt = new PostTimecard(repo, empId, stubDate);
+            pt.execute();
+            
+            verify(repo).save(stub);
         }
 
     }
