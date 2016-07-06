@@ -46,15 +46,14 @@ public class PayingHourlyEmployeeTest {
         double stubRate = 1.3;
         EmployeeName name = new EmployeeName("Pofay", "Gilos");
         
-        CreateHourlyEmployee ce = new CreateHourlyEmployee(repo, empId, deptId, name, stubRate);
-        ce.execute();
+        CreateHourlyEmployee createTransaction = new CreateHourlyEmployee(repo, empId, deptId, name, stubRate);
+        createTransaction.execute();
         
-        ChangeToBiweeklySchedule cps = new ChangeToBiweeklySchedule(repo, empId);
-        cps.execute();
+        ChangeToBiweeklySchedule changeTransaction = new ChangeToBiweeklySchedule(repo, empId);
+        changeTransaction.execute();
         
         Employee e = repo.getEmployeeById(empId);
         assertThat(e.getPaymentSchedule().toString(), is(equalTo("biweekly")) );
-        
     }
     
 }
