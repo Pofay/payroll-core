@@ -31,7 +31,7 @@ public class PaymentScheduleTest {
     }
     
     @Test
-    public void WeeklyPaymentScheduleReturnsCorrectOnWrongDate() {
+    public void WeeklyPaymentScheduleReturnsCorrectResultOnWrongDate() {
         PaymentSchedule schedule = new WeeklySchedule();
         
         LocalDate payDate = LocalDate.of(2016, Month.JULY, 7);
