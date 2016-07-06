@@ -9,11 +9,6 @@ package com.outlook.giancarlo.usecasetests;
  *
  * @author pofay
  */
-public class WeeklySchedule implements PaymentSchedule{
-
-    @Override
-    public String toString() {
-        return "weekly";
-    }
+public interface PaymentSchedule {
     
 }

@@ -9,11 +9,15 @@ package com.outlook.giancarlo.usecasetests;
  *
  * @author pofay
  */
-public class WeeklySchedule implements PaymentSchedule{
+public class BiweeklySchedule implements PaymentSchedule{
+
+    public BiweeklySchedule() {
+    }
 
     @Override
     public String toString() {
-        return "weekly";
+        return "biweekly"; //To change body of generated methods, choose Tools | Templates.
     }
+    
     
 }

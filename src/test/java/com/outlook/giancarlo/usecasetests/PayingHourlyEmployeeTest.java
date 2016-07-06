@@ -38,4 +38,23 @@ public class PayingHourlyEmployeeTest {
         assertThat(e.getPaymentSchedule().toString(), is(equalTo("weekly")));    
     }
     
+    @Test
+    public void EmployeeWithWeeklyPaymentScheduleCanBeChangedWithBiweeklyPaymentSchedule() {
+        InMemoryPayrollRepository repo = new InMemoryPayrollRepository();
+        int empId = 1;
+        int deptId = 1;
+        double stubRate = 1.3;
+        EmployeeName name = new EmployeeName("Pofay", "Gilos");
+        
+        CreateHourlyEmployee ce = new CreateHourlyEmployee(repo, empId, deptId, name, stubRate);
+        ce.execute();
+        
+        ChangeToBiweeklySchedule cps = new ChangeToBiweeklySchedule(repo, empId);
+        cps.execute();
+        
+        Employee e = repo.getEmployeeById(empId);
+        assertThat(e.getPaymentSchedule().toString(), is(equalTo("biweekly")) );
+        
+    }
+    
 }

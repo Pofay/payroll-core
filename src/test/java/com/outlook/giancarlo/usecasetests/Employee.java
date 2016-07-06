@@ -17,6 +17,7 @@ public class Employee {
     private int deptId;
     private EmployeeName name;
     private HourlyClassification classfication;
+    private PaymentSchedule schedule;
 
     public Employee(int id, int deptId, EmployeeName name) {
         this.id = id;
@@ -52,8 +53,12 @@ public class Employee {
         return deptId;
     }
 
-    public WeeklySchedule getPaymentSchedule() {
-        return new WeeklySchedule();
+    public PaymentSchedule getPaymentSchedule() {
+        return schedule;
+    }
+
+    public void setPaymentSchedule(PaymentSchedule schedule) {
+        this.schedule = schedule;
     }
 
     public static class UnknownEmployee extends Employee {
