@@ -7,36 +7,50 @@ package com.outlook.giancarlo.usecasetests;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Arrays;
+import java.util.Collection;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  *
  * @author pofay
  */
-@RunWith(HierarchicalContextRunner.class)
+
+@RunWith(Parameterized.class)
 public class PaymentScheduleTest {
-    
-    @Test
-    public void WeeklyPaymentScheduleReturnsCorrectResultOnCorrectDate() {
-        PaymentSchedule schedule = new WeeklySchedule();
-        
-        LocalDate payDate = LocalDate.of(2016, Month.JULY, 1);
-        
-        assertThat(schedule.isPayDate(payDate), is(true));
+
+    @Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][]{
+            {LocalDate.of(2016,Month.JULY, 1), true}, 
+            {LocalDate.of(2016, Month.JULY, 7), false}
+        });
     }
+    private LocalDate date;
+    private boolean expected;
     
-    @Test
-    public void WeeklyPaymentScheduleReturnsCorrectResultOnWrongDate() {
-        PaymentSchedule schedule = new WeeklySchedule();
-        
-        LocalDate payDate = LocalDate.of(2016, Month.JULY, 7);
-        
-        assertThat(schedule.isPayDate(payDate), is(false));
+    public PaymentScheduleTest(LocalDate payDate, boolean expected) {
+        date = payDate;
+        this.expected=expected;
     }
+
     
+
+    @Test
+    public void WeeklyPaymentScheduleChecksifDateIsPayDate() {
+        PaymentSchedule schedule = new WeeklySchedule();
+
+        assertThat(schedule.isPayDate(date), is(expected));
+    }
+
 }
