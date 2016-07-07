@@ -5,18 +5,13 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
-import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.Collection;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -27,7 +22,7 @@ import static org.junit.Assert.assertThat;
  */
 
 @RunWith(Parameterized.class)
-public class PaymentScheduleTest {
+public class WeeklyScheduleTest {
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -41,7 +36,7 @@ public class PaymentScheduleTest {
     private LocalDate date;
     private boolean expected;
     
-    public PaymentScheduleTest(LocalDate payDate, boolean expected) {
+    public WeeklyScheduleTest(LocalDate payDate, boolean expected) {
         date = payDate;
         this.expected=expected;
     }
