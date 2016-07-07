@@ -33,9 +33,11 @@ public class PaymentScheduleTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
             {LocalDate.of(2016,Month.JULY, 1), true}, 
-            {LocalDate.of(2016, Month.JULY, 7), false}
+            {LocalDate.of(2016, Month.JULY, 7), false},
+            {LocalDate.of(2016, Month.JULY, 8), true}
         });
     }
+    
     private LocalDate date;
     private boolean expected;
     
@@ -43,8 +45,6 @@ public class PaymentScheduleTest {
         date = payDate;
         this.expected=expected;
     }
-
-    
 
     @Test
     public void WeeklyPaymentScheduleChecksifDateIsPayDate() {

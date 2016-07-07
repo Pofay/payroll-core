@@ -5,6 +5,7 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -21,8 +22,7 @@ public class WeeklySchedule implements PaymentSchedule {
 
     @Override
     public boolean isPayDate(LocalDate payDate) {
-      return payDate.equals(LocalDate.of(2016, Month.JULY, 1));
-      //return true;
+      return payDate.getDayOfWeek() == DayOfWeek.FRIDAY;
     }
 
 }
