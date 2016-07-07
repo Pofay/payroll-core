@@ -7,7 +7,6 @@ package com.outlook.giancarlo.usecasetests;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
 
 /**
  *
