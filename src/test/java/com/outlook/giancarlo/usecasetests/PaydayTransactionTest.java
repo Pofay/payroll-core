@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -45,7 +46,7 @@ public class PaydayTransactionTest {
     }
 
     @Test
-    public void ItShouldBeAbleToPayAHourlyEmployeeOnCorrectPayDate() {
+    public void ItShouldBeAbleToProperlyCalculateAnHourlyEmployeesGrossPayOnCorrectPayDate() {
         int empId = 2;
         createHourlyEmployee(empId);
         postTimecardTo(empId, payDate);
@@ -60,7 +61,7 @@ public class PaydayTransactionTest {
         Paycheck paycheck = t.getPaycheckOf(empId);
         assertEquals(expectedGrossPay, paycheck.grosspay, DELTA);
     }
-
+    
     private void postTimecardTo(int empId, LocalDate date) {
         PostTimecard postTimecard = new PostTimecard(repository, empId, date);
         postTimecard.execute();
