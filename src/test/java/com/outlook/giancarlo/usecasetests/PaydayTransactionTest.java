@@ -34,20 +34,20 @@ public class PaydayTransactionTest {
     private LocalDate payDate;
     private LocalTime clockIn;
     private LocalTime clockOut;
-    private double expected;
+    private double expectedGrossPay;
     InMemoryPayrollRepository repository = new InMemoryPayrollRepository();
 
     public PaydayTransactionTest(LocalDate payDate, LocalTime clockIn, LocalTime clockOut, double expected) {
         this.payDate = payDate;
         this.clockIn = clockIn;
         this.clockOut = clockOut;
-        this.expected = expected;
+        this.expectedGrossPay = expected;
     }
 
     @Test
     public void ItShouldBeAbleToPayAHourlyEmployeeOnCorrectPayDate() {
         int empId = 2;
-        createHourlyEmployee();
+        createHourlyEmployee(empId);
         postTimecardTo(empId, payDate);
         Timecard timecard = getTimecardOf(empId, payDate);
         
@@ -58,7 +58,7 @@ public class PaydayTransactionTest {
         t.execute();
 
         Paycheck paycheck = t.getPaycheckOf(empId);
-        assertEquals(expected, paycheck.grosspay, DELTA);
+        assertEquals(expectedGrossPay, paycheck.grosspay, DELTA);
     }
 
     private void postTimecardTo(int empId, LocalDate date) {
@@ -66,9 +66,9 @@ public class PaydayTransactionTest {
         postTimecard.execute();
     }
 
-    private void createHourlyEmployee() {
+    private void createHourlyEmployee(int empId) {
         EmployeeName name = new EmployeeName("Gian Carlo", "Gilos");
-        CreateHourlyEmployee che = new CreateHourlyEmployee(repository, 2, 3, name, 15.25);
+        CreateHourlyEmployee che = new CreateHourlyEmployee(repository, empId, 3, name, 15.25);
         che.execute();
     }
 
