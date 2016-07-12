@@ -47,5 +47,14 @@ public class WeeklyScheduleTest {
 
         assertThat(schedule.isPayDate(date), is(expected));
     }
-
+    
+     @Test
+    public void WeeklyPaymentScheduleReturnsPayPeriodStartDate4DaysFromGivenPayDate() {
+        PaymentSchedule schedule = new WeeklySchedule();
+                    
+        LocalDate expectedDate = date.minusDays(4);
+        
+        assertThat(schedule.getPayPeriodStartDate(date),
+                is(expectedDate));
+    }
 }
