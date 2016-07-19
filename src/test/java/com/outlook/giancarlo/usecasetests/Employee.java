@@ -5,6 +5,8 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author pofay
@@ -59,6 +61,11 @@ public class Employee {
 
     public void setPaymentSchedule(PaymentSchedule schedule) {
         this.schedule = schedule;
+    }
+
+    public void Payday(Paycheck pc) {
+        double grosspay = classfication.calculateGrossPay(pc);
+        pc.grosspay = grosspay;
     }
 
     public static class UnknownEmployee extends Employee {

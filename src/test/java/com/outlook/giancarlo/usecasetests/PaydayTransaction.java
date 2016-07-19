@@ -6,6 +6,9 @@
 package com.outlook.giancarlo.usecasetests;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -13,14 +16,32 @@ import java.time.LocalDate;
  */
 public class PaydayTransaction {
 
-    public PaydayTransaction(LocalDate paydate) {
+    private final LocalDate paydate;
+    private final InMemoryPayrollRepository repo;
+    private Map<Integer, Paycheck> paychecks;
+
+    public PaydayTransaction(InMemoryPayrollRepository repository,LocalDate paydate) {
+        this.repo = repository;
+        this.paydate = paydate;
+        this.paychecks = new HashMap<>();
     }
 
-    void execute() {
+    public void execute() {
+        List<Employee> employees = repo.getAllEmployees();
+        
+        for (Employee employee : employees) {
+            if(employee.getPaymentSchedule().isPayDate(paydate)){
+                LocalDate startDate = employee.getPaymentSchedule().getPayPeriodStartDate(paydate);
+                Paycheck pc = new Paycheck(startDate, paydate);
+                paychecks.put(employee.getId(), pc);
+                employee.Payday(pc);
+            }
+        }
+        
     }
 
-    Paycheck getPaycheckOf(int empId) {
-        return new Paycheck();
+    public Paycheck getPaycheckOf(int empId) {
+        return paychecks.get(empId);
     }
     
 }

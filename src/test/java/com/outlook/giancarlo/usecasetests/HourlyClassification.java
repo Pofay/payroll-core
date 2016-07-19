@@ -6,8 +6,9 @@
 package com.outlook.giancarlo.usecasetests;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -33,5 +34,14 @@ public class HourlyClassification {
 
     public void addTimecard(Timecard t) {
         timecards.put(t.getDateIssued(), t);
+    }
+
+    public double calculateGrossPay(Paycheck pc) {
+        double pay = timecards.values().stream()
+                .filter(t -> t.isBetween(pc.startDate, pc.payDate))
+                .mapToDouble(t-> t.getTotalHours() * rate)
+                .sum();
+        
+        return pay;
     }
 }

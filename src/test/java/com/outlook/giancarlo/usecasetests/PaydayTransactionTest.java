@@ -29,16 +29,20 @@ public class PaydayTransactionTest {
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-            {LocalDate.of(2016, Month.JULY, 8), LocalTime.of(7, 30), LocalTime.of(16, 30), 122.0}});
+            {15.25, LocalDate.of(2016, Month.JULY, 8), LocalTime.of(7, 30), LocalTime.of(16, 30), 122.0},
+            {16.30, LocalDate.of(2016, Month.JULY, 8), LocalTime.of(6, 30), LocalTime.of(14, 30), 114.1}});
     }
 
+    private double rate;
     private LocalDate payDate;
     private LocalTime clockIn;
     private LocalTime clockOut;
     private double expectedGrossPay;
     InMemoryPayrollRepository repository = new InMemoryPayrollRepository();
 
-    public PaydayTransactionTest(LocalDate payDate, LocalTime clockIn, LocalTime clockOut, double expected) {
+    public PaydayTransactionTest(double rate, LocalDate payDate,
+            LocalTime clockIn, LocalTime clockOut, double expected) {
+        this.rate = rate;
         this.payDate = payDate;
         this.clockIn = clockIn;
         this.clockOut = clockOut;
@@ -48,28 +52,27 @@ public class PaydayTransactionTest {
     @Test
     public void ItShouldBeAbleToProperlyCalculateAnHourlyEmployeesGrossPayOnCorrectPayDate() {
         int empId = 2;
-        createHourlyEmployee(empId);
+        createHourlyEmployee(empId, rate);
         postTimecardTo(empId, payDate);
         Timecard timecard = getTimecardOf(empId, payDate);
-        
         timecard.clockIn(clockIn);
         timecard.clockOut(clockOut);
 
-        PaydayTransaction t = new PaydayTransaction(payDate);
+        PaydayTransaction t = new PaydayTransaction(repository,payDate);
         t.execute();
 
         Paycheck paycheck = t.getPaycheckOf(empId);
         assertEquals(expectedGrossPay, paycheck.grosspay, DELTA);
     }
-    
+
     private void postTimecardTo(int empId, LocalDate date) {
         PostTimecard postTimecard = new PostTimecard(repository, empId, date);
         postTimecard.execute();
     }
 
-    private void createHourlyEmployee(int empId) {
+    private void createHourlyEmployee(int empId, double rate) {
         EmployeeName name = new EmployeeName("Gian Carlo", "Gilos");
-        CreateHourlyEmployee che = new CreateHourlyEmployee(repository, empId, 3, name, 15.25);
+        CreateHourlyEmployee che = new CreateHourlyEmployee(repository, empId, 3, name, rate);
         che.execute();
     }
 
@@ -77,5 +80,5 @@ public class PaydayTransactionTest {
         Employee e = repository.getEmployeeById(empId);
         HourlyClassification hc = e.getClassification();
         return hc.getTimecardIssuedOn(payDate);
-   }
+    }
 }

@@ -58,4 +58,8 @@ public class Timecard {
         return totalHours;
     }
     
+    public boolean isBetween(LocalDate startDate, LocalDate payDate){
+        return dateIssued.isEqual(startDate) || dateIssued.isBefore(payDate.plusDays(1));
+    }
+    
 }

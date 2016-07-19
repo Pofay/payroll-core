@@ -5,11 +5,20 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author pofay
  */
 public class Paycheck {
-    
-    public double grosspay= 122;
+
+    public double grosspay = 122;
+    public final LocalDate startDate;
+    public final LocalDate payDate;
+
+    public Paycheck(LocalDate startDate, LocalDate payDate) {
+        this.startDate = startDate;
+        this.payDate = payDate;
+    }
 }
