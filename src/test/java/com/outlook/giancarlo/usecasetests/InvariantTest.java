@@ -5,6 +5,8 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import com.outlook.giancarlo.exceptions.UnmetPreconditionException;
+import com.outlook.giancarlo.entities.Timecard;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;

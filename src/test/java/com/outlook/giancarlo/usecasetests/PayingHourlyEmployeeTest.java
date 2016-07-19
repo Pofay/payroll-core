@@ -5,6 +5,13 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import com.outlook.giancarlo.usecases.ChangeToBiweeklySchedule;
+import com.outlook.giancarlo.usecases.CreateHourlyEmployee;
+import com.outlook.giancarlo.entities.WeeklySchedule;
+import com.outlook.giancarlo.entities.Employee;
+import com.outlook.giancarlo.entities.InMemoryPayrollRepository;
+import com.outlook.giancarlo.entities.EmployeeName;
+import com.outlook.giancarlo.entities.BiweeklySchedule;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import static org.hamcrest.CoreMatchers.equalTo;
 import org.junit.Test;

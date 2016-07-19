@@ -5,6 +5,12 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import com.outlook.giancarlo.usecases.PostTimecard;
+import com.outlook.giancarlo.usecases.CreateHourlyEmployee;
+import com.outlook.giancarlo.entities.HourlyClassification;
+import com.outlook.giancarlo.entities.Employee;
+import com.outlook.giancarlo.entities.InMemoryPayrollRepository;
+import com.outlook.giancarlo.entities.EmployeeName;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import java.time.LocalDate;
 import java.time.Month;

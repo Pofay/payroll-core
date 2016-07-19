@@ -5,6 +5,19 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import com.outlook.giancarlo.usecases.PostTimecard;
+import com.outlook.giancarlo.usecases.ChangeEmployeeName;
+import com.outlook.giancarlo.usecases.ClockOutEmployee;
+import com.outlook.giancarlo.usecases.ClockInEmployee;
+import com.outlook.giancarlo.usecases.ChangeEmployee;
+import com.outlook.giancarlo.usecases.CreateHourlyEmployee;
+import com.outlook.giancarlo.usecases.ChangeEmployeeDepartmentId;
+import com.outlook.giancarlo.entities.HourlyClassification;
+import com.outlook.giancarlo.entities.Employee;
+import com.outlook.giancarlo.entities.InMemoryPayrollRepository;
+import com.outlook.giancarlo.entities.EmployeeName;
+import com.outlook.giancarlo.entities.TimeSource;
+import com.outlook.giancarlo.entities.Timecard;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import java.time.Clock;
 import java.time.Instant;

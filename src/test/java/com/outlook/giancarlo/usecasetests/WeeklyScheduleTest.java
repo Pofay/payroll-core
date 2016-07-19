@@ -5,6 +5,8 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
+import com.outlook.giancarlo.entities.WeeklySchedule;
+import com.outlook.giancarlo.entities.PaymentSchedule;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;

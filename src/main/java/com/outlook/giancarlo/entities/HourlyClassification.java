@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.outlook.giancarlo.usecasetests;
+package com.outlook.giancarlo.entities;
 
+import com.outlook.giancarlo.entities.Timecard;
+import com.outlook.giancarlo.entities.Paycheck;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;

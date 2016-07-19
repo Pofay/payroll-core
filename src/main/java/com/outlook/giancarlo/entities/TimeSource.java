@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.outlook.giancarlo.usecasetests;
+package com.outlook.giancarlo.entities;
 
 import java.time.Clock;
 import java.time.LocalDate;
@@ -21,11 +21,11 @@ public class TimeSource {
         this.clock = clock;
     }
 
-    LocalDate getCurrentDate() {
+    public LocalDate getCurrentDate() {
         return LocalDate.now(clock);
     }
 
-    LocalTime now() {
+    public LocalTime now() {
         return LocalTime.now(clock);
     }
 

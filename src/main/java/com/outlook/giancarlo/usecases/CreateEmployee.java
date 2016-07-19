@@ -3,38 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.outlook.giancarlo.usecasetests;
+package com.outlook.giancarlo.usecases;
+
+import com.outlook.giancarlo.entities.InMemoryPayrollRepository;
+import com.outlook.giancarlo.entities.EmployeeName;
 
 /**
  *
  * @author pofay
  */
-public class CreateHourlyEmployee {
+public class CreateEmployee {
 
-    private final double hourlyRate;
-    private final EmployeeName name;
-    private final int deptId;
-    private final int empId;
+    private final int id;
     private final InMemoryPayrollRepository repository;
+    private final int deptId;
+    private final EmployeeName empName;
 
-    public CreateHourlyEmployee(InMemoryPayrollRepository repository, int empId,
-            int deptId, EmployeeName name, double hourlyRate) {
+    public CreateEmployee(InMemoryPayrollRepository repository, int empId, int deptId, EmployeeName name) {
         if (empId <= 0) {
             throw new IllegalArgumentException("Employee Id should be a positive number".toUpperCase());
         }
         if (deptId <= 0) {
             throw new IllegalArgumentException("Department Id should be a positive number".toUpperCase());
         }
-
         this.repository = repository;
-        this.empId = empId;
+        this.id = empId;
         this.deptId = deptId;
-        this.name = name;
-        this.hourlyRate = hourlyRate;
+        this.empName = name;
     }
 
     public void execute() {
-          repository.createHourlyWeeklyPaidEmployee(empId, deptId, name, hourlyRate);
+        repository.createNewEmployeeWith(id, deptId, empName);
     }
-
 }

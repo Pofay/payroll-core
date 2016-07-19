@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.outlook.giancarlo.usecasetests;
+package com.outlook.giancarlo.usecases;
+
+import com.outlook.giancarlo.entities.Employee;
+import com.outlook.giancarlo.entities.InMemoryPayrollRepository;
+import com.outlook.giancarlo.entities.EmployeeName;
 
 /**
  *
