@@ -15,13 +15,13 @@ import com.outlook.giancarlo.entities.Timecard;
  *
  * @author pofay
  */
-public class ClockOutEmployee {
+public class ClockOut {
 
     private final TimeSource timeSource;
     private final int empId;
     private final InMemoryPayrollRepository repository;
 
-    public ClockOutEmployee(InMemoryPayrollRepository repository, int empId, TimeSource timeSource) {
+    public ClockOut(InMemoryPayrollRepository repository, int empId, TimeSource timeSource) {
         this.repository = repository;
         this.empId = empId;
         this.timeSource = timeSource;

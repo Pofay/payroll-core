@@ -61,8 +61,7 @@ public class Timecard {
     }
 
     public boolean isInPayPeriod(LocalDate startDate, LocalDate payDate) {
-        return dateIssued.isEqual(startDate)
-                || dateIssued.isBefore(payDate.plusDays(1));
+        return dateIssued.isAfter(startDate.minusDays(1)) && dateIssued.isBefore(payDate.plusDays(1));
     }
 
 }
