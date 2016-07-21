@@ -7,8 +7,8 @@ package com.outlook.giancarlo.usecasetests;
 
 import com.outlook.giancarlo.usecases.PostTimecard;
 import com.outlook.giancarlo.usecases.ChangeEmployeeName;
-import com.outlook.giancarlo.usecases.ClockOut;
-import com.outlook.giancarlo.usecases.ClockIn;
+import com.outlook.giancarlo.usecases.AddTimeOutEntry;
+import com.outlook.giancarlo.usecases.AddTimeInEntry;
 import com.outlook.giancarlo.usecases.ChangeEmployee;
 import com.outlook.giancarlo.usecases.CreateHourlyEmployee;
 import com.outlook.giancarlo.usecases.ChangeEmployeeDepartmentId;
@@ -340,12 +340,12 @@ public class PayrollTest {
     }
 
     private void executeClockInEmployee(int empId, TimeSource timeSource) {
-        ClockIn ci = new ClockIn(repository, empId, timeSource);
+        AddTimeInEntry ci = new AddTimeInEntry(repository, empId, timeSource);
         ci.execute();
     }
 
     private void executeClockOutEmployee(int empId, TimeSource timeSource) {
-        ClockOut co = new ClockOut(repository, empId, timeSource);
+        AddTimeOutEntry co = new AddTimeOutEntry(repository, empId, timeSource);
         co.execute();
     }
 

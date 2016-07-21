@@ -15,24 +15,24 @@ import com.outlook.giancarlo.entities.Timecard;
  *
  * @author pofay
  */
-public class ClockIn {
+public class AddTimeOutEntry {
 
-    private final InMemoryPayrollRepository repository;
-    private final int empId;
     private final TimeSource timeSource;
+    private final int empId;
+    private final InMemoryPayrollRepository repository;
 
-    public ClockIn(InMemoryPayrollRepository repository, int empId, TimeSource ts) {
+    public AddTimeOutEntry(InMemoryPayrollRepository repository, int empId, TimeSource timeSource) {
         this.repository = repository;
         this.empId = empId;
-        this.timeSource = ts;
+        this.timeSource = timeSource;
     }
 
     public void execute() {
         Employee e = repository.getEmployeeById(empId);
         HourlyClassification hc = e.getClassification();
         Timecard t = hc.getTimecardIssuedOn(timeSource.getCurrentDate());
-        t.clockIn(timeSource.now());
+        t.clockOut(timeSource.now());
         repository.save(e);
     }
-
+    
 }
