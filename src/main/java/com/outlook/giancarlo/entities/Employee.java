@@ -5,8 +5,6 @@
  */
 package com.outlook.giancarlo.entities;
 
-import java.time.LocalDate;
-
 /**
  *
  * @author pofay

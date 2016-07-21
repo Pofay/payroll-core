@@ -56,81 +56,6 @@ public class PayrollTest {
         repository = new InMemoryPayrollRepository();
     }
 
-    public class EntityCreationContext {
-
-        @Test
-        public void ItShouldBeAbleToCreateAnHourlyEmployee() {
-            final int empId = 1;
-            String firstName = "Gian Carlo";
-            String lastName = "Gilos";
-            EmployeeName name = new EmployeeName(firstName, lastName);
-            double hourlyRate = 1.2;
-            int deptId = 4;
-
-            executeCreateHourlyEmployee(empId, deptId, name, hourlyRate);
-
-            Employee e = repository.getEmployeeById(empId);
-            assertThat(e.getName(), is("Gian Carlo Gilos"));
-            assertThat(e.getId(), is(empId));
-            assertThat(e.getDeptId(), is(equalTo(deptId)));
-            assertThat(e.getClassification(), is(notNullValue()));
-        }
-
-        @Test
-        public void ItShouldThrowAnExceptionWhenCreatingAnEmployeeWithAnIdOflesserThan1() {
-            int empId = 0;
-            int deptId = 3;
-            String firstName = "Raul";
-            String lastName = "Watson";
-            EmployeeName name = new EmployeeName(firstName, lastName);
-            double rate = 1.1;
-
-            try {
-                CreateHourlyEmployee ce = new CreateHourlyEmployee(repository, empId, deptId, name, rate);
-                fail("Should have thrown Exception");
-            } catch (IllegalArgumentException e) {
-                String expectedMessage = "Employee Id should be a positive number";
-                assertThat(e.getMessage(), is(expectedMessage.toUpperCase()));
-            }
-        }
-
-        @Test
-        public void ItShouldThrowAnExceptionWhenCreatingAnEmployeeWithDeptIdLesserThan1() {
-            int empId = 4;
-            String firstName = "Ulric";
-            String lastName = "Tristan";
-            EmployeeName name = new EmployeeName(firstName, lastName);
-            int deptId = 0;
-            double rate = 1.5;
-
-            try {
-                CreateHourlyEmployee ce = new CreateHourlyEmployee(repository, empId, deptId, name, rate);
-                fail("Should have thrown Exception");
-            } catch (IllegalArgumentException e) {
-                String expectedMessage = "Department Id should be a positive number";
-                assertThat(e.getMessage(), is(equalTo(expectedMessage.toUpperCase())));
-            }
-        }
-
-        @Test
-        public void ItShouldBeAbleToCreateANewHourlyEmployee() {
-            int empId = 8;
-            int deptId = 6;
-            String firstName = "Adrian";
-            String lastName = "Williams";
-            double hourlyRate = 9.00;
-            EmployeeName name = new EmployeeName(firstName, lastName);
-
-            executeCreateHourlyEmployee(empId, deptId, name, hourlyRate);
-
-            Employee e = repository.getEmployeeById(empId);
-            HourlyClassification hc = e.getClassification();
-
-            assertNotNull(hc);
-            assertEquals(hourlyRate, hc.getRate(), DELTA);
-        }
-    }
-
     public class PostATimecardContext {
 
         int empId = 30;
@@ -323,8 +248,8 @@ public class PayrollTest {
         public void beforeEach() {
             double stubRate = 1.0;
             executeCreateHourlyEmployee(empId1, deptId1, new EmployeeName("Gian Carlo", "Gilos"), stubRate);
-            executeCreateHourlyEmployee(empId2, deptId1, new EmployeeName("Raul", "Watson"),stubRate);
-            executeCreateHourlyEmployee(empId3, deptId2, new EmployeeName("Ulric", "Tristan"),stubRate);
+            executeCreateHourlyEmployee(empId2, deptId1, new EmployeeName("Raul", "Watson"), stubRate);
+            executeCreateHourlyEmployee(empId3, deptId2, new EmployeeName("Ulric", "Tristan"), stubRate);
         }
 
         @Test
@@ -371,7 +296,7 @@ public class PayrollTest {
 
         @Before
         public void beforeEach() {
-            double stubRate= 1.5;
+            double stubRate = 1.5;
             executeCreateHourlyEmployee(empId, deptId, new EmployeeName(firstName, lastName), stubRate);
         }
 

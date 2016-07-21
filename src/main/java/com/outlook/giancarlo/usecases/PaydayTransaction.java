@@ -32,6 +32,7 @@ public class PaydayTransaction {
     public void execute() {
         List<Employee> employees = repo.getAllEmployees();
 
+        System.out.println("Reached");
         employees.stream()
                 .filter(e -> e.getPaymentSchedule().isPayDate(paydate))
                 .forEach(e -> {

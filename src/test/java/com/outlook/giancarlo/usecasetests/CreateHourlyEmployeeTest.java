@@ -19,17 +19,24 @@ import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import org.junit.Before;
 
 /**
  *
  * @author pofay
  */
 @RunWith(HierarchicalContextRunner.class)
-public class PayingHourlyEmployeeTest {
+public class CreateHourlyEmployeeTest {
+
+    InMemoryPayrollRepository repo;
+
+    @Before
+    public void beforeEach() {
+        repo = new InMemoryPayrollRepository();
+    }
 
     @Test
     public void NewlyCreatedHourlyEmployeeShouldHaveAWeeklyPaymentSchedule() {
-        InMemoryPayrollRepository repo = new InMemoryPayrollRepository();
         int empId = 1;
         int deptId = 1;
         double stubRate = 1.3;
@@ -46,7 +53,6 @@ public class PayingHourlyEmployeeTest {
 
     @Test
     public void EmployeeWithWeeklyPaymentScheduleCanBeChangedWithBiweeklyPaymentSchedule() {
-        InMemoryPayrollRepository repo = new InMemoryPayrollRepository();
         int empId = 1;
         int deptId = 1;
         double stubRate = 1.3;
@@ -63,5 +69,40 @@ public class PayingHourlyEmployeeTest {
         assertTrue(e.getPaymentSchedule() instanceof BiweeklySchedule);
     }
 
+    @Test
+    public void ItShouldThrowAnExceptionWhenCreatingAnEmployeeWithAnIdOflesserThan1() {
+        int empId = 0;
+        int deptId = 3;
+        String firstName = "Raul";
+        String lastName = "Watson";
+        EmployeeName name = new EmployeeName(firstName, lastName);
+        double rate = 1.1;
+
+        try {
+            CreateHourlyEmployee ce = new CreateHourlyEmployee(repo, empId, deptId, name, rate);
+            fail("Should have thrown Exception");
+        } catch (IllegalArgumentException e) {
+            String expectedMessage = "Employee Id should be a positive number";
+            assertThat(e.getMessage(), is(expectedMessage.toUpperCase()));
+        }
+    }
+
+    @Test
+    public void ItShouldThrowAnExceptionWhenCreatingAnEmployeeWithDeptIdLesserThan1() {
+        int empId = 4;
+        String firstName = "Ulric";
+        String lastName = "Tristan";
+        EmployeeName name = new EmployeeName(firstName, lastName);
+        int deptId = 0;
+        double rate = 1.5;
+
+        try {
+            CreateHourlyEmployee ce = new CreateHourlyEmployee(repo, empId, deptId, name, rate);
+            fail("Should have thrown Exception");
+        } catch (IllegalArgumentException e) {
+            String expectedMessage = "Department Id should be a positive number";
+            assertThat(e.getMessage(), is(equalTo(expectedMessage.toUpperCase())));
+        }
+    }
 
 }

@@ -5,12 +5,8 @@
  */
 package com.outlook.giancarlo.entities;
 
-import com.outlook.giancarlo.entities.Timecard;
-import com.outlook.giancarlo.entities.Paycheck;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -39,11 +35,13 @@ public class HourlyClassification {
     }
 
     public double calculateGrossPay(Paycheck pc) {
-        double pay = timecards.values().stream()
-                .filter(t -> t.isBetween(pc.startDate, pc.payDate))
-                .mapToDouble(t-> t.getTotalHours() * rate)
+        double pay = 0.0;
+
+        pay = timecards.values().stream()
+                .filter(t -> t.isInPayPeriod(pc.startDate, pc.payDate))
+                .mapToDouble(t -> t.getTotalHours() * rate)
                 .sum();
-        
+
         return pay;
     }
 }

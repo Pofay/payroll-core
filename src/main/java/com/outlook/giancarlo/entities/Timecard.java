@@ -22,12 +22,13 @@ public class Timecard {
     private LocalTime endTime;
 
     public Timecard(LocalDate dateIssued) {
-        if(dateIssued == null)
+        if (dateIssued == null) {
             throw new UnmetPreconditionException("DateIssued cannot be null".toLowerCase());
+        }
         this.dateIssued = dateIssued;
         initialTime = LocalTime.of(0, 0);
         endTime = LocalTime.of(0, 0);
-        
+
     }
 
     public LocalDate getDateIssued() {
@@ -58,9 +59,10 @@ public class Timecard {
         totalHours = endTime.getHour() - initialTime.getHour() - LUNCH_BREAK_OFFSET;
         return totalHours;
     }
-    
-    public boolean isBetween(LocalDate startDate, LocalDate payDate){
-        return dateIssued.isEqual(startDate) || dateIssued.isBefore(payDate.plusDays(1));
+
+    public boolean isInPayPeriod(LocalDate startDate, LocalDate payDate) {
+        return dateIssued.isEqual(startDate)
+                || dateIssued.isBefore(payDate.plusDays(1));
     }
-    
+
 }

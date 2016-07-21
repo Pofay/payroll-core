@@ -19,11 +19,13 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.Collection;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -31,7 +33,7 @@ import static org.junit.Assert.assertEquals;
  * @author pofay
  */
 @RunWith(Parameterized.class)
-public class PaydayTransactionTest {
+public class PayHourlyEmployeeWIthOneTimecardTest {
 
     public static double DELTA = 1.0;
 
@@ -49,7 +51,7 @@ public class PaydayTransactionTest {
     private double expectedGrossPay;
     InMemoryPayrollRepository repository = new InMemoryPayrollRepository();
 
-    public PaydayTransactionTest(double rate, LocalDate payDate,
+    public PayHourlyEmployeeWIthOneTimecardTest(double rate, LocalDate payDate,
             LocalTime clockIn, LocalTime clockOut, double expected) {
         this.rate = rate;
         this.payDate = payDate;
@@ -59,7 +61,7 @@ public class PaydayTransactionTest {
     }
 
     @Test
-    public void ItShouldBeAbleToProperlyCalculateAnHourlyEmployeesGrossPayOnCorrectPayDate() {
+    public void ItShouldPayAnHourlyEmployeeOnPayDateOneTimecard() {
         int empId = 2;
         createHourlyEmployee(empId, rate);
         postTimecardTo(empId, payDate);
@@ -67,7 +69,7 @@ public class PaydayTransactionTest {
         timecard.clockIn(clockIn);
         timecard.clockOut(clockOut);
 
-        PaydayTransaction t = new PaydayTransaction(repository,payDate);
+        PaydayTransaction t = new PaydayTransaction(repository, payDate);
         t.execute();
 
         Paycheck paycheck = t.getPaycheckOf(empId);
