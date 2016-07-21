@@ -36,15 +36,13 @@ public class PayDayTransactionTest {
         EmployeeName name = new EmployeeName("Pofay", "Gilos");
         int empId = 1;
         double hourlyRate = 17.40;
-        CreateHourlyEmployee ce = new CreateHourlyEmployee(repo, empId, 1, name, hourlyRate);
-        ce.execute();
+        createHourlyEmployee(repo, empId, name, hourlyRate);
+        
         LocalDate previousPayDate = LocalDate.of(2016, Month.JULY, 1);
         LocalDate payDate = LocalDate.of(2016, Month.JULY, 8);
 
-        PostTimecard post1 = new PostTimecard(repo, empId, previousPayDate);
-        post1.execute();
-        PostTimecard post2 = new PostTimecard(repo, empId, payDate);
-        post2.execute();
+        postTimecard(repo, empId, previousPayDate);
+        postTimecard(repo, empId, payDate);
 
         TimeSource stubSource = mock(TimeSource.class);
 
@@ -71,5 +69,15 @@ public class PayDayTransactionTest {
         double grosspayInThisPayPeriod = 139.2;
 
         assertEquals(grosspayInThisPayPeriod, pc.grosspay, DELTA);
+    }
+
+    private void createHourlyEmployee(InMemoryPayrollRepository repo, int empId, EmployeeName name, double hourlyRate) {
+        CreateHourlyEmployee ce = new CreateHourlyEmployee(repo, empId, 1, name, hourlyRate);
+        ce.execute();
+    }
+
+    private void postTimecard(InMemoryPayrollRepository repo, int empId, LocalDate previousPayDate) {
+        PostTimecard post = new PostTimecard(repo, empId, previousPayDate);
+        post.execute();
     }
 }
