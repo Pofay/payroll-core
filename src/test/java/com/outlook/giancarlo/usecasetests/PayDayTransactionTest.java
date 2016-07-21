@@ -36,22 +36,23 @@ public class PayDayTransactionTest {
     public void ItShouldNotIncludeTimecardOnPreviousPayPeriodWhenPayingOnAnotherPayPeriod() {
         EmployeeName name = new EmployeeName("Pofay", "Gilos");
         int empId = 1;
+        int deptId = 1;
         double hourlyRate = 17.40;
-        createHourlyEmployee(repo, empId, name, hourlyRate);
+        createHourlyEmployee(empId, deptId, name, hourlyRate);
 
         LocalDate previousPayDate = LocalDate.of(2016, Month.JULY, 1);
         LocalDate payDate = LocalDate.of(2016, Month.JULY, 8);
 
-        postTimecard(repo, empId, previousPayDate);
-        postTimecard(repo, empId, payDate);
+        postTimecard(empId, previousPayDate);
+        postTimecard(empId, payDate);
 
         addInAndOutEntriesOfTimecardOn(previousPayDate, empId);
         addInAndOutEntriesOfTimecardOn(payDate, empId);
 
-        PaydayTransaction payday = new PaydayTransaction(repo, payDate);
-        payday.execute();
+        PaydayTransaction sut = new PaydayTransaction(repo, payDate);
+        sut.execute();
 
-        Paycheck pc = payday.getPaycheckOf(empId);
+        Paycheck pc = sut.getPaycheckOf(empId);
         double grosspayInThisPayPeriod = 139.2;
 
         assertEquals(grosspayInThisPayPeriod, pc.grosspay, DELTA);
@@ -67,12 +68,12 @@ public class PayDayTransactionTest {
         addTimeOutEntry.execute();
     }
 
-    private void createHourlyEmployee(InMemoryPayrollRepository repo, int empId, EmployeeName name, double hourlyRate) {
-        CreateHourlyEmployee ce = new CreateHourlyEmployee(repo, empId, 1, name, hourlyRate);
+    private void createHourlyEmployee(int empId, int deptId, EmployeeName name, double hourlyRate) {
+        CreateHourlyEmployee ce = new CreateHourlyEmployee(repo, empId, deptId, name, hourlyRate);
         ce.execute();
     }
 
-    private void postTimecard(InMemoryPayrollRepository repo, int empId, LocalDate previousPayDate) {
+    private void postTimecard(int empId, LocalDate previousPayDate) {
         PostTimecardToEmployee post = new PostTimecardToEmployee(repo, empId, previousPayDate);
         post.execute();
     }
