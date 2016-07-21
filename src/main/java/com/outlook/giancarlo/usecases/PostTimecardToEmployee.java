@@ -15,13 +15,13 @@ import java.time.LocalDate;
  *
  * @author pofay
  */
-public class PostTimecard {
+public class PostTimecardToEmployee {
 
     private final InMemoryPayrollRepository repository;
     private final LocalDate dateIssued;
     private final int empId;
 
-    public PostTimecard(InMemoryPayrollRepository repository, int empId, LocalDate dateIssued) {
+    public PostTimecardToEmployee(InMemoryPayrollRepository repository, int empId, LocalDate dateIssued) {
         this.repository= repository;
         this.empId = empId;
         this.dateIssued = dateIssued;

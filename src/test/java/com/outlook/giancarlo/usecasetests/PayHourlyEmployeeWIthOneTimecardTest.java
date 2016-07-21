@@ -5,7 +5,7 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
-import com.outlook.giancarlo.usecases.PostTimecard;
+import com.outlook.giancarlo.usecases.PostTimecardToEmployee;
 import com.outlook.giancarlo.usecases.PaydayTransaction;
 import com.outlook.giancarlo.usecases.CreateHourlyEmployee;
 import com.outlook.giancarlo.entities.HourlyClassification;
@@ -77,7 +77,7 @@ public class PayHourlyEmployeeWIthOneTimecardTest {
     }
 
     private void postTimecardTo(int empId, LocalDate date) {
-        PostTimecard postTimecard = new PostTimecard(repository, empId, date);
+        PostTimecardToEmployee postTimecard = new PostTimecardToEmployee(repository, empId, date);
         postTimecard.execute();
     }
 

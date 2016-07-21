@@ -5,7 +5,7 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
-import com.outlook.giancarlo.usecases.PostTimecard;
+import com.outlook.giancarlo.usecases.PostTimecardToEmployee;
 import com.outlook.giancarlo.usecases.ChangeEmployeeName;
 import com.outlook.giancarlo.usecases.AddTimeOutEntry;
 import com.outlook.giancarlo.usecases.AddTimeInEntry;
@@ -355,7 +355,7 @@ public class PayrollTest {
     }
 
     private void postTimecardTo(int empId, LocalDate dateIssued) {
-        PostTimecard post = new PostTimecard(repository, empId, dateIssued);
+        PostTimecardToEmployee post = new PostTimecardToEmployee(repository, empId, dateIssued);
 
         post.execute();
     }

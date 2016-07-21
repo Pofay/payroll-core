@@ -13,13 +13,11 @@ import com.outlook.giancarlo.usecases.AddTimeInEntry;
 import com.outlook.giancarlo.usecases.AddTimeOutEntry;
 import com.outlook.giancarlo.usecases.CreateHourlyEmployee;
 import com.outlook.giancarlo.usecases.PaydayTransaction;
-import com.outlook.giancarlo.usecases.PostTimecard;
+import com.outlook.giancarlo.usecases.PostTimecardToEmployee;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -75,7 +73,7 @@ public class PayDayTransactionTest {
     }
 
     private void postTimecard(InMemoryPayrollRepository repo, int empId, LocalDate previousPayDate) {
-        PostTimecard post = new PostTimecard(repo, empId, previousPayDate);
+        PostTimecardToEmployee post = new PostTimecardToEmployee(repo, empId, previousPayDate);
         post.execute();
     }
 }

@@ -5,7 +5,7 @@
  */
 package com.outlook.giancarlo.usecasetests;
 
-import com.outlook.giancarlo.usecases.PostTimecard;
+import com.outlook.giancarlo.usecases.PostTimecardToEmployee;
 import com.outlook.giancarlo.usecases.CreateHourlyEmployee;
 import com.outlook.giancarlo.entities.HourlyClassification;
 import com.outlook.giancarlo.entities.Employee;
@@ -58,7 +58,7 @@ public class InteractionTest {
             when(repo.getEmployeeById(empId)).thenReturn(stub);
             
             
-            PostTimecard pt = new PostTimecard(repo, empId, stubDate);
+            PostTimecardToEmployee pt = new PostTimecardToEmployee(repo, empId, stubDate);
             pt.execute();
             
             verify(repo).save(stub);
