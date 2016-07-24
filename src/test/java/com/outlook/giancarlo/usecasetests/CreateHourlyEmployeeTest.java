@@ -83,7 +83,7 @@ public class CreateHourlyEmployeeTest {
             fail("Should have thrown Exception");
         } catch (IllegalArgumentException e) {
             String expectedMessage = "Employee Id should be a positive number";
-            assertThat(e.getMessage(), is(expectedMessage.toUpperCase()));
+            assertThat(e.getMessage(), is(expectedMessage));
         }
     }
 
@@ -101,7 +101,7 @@ public class CreateHourlyEmployeeTest {
             fail("Should have thrown Exception");
         } catch (IllegalArgumentException e) {
             String expectedMessage = "Department Id should be a positive number";
-            assertThat(e.getMessage(), is(equalTo(expectedMessage.toUpperCase())));
+            assertThat(e.getMessage(), is(equalTo(expectedMessage)));
         }
     }
 

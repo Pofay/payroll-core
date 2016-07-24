@@ -37,10 +37,6 @@ public class InMemoryPayrollRepository {
         return employeesOfDeptId;
     }
 
-    public void createNewEmployeeWith(int empId, int deptId, EmployeeName name) {
-        save(new Employee(empId, deptId, name));
-    }
-
     public List<Employee> getAllEmployees() {
         return new ArrayList<>(employees.values());
     }

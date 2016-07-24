@@ -23,10 +23,10 @@ public class CreateHourlyEmployee {
     public CreateHourlyEmployee(InMemoryPayrollRepository repository, int empId,
             int deptId, EmployeeName name, double hourlyRate) {
         if (empId <= 0) {
-            throw new IllegalArgumentException("Employee Id should be a positive number".toUpperCase());
+            throw new IllegalArgumentException("Employee Id should be a positive number");
         }
         if (deptId <= 0) {
-            throw new IllegalArgumentException("Department Id should be a positive number".toUpperCase());
+            throw new IllegalArgumentException("Department Id should be a positive number");
         }
 
         this.repository = repository;

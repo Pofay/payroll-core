@@ -32,8 +32,6 @@ public class AddTimeInEntry {
         HourlyClassification hc = e.getClassification();
         Timecard t = hc.getTimecardIssuedOn(timeSource.getCurrentDate());
         t.clockIn(timeSource.now());
-        System.out.println(timeSource.getCurrentDate());
-        System.out.println(timeSource.now());
         repository.save(e);
     }
 
