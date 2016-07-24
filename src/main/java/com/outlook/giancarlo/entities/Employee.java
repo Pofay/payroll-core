@@ -11,10 +11,9 @@ package com.outlook.giancarlo.entities;
  */
 public class Employee {
 
-   // public static final Employee UNKNOWN = new UnknownEmployee(0, 0, new EmployeeName("Unknown", "Unknown"));
-
+    // public static final Employee UNKNOWN = new UnknownEmployee(0, 0, new EmployeeName("Unknown", "Unknown"));
     private final int id;
-    private int deptId;
+    private final int deptId;
     private final EmployeeName name;
     private final HourlyClassification classfication;
     private final PaymentSchedule schedule;
@@ -25,7 +24,6 @@ public class Employee {
         this.name = name;
         this.deptId = deptId;
     }*/
-
     public Employee(EmployeeBuilder builder) {
         this.id = builder.empId;
         this.deptId = builder.deptId;
@@ -38,22 +36,16 @@ public class Employee {
         return id;
     }
 
-   
     public HourlyClassification getClassification() {
         return classfication;
     }
 
-
     public String getNameInString() {
         return String.format("%s %s", name.first, name.last);
     }
-    
-    public EmployeeName getName(){
-        return name;
-    }
 
-    public void changeDeptIdTo(int deptId) {
-        this.deptId = deptId;
+    public EmployeeName getName() {
+        return name;
     }
 
     public int getDeptId() {
@@ -63,8 +55,6 @@ public class Employee {
     public PaymentSchedule getPaymentSchedule() {
         return schedule;
     }
-
-  
 
     public void Payday(Paycheck pc) {
         double grosspay = classfication.calculateGrossPay(pc);
