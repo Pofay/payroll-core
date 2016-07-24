@@ -6,6 +6,7 @@
 package com.outlook.giancarlo.usecases;
 
 import com.outlook.giancarlo.entities.Employee;
+import com.outlook.giancarlo.entities.EmployeeRepository;
 import com.outlook.giancarlo.entities.InMemoryPayrollRepository;
 import com.outlook.giancarlo.entities.Paycheck;
 import java.time.LocalDate;
@@ -20,10 +21,10 @@ import java.util.Map;
 public class PaydayTransaction {
 
     private final LocalDate paydate;
-    private final InMemoryPayrollRepository repo;
+    private final EmployeeRepository repo;
     private Map<Integer, Paycheck> paychecks;
 
-    public PaydayTransaction(InMemoryPayrollRepository repository, LocalDate paydate) {
+    public PaydayTransaction(EmployeeRepository repository, LocalDate paydate) {
         this.repo = repository;
         this.paydate = paydate;
         this.paychecks = new HashMap<>();

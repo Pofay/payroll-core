@@ -5,6 +5,8 @@
  */
 package com.outlook.giancarlo.entities;
 
+import java.util.List;
+
 /**
  *
  * @author pofay
@@ -14,4 +16,6 @@ public interface EmployeeRepository {
     Employee getEmployeeById(int empId);
     
     void save(Employee e);
+    
+    List<Employee> getAllEmployees();
 }
