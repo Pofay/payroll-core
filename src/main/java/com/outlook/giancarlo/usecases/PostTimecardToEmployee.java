@@ -7,6 +7,7 @@ package com.outlook.giancarlo.usecases;
 
 import com.outlook.giancarlo.entities.HourlyClassification;
 import com.outlook.giancarlo.entities.Employee;
+import com.outlook.giancarlo.entities.EmployeeRepository;
 import com.outlook.giancarlo.entities.InMemoryPayrollRepository;
 import com.outlook.giancarlo.entities.Timecard;
 import java.time.LocalDate;
@@ -17,11 +18,11 @@ import java.time.LocalDate;
  */
 public class PostTimecardToEmployee {
 
-    private final InMemoryPayrollRepository repository;
+    private final EmployeeRepository repository;
     private final LocalDate dateIssued;
     private final int empId;
 
-    public PostTimecardToEmployee(InMemoryPayrollRepository repository, int empId, LocalDate dateIssued) {
+    public PostTimecardToEmployee(EmployeeRepository repository, int empId, LocalDate dateIssued) {
         this.repository= repository;
         this.empId = empId;
         this.dateIssued = dateIssued;

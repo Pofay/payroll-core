@@ -15,13 +15,14 @@ import java.util.Map;
  *
  * @author pofay
  */
-public class InMemoryPayrollRepository {
+public class InMemoryPayrollRepository implements EmployeeRepository{
 
     private final Map<Integer, Employee> employees = new HashMap<>();
 
     public InMemoryPayrollRepository() {
     }
 
+    @Override
     public Employee getEmployeeById(int empId) {
         return employees.containsKey(empId) ? employees.get(empId) : Employee.UNKNOWN;
     }
@@ -41,6 +42,7 @@ public class InMemoryPayrollRepository {
         return new ArrayList<>(employees.values());
     }
 
+    @Override
     public void save(Employee e) {
         employees.put(e.getId(), e);
     }

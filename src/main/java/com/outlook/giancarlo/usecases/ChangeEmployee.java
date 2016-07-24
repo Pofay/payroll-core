@@ -6,6 +6,7 @@
 package com.outlook.giancarlo.usecases;
 
 import com.outlook.giancarlo.entities.Employee;
+import com.outlook.giancarlo.entities.EmployeeRepository;
 import com.outlook.giancarlo.entities.InMemoryPayrollRepository;
 
 /**
@@ -14,10 +15,10 @@ import com.outlook.giancarlo.entities.InMemoryPayrollRepository;
  */
 public abstract class ChangeEmployee {
 
-    protected final InMemoryPayrollRepository repository;
+    protected final EmployeeRepository repository;
     protected final int empId;
 
-    public ChangeEmployee(InMemoryPayrollRepository repository, int empId) {
+    public ChangeEmployee(EmployeeRepository repository, int empId) {
         this.repository = repository;
         this.empId = empId;
     }
