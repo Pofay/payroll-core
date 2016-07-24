@@ -6,6 +6,7 @@
 package com.outlook.giancarlo.usecases;
 
 import com.outlook.giancarlo.entities.Employee;
+import com.outlook.giancarlo.entities.EmployeeBuilder;
 import com.outlook.giancarlo.entities.InMemoryPayrollRepository;
 import com.outlook.giancarlo.entities.EmployeeName;
 
@@ -23,10 +24,10 @@ public class ChangeEmployeeName extends ChangeEmployee {
     }
 
     @Override
-    protected void change(Employee e) {
-        e.changeNameTo(name);
+    protected Employee change(Employee e) {
+        Employee changed = new EmployeeBuilder(e.getId(), e.getDeptId(), name)
+                .build();
+        return changed;
     }
-    
-    
 
 }

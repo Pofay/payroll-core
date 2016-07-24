@@ -24,7 +24,8 @@ public class InMemoryPayrollRepository implements EmployeeRepository{
 
     @Override
     public Employee getEmployeeById(int empId) {
-        return employees.containsKey(empId) ? employees.get(empId) : Employee.UNKNOWN;
+        //return employees.containsKey(empId) ? employees.get(empId) : Employee.UNKNOWN;
+        return employees.get(empId);
     }
 
     public List<Employee> getAllEmployeesWithDepartmentIdOf(int deptId) {
@@ -47,10 +48,11 @@ public class InMemoryPayrollRepository implements EmployeeRepository{
         employees.put(e.getId(), e);
     }
 
+    /*
     public void createHourlyWeeklyPaidEmployee(int empId, int deptId, EmployeeName name, double rate) {
         Employee e = new Employee(empId, deptId, name);
         e.setClassification(new HourlyClassification(rate));
         e.setPaymentSchedule(new WeeklySchedule());
         save(e);
-    }
+    }*/
 }

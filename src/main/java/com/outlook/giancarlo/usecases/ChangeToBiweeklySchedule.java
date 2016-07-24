@@ -8,6 +8,7 @@ package com.outlook.giancarlo.usecases;
 import com.outlook.giancarlo.entities.Employee;
 import com.outlook.giancarlo.entities.InMemoryPayrollRepository;
 import com.outlook.giancarlo.entities.BiweeklySchedule;
+import com.outlook.giancarlo.entities.EmployeeBuilder;
 
 /**
  *
@@ -19,14 +20,17 @@ public class ChangeToBiweeklySchedule {
     private final InMemoryPayrollRepository repo;
 
     public ChangeToBiweeklySchedule(InMemoryPayrollRepository repo, int empId) {
-        this.repo=repo;
+        this.repo = repo;
         this.empId = empId;
     }
 
     public void execute() {
         Employee e = repo.getEmployeeById(empId);
-        e.setPaymentSchedule(new BiweeklySchedule());
-        repo.save(e);
+        EmployeeBuilder builder = new EmployeeBuilder(e.getId(), e.getDeptId(), e.getName());
+        Employee changed = builder
+                .withPaymentSchedule(new BiweeklySchedule())
+                .build();
+        repo.save(changed);
     }
-    
+
 }

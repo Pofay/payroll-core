@@ -6,13 +6,14 @@
 package com.outlook.giancarlo.usecases;
 
 import com.outlook.giancarlo.entities.Employee;
+import com.outlook.giancarlo.entities.EmployeeBuilder;
 import com.outlook.giancarlo.entities.InMemoryPayrollRepository;
 
 /**
  *
  * @author pofay
  */
-public class ChangeEmployeeDepartmentId extends ChangeEmployee{
+public class ChangeEmployeeDepartmentId extends ChangeEmployee {
 
     private final int deptId;
 
@@ -22,8 +23,11 @@ public class ChangeEmployeeDepartmentId extends ChangeEmployee{
         this.deptId = changedDeptId;
     }
 
-    protected void change(Employee e) {
-        e.changeDeptIdTo(deptId);
+    @Override
+    protected Employee change(Employee e) {
+        Employee changed = new EmployeeBuilder(e.getId(), deptId, e.getName())
+                .build();
+        return changed;
     }
 
 }

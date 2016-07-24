@@ -5,8 +5,12 @@
  */
 package com.outlook.giancarlo.usecases;
 
+import com.outlook.giancarlo.entities.Employee;
+import com.outlook.giancarlo.entities.EmployeeBuilder;
 import com.outlook.giancarlo.entities.InMemoryPayrollRepository;
 import com.outlook.giancarlo.entities.EmployeeName;
+import com.outlook.giancarlo.entities.HourlyClassification;
+import com.outlook.giancarlo.entities.WeeklySchedule;
 
 /**
  *
@@ -37,7 +41,11 @@ public class CreateHourlyEmployee {
     }
 
     public void execute() {
-          repository.createHourlyWeeklyPaidEmployee(empId, deptId, name, hourlyRate);
+        Employee e = new EmployeeBuilder(empId, deptId, name)
+                .withClassification(new HourlyClassification(hourlyRate))
+                .withPaymentSchedule(new WeeklySchedule())
+                .build();
+        repository.save(e);
     }
 
 }

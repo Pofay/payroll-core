@@ -11,38 +11,45 @@ package com.outlook.giancarlo.entities;
  */
 public class Employee {
 
-    public static final Employee UNKNOWN = new UnknownEmployee(0, 0, new EmployeeName("Unknown", "Unknown"));
+   // public static final Employee UNKNOWN = new UnknownEmployee(0, 0, new EmployeeName("Unknown", "Unknown"));
 
     private final int id;
     private int deptId;
-    private EmployeeName name;
-    private HourlyClassification classfication;
-    private PaymentSchedule schedule;
+    private final EmployeeName name;
+    private final HourlyClassification classfication;
+    private final PaymentSchedule schedule;
 
+    /*
     public Employee(int id, int deptId, EmployeeName name) {
         this.id = id;
         this.name = name;
         this.deptId = deptId;
+    }*/
+
+    public Employee(EmployeeBuilder builder) {
+        this.id = builder.empId;
+        this.deptId = builder.deptId;
+        this.name = builder.name;
+        this.classfication = builder.classification;
+        this.schedule = builder.paymentSchedule;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setClassification(HourlyClassification classification) {
-        this.classfication = classification;
-    }
-
+   
     public HourlyClassification getClassification() {
         return classfication;
     }
 
-    public void changeNameTo(EmployeeName name) {
-        this.name = name;
-    }
 
-    public String getName() {
+    public String getNameInString() {
         return String.format("%s %s", name.first, name.last);
+    }
+    
+    public EmployeeName getName(){
+        return name;
     }
 
     public void changeDeptIdTo(int deptId) {
@@ -57,19 +64,18 @@ public class Employee {
         return schedule;
     }
 
-    public void setPaymentSchedule(PaymentSchedule schedule) {
-        this.schedule = schedule;
-    }
+  
 
     public void Payday(Paycheck pc) {
         double grosspay = classfication.calculateGrossPay(pc);
         pc.grosspay = grosspay;
     }
 
+    /*
     public static class UnknownEmployee extends Employee {
 
         public UnknownEmployee(int empId, int deptId, EmployeeName name) {
             super(empId, deptId, name);
         }
-    }
+    }*/
 }

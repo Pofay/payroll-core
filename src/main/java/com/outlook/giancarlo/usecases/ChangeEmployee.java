@@ -25,10 +25,10 @@ public abstract class ChangeEmployee {
 
     public void execute() {
         Employee e = repository.getEmployeeById(empId);
-        change(e);
-        repository.save(e);
+        Employee changed = change(e);
+        repository.save(changed);
     }
 
-    protected abstract void change(Employee e);
+    protected abstract Employee change(Employee e);
 
 }
