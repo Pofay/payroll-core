@@ -1,0 +1,6 @@
+language: java
+sudo: false
+notifications:
+  slack: dmc-dev:GQNLSaa4pIZ1vrONBpVXaPuA
+jdk:
+  - oraclejdk8
